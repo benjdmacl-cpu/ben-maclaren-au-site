@@ -1,0 +1,83 @@
+<section class="audiences" id="audiences">
+	<div class="wrap">
+		<span class="eyebrow">Who I work with</span>
+		<h2>Three groups I return to, again and again.</h2>
+		<div class="audience-grid">
+			<div class="audience-card">
+				<span class="label">Men</span>
+				<h3>Men</h3>
+				<p>A space to talk plainly about what's underneath — without needing to have the words for it first.</p>
+			</div>
+			<div class="audience-card">
+				<span class="label">Neurodivergent</span>
+				<h3>Neurodiverse</h3>
+				<p>Support that meets your wiring as it is, not as a problem to correct.</p>
+			</div>
+			<div class="audience-card">
+				<span class="label">Younger clients</span>
+				<h3>Youth</h3>
+				<p>Room to work things out at your own pace, taken seriously the whole way through.</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.audiences {
+		padding: 90px 0;
+		border-top: 1px solid var(--line);
+		border-bottom: 1px solid var(--line);
+		background: var(--cream-deep);
+	}
+
+	.audiences .eyebrow {
+		margin-bottom: 14px;
+		display: block;
+	}
+
+	.audiences h2 {
+		font-size: 32px;
+		margin-bottom: 52px;
+		max-width: 560px;
+	}
+
+	.audience-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1px;
+		background: var(--line);
+		border: 1px solid var(--line);
+	}
+
+	.audience-card {
+		background: var(--cream-deep);
+		padding: 38px 32px;
+	}
+
+	.audience-card .label {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--terracotta-deep);
+		margin-bottom: 14px;
+		display: block;
+	}
+
+	.audience-card h3 {
+		font-size: 23px;
+		margin-bottom: 12px;
+	}
+
+	.audience-card p {
+		color: var(--ink-soft);
+		font-size: 15px;
+		margin: 0;
+	}
+
+	@media (max-width: 720px) {
+		.audience-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

@@ -1,114 +1,181 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
-import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import Layout from '../../layouts/Layout.astro';
 
-const posts = (await getCollection('blog')).sort(
+const posts = (await getCollection('journal')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
+<Layout
+	title="Journal — Ben Maclaren"
+	description="Field notes on counselling, presence, and change from Ben Maclaren, counsellor in Canberra, ACT."
+>
+	<section class="journal-hero">
+		<div class="wrap">
+			<span class="eyebrow">Journal</span>
+			<h1>Field notes on the work.</h1>
+			<p class="tagline">Occasional writing on counselling, non-directive practice, and what actually helps.</p>
+		</div>
+	</section>
+
+	<section class="journal-list">
+		<div class="wrap">
+			{
+				posts.length === 0 ? (
+					<p class="empty">No articles published yet — check back soon.</p>
+				) : (
+					<div class="journal-grid">
+						{posts.map((post) => (
+							<a class="journal-card" href={`/journal/${post.id}/`}>
+								{post.data.heroImage && (
+									<div class="card-image">
+										<Image width={640} height={360} src={post.data.heroImage} alt="" />
+									</div>
+								)}
+								<span class="label">
+									<FormattedDate date={post.data.pubDate} />
+								</span>
+								<h2>{post.data.title}</h2>
+								<p>{post.data.description}</p>
+								<span class="read-more">Read the piece →</span>
+							</a>
+						))}
+					</div>
+				)
 			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.journal-hero {
+		padding: 110px 0 60px;
+	}
+
+	.journal-hero .eyebrow {
+		margin-bottom: 18px;
+		display: block;
+	}
+
+	.journal-hero h1 {
+		font-size: clamp(36px, 5vw, 52px);
+		line-height: 1.1;
+		max-width: 720px;
+		margin-bottom: 22px;
+	}
+
+	.journal-hero .tagline {
+		font-family: 'Fraunces', serif;
+		font-style: italic;
+		font-weight: 400;
+		font-size: 20px;
+		color: var(--ink-soft);
+		max-width: 480px;
+		margin: 0;
+	}
+
+	.journal-list {
+		padding: 0 0 120px;
+	}
+
+	.empty {
+		font-family: 'Fraunces', serif;
+		font-style: italic;
+		font-size: 20px;
+		color: var(--ink-soft);
+	}
+
+	.journal-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 32px;
+	}
+
+	.journal-card {
+		display: block;
+		background: var(--cream-deep);
+		border: 1px solid var(--line);
+		padding: 32px;
+		text-decoration: none;
+		color: inherit;
+		border-radius: 2px;
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.journal-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 10px 24px rgba(56, 44, 36, 0.1);
+	}
+
+	.card-image {
+		margin: -32px -32px 24px;
+		overflow: hidden;
+	}
+
+	.card-image img {
+		width: 100%;
+		display: block;
+	}
+
+	.journal-card .label {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--terracotta-deep);
+		margin-bottom: 14px;
+		display: block;
+	}
+
+	.journal-card h2 {
+		font-size: 22px;
+		line-height: 1.25;
+		margin-bottom: 12px;
+		transition: color 0.15s ease;
+	}
+
+	.journal-card:hover h2 {
+		color: var(--terracotta-deep);
+	}
+
+	.journal-card p {
+		color: var(--ink-soft);
+		font-size: 15px;
+		margin: 0 0 20px;
+	}
+
+	.journal-card .read-more {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 12px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--ink-soft);
+		transition:
+			color 0.15s ease,
+			letter-spacing 0.15s ease;
+	}
+
+	.journal-card:hover .read-more {
+		color: var(--terracotta-deep);
+		letter-spacing: 0.12em;
+	}
+
+	@media (max-width: 720px) {
+		.journal-hero {
+			padding: 80px 0 40px;
+		}
+
+		.journal-list {
+			padding: 0 0 80px;
+		}
+
+		.journal-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

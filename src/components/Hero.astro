@@ -1,0 +1,111 @@
+<section class="hero">
+	<svg class="hero-motif" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+		<circle cx="100" cy="100" r="6" fill="none" stroke-width="1.4"></circle>
+		<circle cx="100" cy="100" r="20" fill="none" stroke-width="1.4"></circle>
+		<circle cx="100" cy="100" r="38" fill="none" stroke-width="1.2" opacity="0.75"></circle>
+		<circle cx="100" cy="100" r="60" fill="none" stroke-width="1" opacity="0.5"></circle>
+		<circle cx="100" cy="100" r="86" fill="none" stroke-width="0.8" opacity="0.3"></circle>
+	</svg>
+	<div class="wrap hero-inner">
+		<span class="eyebrow">Counsellor</span>
+		<h1>A steady place<br />to think things through.</h1>
+		<p class="tagline">Supporting a life worth living, through mental health.</p>
+		<div class="hero-ctas">
+			<a class="btn-primary" href="/#contact">Book a conversation</a>
+			<a class="hero-contact-line" href="tel:0499746502">0499 746 502</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		position: relative;
+		padding: 120px 0 130px;
+		overflow: hidden;
+	}
+
+	.hero-motif {
+		position: absolute;
+		top: -60px;
+		right: -60px;
+		width: 420px;
+		height: 420px;
+		opacity: 0.55;
+		z-index: 0;
+		color: var(--terracotta);
+	}
+
+	.hero-motif circle {
+		stroke: currentColor;
+	}
+
+	.hero-inner {
+		position: relative;
+		z-index: 2;
+		max-width: 640px;
+	}
+
+	.hero .eyebrow {
+		margin-bottom: 18px;
+		display: block;
+	}
+
+	.hero h1 {
+		font-size: clamp(42px, 6vw, 64px);
+		line-height: 1.05;
+		letter-spacing: -0.01em;
+		margin-bottom: 26px;
+	}
+
+	.hero p.tagline {
+		font-family: 'Fraunces', serif;
+		font-style: italic;
+		font-weight: 400;
+		font-size: 21px;
+		color: var(--ink-soft);
+		max-width: 480px;
+		margin: 0 0 40px;
+	}
+
+	.hero-ctas {
+		display: flex;
+		align-items: center;
+		gap: 26px;
+		flex-wrap: wrap;
+	}
+
+	.btn-primary {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 13px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--cream);
+		background: var(--terracotta);
+		padding: 16px 30px;
+		border-radius: 2px;
+		transition:
+			background 0.15s ease,
+			transform 0.15s ease;
+		display: inline-block;
+	}
+
+	.btn-primary:hover {
+		background: var(--terracotta-deep);
+		transform: translateY(-1px);
+	}
+
+	.hero-contact-line {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 13px;
+		color: var(--ink-soft);
+		text-decoration: none;
+		border-bottom: 1px solid var(--line);
+		padding-bottom: 2px;
+	}
+
+	.hero-contact-line:hover {
+		border-color: var(--terracotta);
+		color: var(--terracotta-deep);
+	}
+</style>

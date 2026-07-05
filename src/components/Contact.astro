@@ -1,0 +1,102 @@
+<section class="contact" id="contact">
+	<svg class="contact-motif" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+		<circle cx="100" cy="100" r="10" fill="none" stroke-width="1.4"></circle>
+		<circle cx="100" cy="100" r="34" fill="none" stroke-width="1.2"></circle>
+		<circle cx="100" cy="100" r="62" fill="none" stroke-width="1"></circle>
+		<circle cx="100" cy="100" r="94" fill="none" stroke-width="0.8"></circle>
+	</svg>
+	<div class="wrap">
+		<span class="eyebrow">Get in touch</span>
+		<h2>Book a conversation, no pressure to commit further.</h2>
+		<div class="contact-grid">
+			<div class="contact-item">
+				<span class="label">Book a conversation</span>
+				<a class="value" href="https://benmaclaren.com.au">benmaclaren.com.au</a>
+			</div>
+			<div class="contact-item">
+				<span class="label">Email</span>
+				<a class="value" href="mailto:benjdmaclaren@gmail.com">benjdmaclaren@gmail.com</a>
+			</div>
+			<div class="contact-item">
+				<span class="label">Text · Call</span>
+				<a class="value" href="tel:0499746502">0499 746 502</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.contact {
+		background: var(--ink);
+		color: var(--cream);
+		padding: 100px 0 80px;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.contact-motif {
+		position: absolute;
+		bottom: -80px;
+		left: -80px;
+		width: 360px;
+		height: 360px;
+		opacity: 0.14;
+		color: var(--cream);
+	}
+
+	.contact-motif circle {
+		stroke: currentColor;
+	}
+
+	.contact .wrap {
+		position: relative;
+		z-index: 2;
+	}
+
+	.contact .eyebrow {
+		color: #d89a6e;
+		margin-bottom: 16px;
+		display: block;
+	}
+
+	.contact h2 {
+		color: var(--cream);
+		font-size: 38px;
+		max-width: 520px;
+		margin-bottom: 56px;
+	}
+
+	.contact-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 44px;
+	}
+
+	.contact-item .label {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 11.5px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: #c79269;
+		margin-bottom: 10px;
+		display: block;
+	}
+
+	.contact-item .value {
+		font-family: 'Fraunces', serif;
+		font-size: 21px;
+		color: var(--cream);
+		text-decoration: none;
+	}
+
+	.contact-item .value:hover {
+		color: #e3a876;
+	}
+
+	@media (max-width: 720px) {
+		.contact-grid {
+			grid-template-columns: 1fr;
+			gap: 32px;
+		}
+	}
+</style>
