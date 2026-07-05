@@ -5,16 +5,14 @@ import { z } from 'astro/zod';
 const journal = defineCollection({
 	// Load Markdown and MDX files in the `src/content/journal/` directory.
 	loader: glob({ base: './src/content/journal', pattern: '**/*.{md,mdx}' }),
-	// Type-check frontmatter using a schema
-	schema: ({ image }) =>
-		z.object({
-			title: z.string(),
-			description: z.string(),
-			// Transform string to Date object
-			pubDate: z.coerce.date(),
-			updatedDate: z.coerce.date().optional(),
-			heroImage: z.optional(image()),
-		}),
+	// Only title, description, and date are required. draft is optional
+	// and defaults to false — set draft: true to keep an entry off the live site.
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		date: z.coerce.date(),
+		draft: z.boolean().optional().default(false),
+	}),
 });
 
 export const collections = { journal };

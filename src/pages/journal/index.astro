@@ -1,11 +1,10 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Layout from '../../layouts/Layout.astro';
 
-const posts = (await getCollection('journal')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+const posts = (await getCollection('journal', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 ---
 
@@ -14,6 +13,13 @@ const posts = (await getCollection('journal')).sort(
 	description="Field notes on counselling, presence, and change from Ben Maclaren, counsellor in Canberra, ACT."
 >
 	<section class="journal-hero">
+		<svg class="journal-motif" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+			<circle cx="100" cy="100" r="6" fill="none" stroke-width="1.4"></circle>
+			<circle cx="100" cy="100" r="20" fill="none" stroke-width="1.4"></circle>
+			<circle cx="100" cy="100" r="38" fill="none" stroke-width="1.2" opacity="0.75"></circle>
+			<circle cx="100" cy="100" r="60" fill="none" stroke-width="1" opacity="0.5"></circle>
+			<circle cx="100" cy="100" r="86" fill="none" stroke-width="0.8" opacity="0.3"></circle>
+		</svg>
 		<div class="wrap">
 			<span class="eyebrow">Journal</span>
 			<h1>Field notes on the work.</h1>
@@ -30,13 +36,8 @@ const posts = (await getCollection('journal')).sort(
 					<div class="journal-grid">
 						{posts.map((post) => (
 							<a class="journal-card" href={`/journal/${post.id}/`}>
-								{post.data.heroImage && (
-									<div class="card-image">
-										<Image width={640} height={360} src={post.data.heroImage} alt="" />
-									</div>
-								)}
 								<span class="label">
-									<FormattedDate date={post.data.pubDate} />
+									<FormattedDate date={post.data.date} />
 								</span>
 								<h2>{post.data.title}</h2>
 								<p>{post.data.description}</p>
@@ -52,7 +53,30 @@ const posts = (await getCollection('journal')).sort(
 
 <style>
 	.journal-hero {
+		position: relative;
+		overflow: hidden;
 		padding: 110px 0 60px;
+	}
+
+	.journal-motif {
+		position: absolute;
+		top: -40px;
+		right: -40px;
+		width: 280px;
+		height: 280px;
+		opacity: 0.22;
+		z-index: 0;
+		color: var(--terracotta);
+		pointer-events: none;
+	}
+
+	.journal-motif circle {
+		stroke: currentColor;
+	}
+
+	.journal-hero .wrap {
+		position: relative;
+		z-index: 1;
 	}
 
 	.journal-hero .eyebrow {
@@ -110,16 +134,6 @@ const posts = (await getCollection('journal')).sort(
 	.journal-card:hover {
 		transform: translateY(-2px);
 		box-shadow: 0 10px 24px rgba(56, 44, 36, 0.1);
-	}
-
-	.card-image {
-		margin: -32px -32px 24px;
-		overflow: hidden;
-	}
-
-	.card-image img {
-		width: 100%;
-		display: block;
 	}
 
 	.journal-card .label {

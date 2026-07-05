@@ -1,7 +1,7 @@
 ---
 title: 'What counselling with a neurodivergent client actually looks like'
 description: 'Less masking, more room to think out loud. A few ways the work shifts when the client is neurodivergent.'
-pubDate: 2026-06-27
+date: 2026-06-27
 ---
 
 A lot of neurodivergent clients arrive at counselling already tired — not from the presenting issue alone, but from a lifetime of translating themselves into a shape other people find easier to read. That translation work doesn't stop just because they've walked into a therapy room. If anything, a room full of unspoken social rules is exactly where it ramps up.

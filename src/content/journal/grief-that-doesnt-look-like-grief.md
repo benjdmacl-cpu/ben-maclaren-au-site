@@ -1,7 +1,7 @@
 ---
 title: "On grief that doesn't look like grief"
 description: "Not all grief follows a death. Some of the heaviest kind never gets named as grief at all — which is often why it doesn't move."
-pubDate: 2026-07-04
+date: 2026-07-04
 ---
 
 We tend to reserve the word "grief" for death, and everything else gets called something smaller — disappointment, a rough patch, stress. But a lot of what people bring into a session is grief in every way that matters, just without a funeral attached to it. The identity you had before a diagnosis. The version of a relationship you thought you were in. The career you'd planned around, before the plan stopped working.

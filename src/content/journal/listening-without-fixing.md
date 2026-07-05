@@ -1,7 +1,7 @@
 ---
 title: 'What it means to actually listen without fixing'
 description: "'Just listen' sounds simple until you try it. Here's what gets in the way, and what's on the other side of it."
-pubDate: 2026-06-30
+date: 2026-06-30
 ---
 
 "Just listen" is easy advice to give and surprisingly hard to follow. The moment someone describes a problem, most of us start assembling a response before they've finished the sentence — a fix, a reframe, a story about the time something similar happened to us. It's not a character flaw. It's what listening usually gets replaced with, because sitting in someone else's problem without doing anything about it feels uncomfortable.
