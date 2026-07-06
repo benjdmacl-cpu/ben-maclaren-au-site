@@ -1,22 +1,50 @@
 <section class="audiences" id="audiences">
 	<div class="wrap">
-		<span class="eyebrow">Who I work with</span>
-		<h2>Three groups I return to, again and again.</h2>
+		<span class="eyebrow">Where I focus</span>
+		<h2>I work often with</h2>
 		<div class="audience-grid">
 			<div class="audience-card">
-				<span class="label">Men</span>
+				<span class="icon" aria-hidden="true">
+					<svg viewBox="0 0 90 90" width="48" height="48">
+						<path d="M 14 64 L 36 30 L 52 50 L 64 34 L 78 64 Z" fill="none" stroke="currentColor"
+							stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"></path>
+					</svg>
+				</span>
 				<h3>Men</h3>
-				<p>A space to talk plainly about what's underneath — without needing to have the words for it first.</p>
+				<p>
+					Our place as men has shifted, and a lot of us are quietly rediscovering what that means. These
+					are generational issues, not personal failings, and they deserve real attention.
+				</p>
 			</div>
 			<div class="audience-card">
-				<span class="label">Neurodivergent</span>
-				<h3>Neurodiverse</h3>
-				<p>Support that meets your wiring as it is, not as a problem to correct.</p>
+				<span class="icon" aria-hidden="true">
+					<svg viewBox="0 0 90 90" width="48" height="48">
+						<path
+							d="M 27 45 C 27 30, 42 30, 45 45 C 48 60, 63 60, 63 45 C 63 30, 48 30, 45 45 C 42 60, 27 60, 27 45 Z"
+							fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"></path>
+					</svg>
+				</span>
+				<h3>Neurodivergent</h3>
+				<p>
+					Whether you've just been diagnosed or you've known for years, support starts with how your
+					mind actually works, not how it's "supposed" to. I bring direct experience with ADHD, autism,
+					and other presentations, and know what it takes to find your own way of working with yourself.
+				</p>
 			</div>
 			<div class="audience-card">
-				<span class="label">Younger clients</span>
-				<h3>Youth</h3>
-				<p>Room to work things out at your own pace, taken seriously the whole way through.</p>
+				<span class="icon" aria-hidden="true">
+					<svg viewBox="0 0 90 90" width="48" height="48">
+						<path d="M 20 62 C 32 62, 32 43, 44 43 C 56 43, 56 24, 68 24" fill="none"
+							stroke="currentColor" stroke-width="3.4" stroke-linecap="round"></path>
+						<path d="M 59 19 L 68 24 L 64 34" fill="none" stroke="currentColor" stroke-width="3.4"
+							stroke-linecap="round" stroke-linejoin="round"></path>
+					</svg>
+				</span>
+				<h3>Life and career transitions</h3>
+				<p>
+					Changing careers, rebuilding direction, working out what matters now. Support here is about
+					finding your way through the limbo and building a life worth living.
+				</p>
 			</div>
 		</div>
 	</div>
@@ -44,24 +72,13 @@
 	.audience-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		gap: 1px;
-		background: var(--line);
-		border: 1px solid var(--line);
+		gap: 40px;
 	}
 
-	.audience-card {
-		background: var(--cream-deep);
-		padding: 38px 32px;
-	}
-
-	.audience-card .label {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 12px;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-		color: var(--terracotta-deep);
-		margin-bottom: 14px;
+	.audience-card .icon {
 		display: block;
+		margin-bottom: 18px;
+		color: var(--terracotta-deep);
 	}
 
 	.audience-card h3 {

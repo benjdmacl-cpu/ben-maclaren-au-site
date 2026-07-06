@@ -7,6 +7,12 @@
 	--terracotta-deep: #9c4620;
 	--sage: #8b8172;
 	--line: rgba(56, 44, 36, 0.14);
+
+	/* Terracotta/sage variants tuned for legibility on the dark --ink background */
+	--terracotta-on-dark: #d89a6e;
+	--terracotta-on-dark-muted: #c79269;
+	--terracotta-on-dark-hover: #e3a876;
+	--sage-on-dark: #b6a791;
 }
 
 *,
