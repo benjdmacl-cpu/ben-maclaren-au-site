@@ -2,6 +2,8 @@
 title: "Starting counselling as a man who's never done this before"
 description: "A lot of men arrive at a first session having never said most of this out loud to anyone. Here's what that first hour is actually for."
 date: 2026-07-02
+category: men
+articleType: response
 ---
 
 Most of the men I see haven't done this before, and a lot of them arrive slightly braced, as if the first session is a test they might fail by not knowing the right way to talk about themselves. There isn't a right way. There isn't a script you're supposed to already know.

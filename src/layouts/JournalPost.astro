@@ -1,11 +1,18 @@
 ---
 import FormattedDate from '../components/FormattedDate.astro';
+import JournalKicker from '../components/JournalKicker.astro';
 import Layout from './Layout.astro';
+
+type Reference = { label: string; url?: string };
 
 type Props = {
 	title: string;
 	description: string;
 	date: Date;
+	category?: string;
+	articleType?: 'response' | 'research';
+	references?: Reference[];
+	substackUrl?: string;
 	pageTitle?: string;
 	eyebrow?: string;
 	backHref?: string;
@@ -16,11 +23,17 @@ const {
 	title,
 	description,
 	date,
+	category,
+	articleType,
+	references,
+	substackUrl,
 	pageTitle = title,
 	eyebrow = 'Journal',
 	backHref = '/journal',
 	backLabel = '← Journal',
 } = Astro.props;
+
+const hasReferences = Boolean(references && references.length > 0);
 ---
 
 <Layout title={pageTitle} description={description}>
@@ -30,13 +43,55 @@ const {
 			<div class="article-head">
 				<span class="eyebrow">{eyebrow}</span>
 				<h1>{title}</h1>
-				<div class="meta">
-					<FormattedDate date={date} />
+				<div class="meta-row">
+					{
+						category && articleType ? (
+							<JournalKicker articleType={articleType} category={category} date={date} />
+						) : (
+							<div class="meta">
+								<FormattedDate date={date} />
+							</div>
+						)
+					}
+					{(hasReferences || substackUrl) && (
+						<div class="quick-links">
+							{hasReferences && (
+								<a class="quick-link" href="#references">
+									↓ Sources
+								</a>
+							)}
+							{substackUrl && (
+								<a class="quick-link" href={substackUrl} target="_blank" rel="noopener noreferrer">
+									↗ Read on Substack
+								</a>
+							)}
+						</div>
+					)}
 				</div>
 			</div>
 			<div class="prose">
 				<slot />
 			</div>
+			{
+				hasReferences && (
+					<div class="references" id="references">
+						<span class="references-kicker">Sources</span>
+						<ul>
+							{references.map((ref) => (
+								<li>
+									{ref.url ? (
+										<a href={ref.url} target="_blank" rel="noopener noreferrer">
+											{ref.label}
+										</a>
+									) : (
+										<span>{ref.label}</span>
+									)}
+								</li>
+							))}
+						</ul>
+					</div>
+				)
+			}
 		</div>
 	</article>
 </Layout>
@@ -77,12 +132,41 @@ const {
 		margin-bottom: 22px;
 	}
 
+	.meta-row {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 8px 20px;
+	}
+
 	.meta {
 		font-family: 'IBM Plex Mono', monospace;
 		font-size: 12.5px;
 		letter-spacing: 0.16em;
 		text-transform: uppercase;
 		color: var(--ink-soft);
+	}
+
+	.quick-links {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 16px;
+	}
+
+	.quick-link {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 10px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--ink-soft);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.quick-link:hover {
+		color: var(--terracotta-deep);
 	}
 
 	.prose {
@@ -161,9 +245,56 @@ const {
 		border-radius: 2px;
 	}
 
+	/* ---------- References / sources ---------- */
+	.references {
+		max-width: 720px;
+		margin: 48px auto 0;
+		padding-top: 32px;
+		border-top: 1px solid var(--line);
+	}
+
+	.references-kicker {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 10px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--ink-soft);
+		display: block;
+		margin-bottom: 16px;
+	}
+
+	.references ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.references li {
+		font-size: 12.5px;
+		line-height: 1.9;
+		color: var(--ink-soft);
+	}
+
+	.references a {
+		color: var(--terracotta);
+		text-decoration: underline;
+	}
+
+	.references a:hover {
+		color: var(--terracotta-deep);
+	}
+
 	@media (max-width: 720px) {
 		.journal-article {
 			padding: 60px 0 80px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.meta-row {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 10px;
 		}
 	}
 </style>

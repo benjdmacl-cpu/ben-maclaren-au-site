@@ -1,0 +1,32 @@
+---
+import FormattedDate from './FormattedDate.astro';
+import { CATEGORY_LABELS, TYPE_LABELS } from '../lib/journal-labels';
+
+interface Props {
+	articleType: 'response' | 'research';
+	category: string;
+	date: Date;
+}
+
+const { articleType, category, date } = Astro.props;
+---
+
+<span class:list={['kicker', articleType === 'research' && 'kicker-research']}>
+	{TYPE_LABELS[articleType]} · {CATEGORY_LABELS[category]} · <FormattedDate date={date} />
+</span>
+
+<style>
+	.kicker {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 11px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--terracotta-deep);
+		display: block;
+	}
+
+	/* Research pieces read in a quieter register than response pieces. */
+	.kicker-research {
+		color: var(--ink-soft);
+	}
+</style>

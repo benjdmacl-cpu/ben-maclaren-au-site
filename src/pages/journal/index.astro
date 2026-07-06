@@ -1,19 +1,46 @@
 ---
 import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
+import JournalKicker from '../../components/JournalKicker.astro';
 import Layout from '../../layouts/Layout.astro';
+import { CATEGORY_LABELS, CATEGORY_ORDER } from '../../lib/journal-labels';
+
+// TODO: placeholder — swap for the real Substack publication URL when available.
+const SUBSTACK_URL = 'https://thejournal.substack.com';
 
 const posts = (await getCollection('journal', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
+
+// Lead and secondary are reserved for response-type posts — a research piece
+// is never promoted above a response piece, even if it's more recent.
+const responsePosts = posts.filter((post) => post.data.articleType === 'response');
+const lead = responsePosts[0];
+const secondary = responsePosts[1];
+
+// Tertiary (and "older") draw from everything else, both types, by recency —
+// this is where research pieces become eligible.
+const usedIds = new Set([lead?.id, secondary?.id].filter(Boolean));
+const remaining = posts.filter((post) => !usedIds.has(post.id));
+const tertiary = remaining.slice(0, 3);
+const older = remaining.slice(3);
+
+const categoriesInUse = CATEGORY_ORDER.filter((cat) => posts.some((post) => post.data.category === cat));
+
+const issueLabel = lead
+	? `Issue — ${lead.data.date.toLocaleDateString('en-us', { month: 'long', year: 'numeric' })}`
+	: null;
 ---
 
 <Layout
 	title="Journal — Ben Maclaren"
 	description="Field notes on counselling, presence, and change from Ben Maclaren, counsellor in Canberra, ACT."
 >
-	<section class="journal-hero">
-		<svg class="journal-motif" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+	<div class="wrap top-nav">
+		<a class="back-link" href="/">← Home</a>
+	</div>
+
+	<section class="masthead">
+		<svg class="masthead-motif" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 			<circle cx="100" cy="100" r="6" fill="none" stroke-width="1.4"></circle>
 			<circle cx="100" cy="100" r="20" fill="none" stroke-width="1.4"></circle>
 			<circle cx="100" cy="100" r="38" fill="none" stroke-width="1.2" opacity="0.75"></circle>
@@ -21,88 +48,395 @@ const posts = (await getCollection('journal', ({ data }) => !data.draft)).sort(
 			<circle cx="100" cy="100" r="86" fill="none" stroke-width="0.8" opacity="0.3"></circle>
 		</svg>
 		<div class="wrap">
-			<span class="eyebrow">Journal</span>
-			<h1>Field notes on the work.</h1>
-			<p class="tagline">Occasional writing on counselling, non-directive practice, and what actually helps.</p>
+			<span class="kicker">Field notes on the work</span>
+			<h1>The Journal</h1>
 		</div>
 	</section>
 
-	<section class="journal-list">
-		<div class="wrap">
-			{
-				posts.length === 0 ? (
+	{
+		!lead ? (
+			<section class="journal-empty">
+				<div class="wrap">
 					<p class="empty">No articles published yet — check back soon.</p>
-				) : (
-					<div class="journal-grid">
-						{posts.map((post) => (
-							<a class="journal-card" href={`/journal/${post.id}/`}>
-								<span class="label">
-									<FormattedDate date={post.data.date} />
-								</span>
-								<h2>{post.data.title}</h2>
-								<p>{post.data.description}</p>
-								<span class="read-more">Read the piece →</span>
-							</a>
-						))}
+				</div>
+			</section>
+		) : (
+			<>
+				<section class="issue-bar">
+					<div class="wrap issue-bar-inner">
+						<span class="issue-label">{issueLabel}</span>
+						<div class="tag-list">
+							{categoriesInUse.map((cat, i) => (
+								<>
+									{i > 0 && <span class="tag-sep">·</span>}
+									<a class="tag" href={`/journal?category=${cat}`}>
+										{CATEGORY_LABELS[cat]}
+									</a>
+								</>
+							))}
+						</div>
 					</div>
-				)
-			}
-		</div>
-	</section>
+				</section>
+
+				<section class="rank-primary">
+					<div class="wrap rank-primary-inner">
+						<article class="lead-story">
+							<JournalKicker
+								articleType={lead.data.articleType}
+								category={lead.data.category}
+								date={lead.data.date}
+							/>
+							<h2>
+								<a href={`/journal/${lead.id}/`}>{lead.data.title}</a>
+							</h2>
+							<p class="excerpt-columns">{lead.data.description}</p>
+						</article>
+						{secondary && (
+							<article class="secondary-story">
+								<JournalKicker
+									articleType={secondary.data.articleType}
+									category={secondary.data.category}
+									date={secondary.data.date}
+								/>
+								<h3>
+									<a href={`/journal/${secondary.id}/`}>{secondary.data.title}</a>
+								</h3>
+								<p class="excerpt">{secondary.data.description}</p>
+							</article>
+						)}
+					</div>
+				</section>
+
+				{tertiary.length > 0 && (
+					<section class="rank-tertiary">
+						<div class="wrap tertiary-grid" style={`--tertiary-count: ${tertiary.length}`}>
+							{tertiary.map((post) => (
+								<article class="tertiary-item">
+									<JournalKicker
+										articleType={post.data.articleType}
+										category={post.data.category}
+										date={post.data.date}
+									/>
+									<h3>
+										<a href={`/journal/${post.id}/`}>{post.data.title}</a>
+									</h3>
+								</article>
+							))}
+						</div>
+					</section>
+				)}
+
+				{older.length > 0 && (
+					<div class="older-entries">
+						<a class="older-link" href="/journal/archive">
+							Older entries →
+						</a>
+					</div>
+				)}
+
+				<div class="substack-cta">
+					<div class="wrap">
+						<span class="substack-label">Also published on Substack</span>
+						<a class="substack-link" href={SUBSTACK_URL} target="_blank" rel="noopener noreferrer">
+							Read these on Substack →
+						</a>
+					</div>
+				</div>
+			</>
+		)
+	}
 </Layout>
 
 <style>
-	.journal-hero {
-		position: relative;
-		overflow: hidden;
-		padding: 110px 0 60px;
+	.top-nav {
+		padding-top: 40px;
 	}
 
-	.journal-motif {
+	.back-link {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 12.5px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--ink-soft);
+		display: inline-block;
+	}
+
+	.back-link:hover {
+		color: var(--terracotta-deep);
+	}
+
+	.kicker {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 11px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--terracotta-deep);
+		display: block;
+	}
+
+	/* ---------- Masthead ---------- */
+	.masthead {
+		position: relative;
+		overflow: hidden;
+		text-align: center;
+		padding: 48px 0 40px;
+		border-bottom: 2px solid var(--ink);
+	}
+
+	.masthead-motif {
 		position: absolute;
-		top: -40px;
-		right: -40px;
-		width: 280px;
-		height: 280px;
-		opacity: 0.22;
+		top: -30px;
+		right: -30px;
+		width: 220px;
+		height: 220px;
+		opacity: 0.18;
 		z-index: 0;
 		color: var(--terracotta);
 		pointer-events: none;
 	}
 
-	.journal-motif circle {
+	.masthead-motif circle {
 		stroke: currentColor;
 	}
 
-	.journal-hero .wrap {
+	.masthead .wrap {
 		position: relative;
 		z-index: 1;
 	}
 
-	.journal-hero .eyebrow {
-		margin-bottom: 18px;
-		display: block;
+	.masthead .kicker {
+		margin: 0 0 14px;
 	}
 
-	.journal-hero h1 {
-		font-size: clamp(36px, 5vw, 52px);
-		line-height: 1.1;
-		max-width: 720px;
-		margin-bottom: 22px;
-	}
-
-	.journal-hero .tagline {
-		font-family: 'Fraunces', serif;
-		font-style: italic;
-		font-weight: 400;
-		font-size: 20px;
-		color: var(--ink-soft);
-		max-width: 480px;
+	.masthead h1 {
+		font-size: 34px;
 		margin: 0;
 	}
 
-	.journal-list {
-		padding: 0 0 120px;
+	/* ---------- Issue meta bar ---------- */
+	.issue-bar {
+		border-bottom: 1px solid var(--line);
+		padding: 18px 0;
+	}
+
+	.issue-bar-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 12px;
+	}
+
+	.issue-label {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 11px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--ink-soft);
+	}
+
+	.tag-list {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.tag {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 11px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--terracotta-deep);
+		text-decoration: none;
+	}
+
+	.tag:hover {
+		color: var(--ink);
+	}
+
+	.tag-sep {
+		color: var(--ink-soft);
+		font-size: 11px;
+	}
+
+	/* ---------- Lead + secondary ---------- */
+	.rank-primary {
+		padding: 48px 0;
+	}
+
+	.rank-primary-inner {
+		display: grid;
+		grid-template-columns: 58% 42%;
+		gap: 0;
+		align-items: start;
+	}
+
+	.rank-primary-inner:not(:has(.secondary-story)) .lead-story {
+		border-right: none;
+		padding-right: 0;
+	}
+
+	.lead-story {
+		border-right: 1px solid var(--line);
+		padding-right: 48px;
+	}
+
+	.lead-story h2 {
+		font-family: 'Fraunces', serif;
+		font-size: 26px;
+		line-height: 1.2;
+		margin: 10px 0 0;
+	}
+
+	.lead-story h2 a {
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	.lead-story h2 a:hover {
+		color: var(--terracotta-deep);
+	}
+
+	.lead-story .excerpt-columns {
+		column-count: 2;
+		column-gap: 20px;
+		column-fill: balance;
+		font-size: 13px;
+		line-height: 1.65;
+		color: var(--ink-soft);
+		margin: 16px 0 0;
+	}
+
+	.secondary-story {
+		padding-left: 48px;
+	}
+
+	.secondary-story h3 {
+		font-family: 'Fraunces', serif;
+		font-size: 18px;
+		line-height: 1.25;
+		margin: 8px 0 0;
+	}
+
+	.secondary-story h3 a {
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	.secondary-story h3 a:hover {
+		color: var(--terracotta-deep);
+	}
+
+	.secondary-story .excerpt {
+		font-size: 12px;
+		line-height: 1.6;
+		color: var(--ink-soft);
+		margin: 12px 0 0;
+	}
+
+	/* ---------- Tertiary rank grid ---------- */
+	.rank-tertiary {
+		border-top: 1px solid var(--ink);
+		padding: 48px 0;
+	}
+
+	.tertiary-grid {
+		display: grid;
+		grid-template-columns: repeat(var(--tertiary-count, 3), 1fr);
+	}
+
+	.tertiary-item {
+		padding: 0 32px;
+	}
+
+	.tertiary-item:first-child {
+		padding-left: 0;
+	}
+
+	.tertiary-item:last-child {
+		padding-right: 0;
+	}
+
+	.tertiary-item:not(:last-child) {
+		border-right: 1px solid var(--line);
+	}
+
+	.tertiary-item h3 {
+		font-family: 'Fraunces', serif;
+		font-size: 15px;
+		line-height: 1.3;
+		margin: 8px 0 0;
+	}
+
+	.tertiary-item h3 a {
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	.tertiary-item h3 a:hover {
+		color: var(--terracotta-deep);
+	}
+
+	/* ---------- Older entries ---------- */
+	.older-entries {
+		text-align: center;
+		padding: 40px 0;
+	}
+
+	.older-link {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 12px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--ink-soft);
+		border-bottom: 1px solid var(--line);
+		padding-bottom: 2px;
+	}
+
+	.older-link:hover {
+		color: var(--terracotta-deep);
+		border-color: var(--terracotta-deep);
+	}
+
+	/* ---------- Substack cross-post CTA ---------- */
+	.substack-cta {
+		text-align: center;
+		border-top: 1px solid var(--line);
+		padding: 32px 0 90px;
+	}
+
+	.substack-label {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 11px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--ink-soft);
+		display: block;
+		margin-bottom: 12px;
+	}
+
+	.substack-link {
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 13px;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--terracotta-deep);
+		border-bottom: 1px solid var(--line);
+		padding-bottom: 2px;
+		display: inline-block;
+	}
+
+	.substack-link:hover {
+		border-color: var(--terracotta-deep);
+	}
+
+	/* ---------- Empty state ---------- */
+	.journal-empty {
+		padding: 60px 0 120px;
 	}
 
 	.empty {
@@ -112,84 +446,58 @@ const posts = (await getCollection('journal', ({ data }) => !data.draft)).sort(
 		color: var(--ink-soft);
 	}
 
-	.journal-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-		gap: 32px;
-	}
-
-	.journal-card {
-		display: block;
-		background: var(--cream-deep);
-		border: 1px solid var(--line);
-		padding: 32px;
-		text-decoration: none;
-		color: inherit;
-		border-radius: 2px;
-		transition:
-			transform 0.15s ease,
-			box-shadow 0.15s ease;
-	}
-
-	.journal-card:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 10px 24px rgba(56, 44, 36, 0.1);
-	}
-
-	.journal-card .label {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 12px;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-		color: var(--terracotta-deep);
-		margin-bottom: 14px;
-		display: block;
-	}
-
-	.journal-card h2 {
-		font-size: 22px;
-		line-height: 1.25;
-		margin-bottom: 12px;
-		transition: color 0.15s ease;
-	}
-
-	.journal-card:hover h2 {
-		color: var(--terracotta-deep);
-	}
-
-	.journal-card p {
-		color: var(--ink-soft);
-		font-size: 15px;
-		margin: 0 0 20px;
-	}
-
-	.journal-card .read-more {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 12px;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--ink-soft);
-		transition:
-			color 0.15s ease,
-			letter-spacing 0.15s ease;
-	}
-
-	.journal-card:hover .read-more {
-		color: var(--terracotta-deep);
-		letter-spacing: 0.12em;
-	}
-
-	@media (max-width: 720px) {
-		.journal-hero {
-			padding: 80px 0 40px;
+	@media (max-width: 768px) {
+		.masthead {
+			padding: 32px 0 32px;
 		}
 
-		.journal-list {
-			padding: 0 0 80px;
+		.masthead h1 {
+			font-size: 26px;
 		}
 
-		.journal-grid {
+		.rank-primary-inner {
 			grid-template-columns: 1fr;
+			gap: 40px;
+		}
+
+		.lead-story {
+			border-right: none;
+			padding-right: 0;
+			border-bottom: 1px solid var(--line);
+			padding-bottom: 32px;
+		}
+
+		.lead-story .excerpt-columns {
+			column-count: 1;
+		}
+
+		.secondary-story {
+			padding-left: 0;
+		}
+
+		.tertiary-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.tertiary-item {
+			padding: 24px 0;
+		}
+
+		.tertiary-item:first-child {
+			padding-top: 0;
+		}
+
+		.tertiary-item:last-child {
+			padding-bottom: 0;
+		}
+
+		.tertiary-item:not(:last-child) {
+			border-right: none;
+			border-bottom: 1px solid var(--line);
+		}
+
+		.issue-bar-inner {
+			align-items: flex-start;
 		}
 	}
 </style>
