@@ -28,4 +28,18 @@ const journal = defineCollection({
 	}),
 });
 
-export const collections = { journal };
+const resources = defineCollection({
+	// Load Markdown files in the `src/content/resources/` directory.
+	loader: glob({ base: './src/content/resources', pattern: '**/*.md' }),
+	schema: z.object({
+		title: z.string(),
+		segment: z.enum(['act-therapy', 'mindfulness', 'relationships', 'life-design']),
+		interactionType: z.enum(['interactive', 'worksheet']),
+		icon: z.string(), // Tabler outline icon slug, e.g. "compass" — see ResourceIcon.astro
+		featured: z.boolean().optional(), // marks the one live/embedded card per segment
+		downloadUrl: z.string().url().optional(),
+		componentSlug: z.string().optional(),
+	}),
+});
+
+export const collections = { journal, resources };

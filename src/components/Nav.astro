@@ -2,6 +2,7 @@
 	<div class="wrap">
 		<a class="nav-name" href="/">Ben Maclaren</a>
 		<div class="nav-links">
+			<a href="/resources">Resources</a>
 			<a href="/journal">Journal</a>
 		</div>
 		<a class="nav-cta" href="/#contact">Book a conversation</a>
@@ -12,8 +13,8 @@
 	nav {
 		position: relative;
 		z-index: 3;
-		padding: 26px 0;
-		border-bottom: 1px solid var(--line);
+		padding: var(--space-6-5) 0;
+		border-bottom: var(--border-hairline) solid var(--color-border);
 	}
 
 	nav .wrap {
@@ -23,21 +24,21 @@
 	}
 
 	.nav-name {
-		font-family: 'Fraunces', serif;
-		font-size: 19px;
-		font-weight: 600;
-		letter-spacing: 0.01em;
+		font-family: var(--font-display);
+		font-size: var(--fs-brand);
+		font-weight: var(--fw-semibold);
+		letter-spacing: var(--ls-brand);
 		text-decoration: none;
 	}
 
 	.nav-links {
 		display: flex;
-		gap: 34px;
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 12.5px;
-		letter-spacing: 0.1em;
+		gap: var(--space-8-5);
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-caps);
 		text-transform: uppercase;
-		color: var(--ink-soft);
+		color: var(--color-text-secondary);
 	}
 
 	.nav-links a {
@@ -45,24 +46,24 @@
 	}
 
 	.nav-links a:hover {
-		color: var(--terracotta-deep);
+		color: var(--color-accent);
 	}
 
 	.nav-cta {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 12px;
-		letter-spacing: 0.08em;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
 		text-transform: uppercase;
 		text-decoration: none;
-		color: var(--cream);
-		background: var(--terracotta);
-		padding: 10px 18px;
-		border-radius: 2px;
+		color: var(--color-on-accent);
+		background: var(--color-accent-solid);
+		padding: var(--space-2-5) var(--space-4-5);
+		border-radius: var(--radius-sm);
 		transition: background 0.15s ease;
 	}
 
 	.nav-cta:hover {
-		background: var(--terracotta-deep);
+		background: var(--color-accent);
 	}
 
 	@media (max-width: 720px) {

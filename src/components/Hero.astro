@@ -20,7 +20,7 @@
 <style>
 	.hero {
 		position: relative;
-		padding: 120px 0 130px;
+		padding: var(--space-30) 0 var(--space-32-5);
 		overflow: hidden;
 	}
 
@@ -46,44 +46,44 @@
 	}
 
 	.hero .eyebrow {
-		margin-bottom: 18px;
+		margin-bottom: var(--space-5-5);
 		display: block;
 	}
 
 	.hero h1 {
-		font-size: clamp(42px, 6vw, 64px);
-		line-height: 1.05;
-		letter-spacing: -0.01em;
-		margin-bottom: 26px;
+		font-size: var(--fs-hero);
+		line-height: var(--lh-hero);
+		letter-spacing: var(--ls-hero-tight);
+		margin-bottom: var(--space-6-5);
 	}
 
 	.hero p.tagline {
-		font-family: 'Fraunces', serif;
+		font-family: var(--font-display);
 		font-style: italic;
-		font-weight: 400;
-		font-size: 21px;
-		color: var(--ink-soft);
+		font-weight: var(--fw-regular);
+		font-size: var(--fs-tagline);
+		color: var(--color-text-secondary);
 		max-width: 480px;
-		margin: 0 0 40px;
+		margin: 0 0 var(--space-10);
 	}
 
 	.hero-ctas {
 		display: flex;
 		align-items: center;
-		gap: 26px;
+		gap: var(--space-6-5);
 		flex-wrap: wrap;
 	}
 
 	.btn-primary {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 13px;
-		letter-spacing: 0.08em;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
 		text-transform: uppercase;
 		text-decoration: none;
-		color: var(--cream);
-		background: var(--terracotta);
-		padding: 16px 30px;
-		border-radius: 2px;
+		color: var(--color-on-accent);
+		background: var(--color-accent-solid);
+		padding: var(--space-4) var(--space-7-5);
+		border-radius: var(--radius-sm);
 		transition:
 			background 0.15s ease,
 			transform 0.15s ease;
@@ -91,21 +91,21 @@
 	}
 
 	.btn-primary:hover {
-		background: var(--terracotta-deep);
+		background: var(--color-accent);
 		transform: translateY(-1px);
 	}
 
 	.hero-contact-line {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 13px;
-		color: var(--ink-soft);
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		color: var(--color-text-secondary);
 		text-decoration: none;
-		border-bottom: 1px solid var(--line);
-		padding-bottom: 2px;
+		border-bottom: var(--border-hairline) solid var(--color-border);
+		padding-bottom: var(--space-0-5);
 	}
 
 	.hero-contact-line:hover {
-		border-color: var(--terracotta);
-		color: var(--terracotta-deep);
+		border-color: var(--color-accent-link);
+		color: var(--color-accent);
 	}
 </style>

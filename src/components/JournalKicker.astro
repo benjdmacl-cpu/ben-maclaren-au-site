@@ -17,16 +17,16 @@ const { articleType, category, date } = Astro.props;
 
 <style>
 	.kicker {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 11px;
-		letter-spacing: 0.1em;
+		font-family: var(--font-mono);
+		font-size: var(--fs-eyebrow);
+		letter-spacing: var(--ls-caps);
 		text-transform: uppercase;
-		color: var(--terracotta-deep);
+		color: var(--color-accent);
 		display: block;
 	}
 
 	/* Research pieces read in a quieter register than response pieces. */
 	.kicker-research {
-		color: var(--ink-soft);
+		color: var(--color-text-muted);
 	}
 </style>

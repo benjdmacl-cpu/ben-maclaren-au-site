@@ -1,0 +1,61 @@
+---
+// Tabler outline icons (MIT licensed), inlined via raw import so no icon
+// font or runtime request is needed. Add an import + map entry here when a
+// new resource needs an icon slug that isn't listed yet.
+import compass from '@tabler/icons/outline/compass.svg?raw';
+import bulb from '@tabler/icons/outline/bulb.svg?raw';
+import route from '@tabler/icons/outline/route.svg?raw';
+import wind from '@tabler/icons/outline/wind.svg?raw';
+import yoga from '@tabler/icons/outline/yoga.svg?raw';
+import handFinger from '@tabler/icons/outline/hand-finger.svg?raw';
+import road from '@tabler/icons/outline/road.svg?raw';
+import heartHandshake from '@tabler/icons/outline/heart-handshake.svg?raw';
+import message2Heart from '@tabler/icons/outline/message-2-heart.svg?raw';
+import clipboardHeart from '@tabler/icons/outline/clipboard-heart.svg?raw';
+import chartPie from '@tabler/icons/outline/chart-pie.svg?raw';
+import target from '@tabler/icons/outline/target.svg?raw';
+import notebook from '@tabler/icons/outline/notebook.svg?raw';
+
+const ICONS: Record<string, string> = {
+	compass,
+	bulb,
+	route,
+	wind,
+	yoga,
+	'hand-finger': handFinger,
+	road,
+	'heart-handshake': heartHandshake,
+	'message-2-heart': message2Heart,
+	'clipboard-heart': clipboardHeart,
+	'chart-pie': chartPie,
+	target,
+	notebook,
+};
+
+interface Props {
+	icon: string;
+}
+
+const { icon } = Astro.props;
+const svg = ICONS[icon];
+
+if (!svg) {
+	throw new Error(
+		`ResourceIcon: no icon registered for "${icon}". Add an import + map entry in ResourceIcon.astro.`,
+	);
+}
+---
+
+<span class="resource-icon" set:html={svg} />
+
+<style>
+	.resource-icon {
+		display: inline-flex;
+		color: var(--color-accent);
+	}
+
+	.resource-icon :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+</style>

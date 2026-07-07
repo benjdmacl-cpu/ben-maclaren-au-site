@@ -149,29 +149,29 @@ const issueLabel = lead
 
 <style>
 	.top-nav {
-		padding-top: 40px;
+		padding-top: var(--space-10);
 	}
 
 	.back-link {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 12.5px;
-		letter-spacing: 0.08em;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
 		text-transform: uppercase;
 		text-decoration: none;
-		color: var(--ink-soft);
+		color: var(--color-text-secondary);
 		display: inline-block;
 	}
 
 	.back-link:hover {
-		color: var(--terracotta-deep);
+		color: var(--color-accent);
 	}
 
 	.kicker {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 11px;
-		letter-spacing: 0.1em;
+		font-family: var(--font-mono);
+		font-size: var(--fs-eyebrow);
+		letter-spacing: var(--ls-caps);
 		text-transform: uppercase;
-		color: var(--terracotta-deep);
+		color: var(--color-accent);
 		display: block;
 	}
 
@@ -180,8 +180,8 @@ const issueLabel = lead
 		position: relative;
 		overflow: hidden;
 		text-align: center;
-		padding: 48px 0 40px;
-		border-bottom: 2px solid var(--ink);
+		padding: var(--space-12) 0 var(--space-10);
+		border-bottom: var(--border-strong) solid var(--color-border-strong);
 	}
 
 	.masthead-motif {
@@ -206,18 +206,18 @@ const issueLabel = lead
 	}
 
 	.masthead .kicker {
-		margin: 0 0 14px;
+		margin: 0 0 var(--space-3-5);
 	}
 
 	.masthead h1 {
-		font-size: 34px;
+		font-size: var(--fs-display);
 		margin: 0;
 	}
 
 	/* ---------- Issue meta bar ---------- */
 	.issue-bar {
-		border-bottom: 1px solid var(--line);
-		padding: 18px 0;
+		border-bottom: var(--border-hairline) solid var(--color-border);
+		padding: var(--space-4-5) 0;
 	}
 
 	.issue-bar-inner {
@@ -225,45 +225,45 @@ const issueLabel = lead
 		align-items: center;
 		justify-content: space-between;
 		flex-wrap: wrap;
-		gap: 12px;
+		gap: var(--space-3);
 	}
 
 	.issue-label {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 11px;
-		letter-spacing: 0.1em;
+		font-family: var(--font-mono);
+		font-size: var(--fs-eyebrow);
+		letter-spacing: var(--ls-caps);
 		text-transform: uppercase;
-		color: var(--ink-soft);
+		color: var(--color-text-muted);
 	}
 
 	.tag-list {
 		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
-		gap: 10px;
+		gap: var(--space-2-5);
 	}
 
 	.tag {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 11px;
-		letter-spacing: 0.1em;
+		font-family: var(--font-mono);
+		font-size: var(--fs-eyebrow);
+		letter-spacing: var(--ls-caps);
 		text-transform: uppercase;
-		color: var(--terracotta-deep);
+		color: var(--color-accent);
 		text-decoration: none;
 	}
 
 	.tag:hover {
-		color: var(--ink);
+		color: var(--color-text-primary);
 	}
 
 	.tag-sep {
-		color: var(--ink-soft);
-		font-size: 11px;
+		color: var(--color-text-muted);
+		font-size: var(--fs-eyebrow);
 	}
 
 	/* ---------- Lead + secondary ---------- */
 	.rank-primary {
-		padding: 48px 0;
+		padding: var(--space-12) 0;
 	}
 
 	.rank-primary-inner {
@@ -279,67 +279,67 @@ const issueLabel = lead
 	}
 
 	.lead-story {
-		border-right: 1px solid var(--line);
-		padding-right: 48px;
+		border-right: var(--border-hairline) solid var(--color-border);
+		padding-right: var(--space-12);
 	}
 
 	.lead-story h2 {
-		font-family: 'Fraunces', serif;
-		font-size: 26px;
-		line-height: 1.2;
-		margin: 10px 0 0;
+		font-family: var(--font-display);
+		font-size: var(--fs-h1);
+		line-height: var(--lh-tight);
+		margin: var(--space-2-5) 0 0;
 	}
 
 	.lead-story h2 a {
-		color: var(--ink);
+		color: var(--color-text-primary);
 		text-decoration: none;
 	}
 
 	.lead-story h2 a:hover {
-		color: var(--terracotta-deep);
+		color: var(--color-accent);
 	}
 
 	.lead-story .excerpt-columns {
 		column-count: 2;
-		column-gap: 20px;
+		column-gap: var(--space-5);
 		column-fill: balance;
-		font-size: 13px;
-		line-height: 1.65;
-		color: var(--ink-soft);
-		margin: 16px 0 0;
+		font-size: var(--fs-caption);
+		line-height: var(--lh-body);
+		color: var(--color-text-secondary);
+		margin: var(--space-4) 0 0;
 	}
 
 	.secondary-story {
-		padding-left: 48px;
+		padding-left: var(--space-12);
 	}
 
 	.secondary-story h3 {
-		font-family: 'Fraunces', serif;
-		font-size: 18px;
-		line-height: 1.25;
-		margin: 8px 0 0;
+		font-family: var(--font-display);
+		font-size: var(--fs-h2);
+		line-height: var(--lh-snug);
+		margin: var(--space-2) 0 0;
 	}
 
 	.secondary-story h3 a {
-		color: var(--ink);
+		color: var(--color-text-primary);
 		text-decoration: none;
 	}
 
 	.secondary-story h3 a:hover {
-		color: var(--terracotta-deep);
+		color: var(--color-accent);
 	}
 
 	.secondary-story .excerpt {
-		font-size: 12px;
-		line-height: 1.6;
-		color: var(--ink-soft);
-		margin: 12px 0 0;
+		font-size: var(--fs-caption);
+		line-height: var(--lh-body);
+		color: var(--color-text-secondary);
+		margin: var(--space-3) 0 0;
 	}
 
 	/* ---------- Tertiary rank grid ---------- */
 	.rank-tertiary {
-		border-top: 1px solid var(--ink);
-		padding: 48px 0;
+		border-top: var(--border-hairline) solid var(--color-border-strong);
+		padding: var(--space-12) 0;
 	}
 
 	.tertiary-grid {
@@ -348,7 +348,7 @@ const issueLabel = lead
 	}
 
 	.tertiary-item {
-		padding: 0 32px;
+		padding: 0 var(--space-8);
 	}
 
 	.tertiary-item:first-child {
@@ -360,111 +360,111 @@ const issueLabel = lead
 	}
 
 	.tertiary-item:not(:last-child) {
-		border-right: 1px solid var(--line);
+		border-right: var(--border-hairline) solid var(--color-border);
 	}
 
 	.tertiary-item h3 {
-		font-family: 'Fraunces', serif;
-		font-size: 15px;
-		line-height: 1.3;
-		margin: 8px 0 0;
+		font-family: var(--font-display);
+		font-size: var(--fs-h3);
+		line-height: var(--lh-relaxed-heading);
+		margin: var(--space-2) 0 0;
 	}
 
 	.tertiary-item h3 a {
-		color: var(--ink);
+		color: var(--color-text-primary);
 		text-decoration: none;
 	}
 
 	.tertiary-item h3 a:hover {
-		color: var(--terracotta-deep);
+		color: var(--color-accent);
 	}
 
 	/* ---------- Older entries ---------- */
 	.older-entries {
 		text-align: center;
-		padding: 40px 0;
+		padding: var(--space-10) 0;
 	}
 
 	.older-link {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 12px;
-		letter-spacing: 0.08em;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
 		text-transform: uppercase;
 		text-decoration: none;
-		color: var(--ink-soft);
-		border-bottom: 1px solid var(--line);
-		padding-bottom: 2px;
+		color: var(--color-text-secondary);
+		border-bottom: var(--border-hairline) solid var(--color-border);
+		padding-bottom: var(--space-0-5);
 	}
 
 	.older-link:hover {
-		color: var(--terracotta-deep);
-		border-color: var(--terracotta-deep);
+		color: var(--color-accent);
+		border-color: var(--color-accent);
 	}
 
 	/* ---------- Substack cross-post CTA ---------- */
 	.substack-cta {
 		text-align: center;
-		border-top: 1px solid var(--line);
-		padding: 32px 0 90px;
+		border-top: var(--border-hairline) solid var(--color-border);
+		padding: var(--space-8) 0 var(--space-22-5);
 	}
 
 	.substack-label {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 11px;
-		letter-spacing: 0.1em;
+		font-family: var(--font-mono);
+		font-size: var(--fs-eyebrow);
+		letter-spacing: var(--ls-caps);
 		text-transform: uppercase;
-		color: var(--ink-soft);
+		color: var(--color-text-muted);
 		display: block;
-		margin-bottom: 12px;
+		margin-bottom: var(--space-3);
 	}
 
 	.substack-link {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 13px;
-		letter-spacing: 0.06em;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-tight-label);
 		text-transform: uppercase;
 		text-decoration: none;
-		color: var(--terracotta-deep);
-		border-bottom: 1px solid var(--line);
-		padding-bottom: 2px;
+		color: var(--color-accent);
+		border-bottom: var(--border-hairline) solid var(--color-border);
+		padding-bottom: var(--space-0-5);
 		display: inline-block;
 	}
 
 	.substack-link:hover {
-		border-color: var(--terracotta-deep);
+		border-color: var(--color-accent);
 	}
 
 	/* ---------- Empty state ---------- */
 	.journal-empty {
-		padding: 60px 0 120px;
+		padding: var(--space-15) 0 var(--space-30);
 	}
 
 	.empty {
-		font-family: 'Fraunces', serif;
+		font-family: var(--font-display);
 		font-style: italic;
-		font-size: 20px;
-		color: var(--ink-soft);
+		font-size: var(--fs-prose-quote);
+		color: var(--color-text-secondary);
 	}
 
 	@media (max-width: 768px) {
 		.masthead {
-			padding: 32px 0 32px;
+			padding: var(--space-8) 0 var(--space-8);
 		}
 
-		.masthead h1 {
-			font-size: 26px;
-		}
+		/* .masthead h1 font-size no longer needs an override here — it now
+		   reads from --fs-display, which already drops to 26px at this
+		   breakpoint via typography.css's own media query. */
 
 		.rank-primary-inner {
 			grid-template-columns: 1fr;
-			gap: 40px;
+			gap: var(--space-10);
 		}
 
 		.lead-story {
 			border-right: none;
 			padding-right: 0;
-			border-bottom: 1px solid var(--line);
-			padding-bottom: 32px;
+			border-bottom: var(--border-hairline) solid var(--color-border);
+			padding-bottom: var(--space-8);
 		}
 
 		.lead-story .excerpt-columns {
@@ -480,7 +480,7 @@ const issueLabel = lead
 		}
 
 		.tertiary-item {
-			padding: 24px 0;
+			padding: var(--space-6) 0;
 		}
 
 		.tertiary-item:first-child {
@@ -493,7 +493,7 @@ const issueLabel = lead
 
 		.tertiary-item:not(:last-child) {
 			border-right: none;
-			border-bottom: 1px solid var(--line);
+			border-bottom: var(--border-hairline) solid var(--color-border);
 		}
 
 		.issue-bar-inner {

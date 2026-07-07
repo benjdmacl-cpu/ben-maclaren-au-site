@@ -17,31 +17,31 @@
 
 <style>
 	.approach {
-		padding: 110px 0;
-		background: var(--cream);
+		padding: var(--space-27-5) 0;
+		background: var(--color-bg-page);
 	}
 
 	.approach .wrap {
 		display: grid;
 		grid-template-columns: 0.85fr 1.15fr;
-		gap: 80px;
+		gap: var(--space-20);
 		align-items: start;
 	}
 
 	.approach .eyebrow {
-		margin-bottom: 18px;
+		margin-bottom: var(--space-5-5);
 		display: block;
 	}
 
 	.approach h2 {
-		font-size: 34px;
-		line-height: 1.15;
+		font-size: var(--fs-display);
+		line-height: var(--lh-article-title);
 	}
 
 	.approach-body p {
-		font-size: 16.5px;
-		color: var(--ink-soft);
-		margin: 0 0 20px;
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-secondary);
+		margin: 0 0 var(--space-5);
 	}
 
 	.approach-body p:last-child {
@@ -49,19 +49,19 @@
 	}
 
 	.pull {
-		font-family: 'Fraunces', serif;
+		font-family: var(--font-display);
 		font-style: italic;
-		font-size: 22px;
-		color: var(--ink);
-		border-left: 2px solid var(--terracotta);
-		padding-left: 22px;
-		margin: 32px 0;
+		font-size: var(--fs-prose-quote);
+		color: var(--color-text-primary);
+		border-left: var(--border-strong) solid var(--color-accent-link);
+		padding-left: var(--space-5-5);
+		margin: var(--space-8) 0;
 	}
 
 	@media (max-width: 820px) {
 		.approach .wrap {
 			grid-template-columns: 1fr;
-			gap: 36px;
+			gap: var(--space-9);
 		}
 	}
 </style>

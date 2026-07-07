@@ -27,9 +27,9 @@
 
 <style>
 	.contact {
-		background: var(--ink);
-		color: var(--cream);
-		padding: 100px 0 80px;
+		background: var(--color-bg-dark);
+		color: var(--color-text-on-dark);
+		padding: var(--space-25) 0 var(--space-20);
 		position: relative;
 		overflow: hidden;
 	}
@@ -54,49 +54,49 @@
 	}
 
 	.contact .eyebrow {
-		color: var(--terracotta-on-dark);
-		margin-bottom: 16px;
+		color: var(--color-accent-on-dark);
+		margin-bottom: var(--space-4);
 		display: block;
 	}
 
 	.contact h2 {
-		color: var(--cream);
-		font-size: 38px;
+		color: var(--color-text-on-dark);
+		font-size: var(--fs-contact-heading);
 		max-width: 520px;
-		margin-bottom: 56px;
+		margin-bottom: var(--space-14);
 	}
 
 	.contact-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		gap: 44px;
+		gap: var(--space-11);
 	}
 
 	.contact-item .label {
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 11.5px;
-		letter-spacing: 0.12em;
+		font-family: var(--font-mono);
+		font-size: var(--fs-meta-label);
+		letter-spacing: var(--ls-meta-label);
 		text-transform: uppercase;
-		color: var(--terracotta-on-dark-muted);
-		margin-bottom: 10px;
+		color: var(--color-accent-on-dark-muted);
+		margin-bottom: var(--space-2-5);
 		display: block;
 	}
 
 	.contact-item .value {
-		font-family: 'Fraunces', serif;
-		font-size: 21px;
-		color: var(--cream);
+		font-family: var(--font-display);
+		font-size: var(--fs-tagline);
+		color: var(--color-text-on-dark);
 		text-decoration: none;
 	}
 
 	.contact-item .value:hover {
-		color: var(--terracotta-on-dark-hover);
+		color: var(--color-accent-on-dark-hover);
 	}
 
 	@media (max-width: 720px) {
 		.contact-grid {
 			grid-template-columns: 1fr;
-			gap: 32px;
+			gap: var(--space-8);
 		}
 	}
 </style>

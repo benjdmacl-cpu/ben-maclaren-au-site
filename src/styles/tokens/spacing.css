@@ -1,0 +1,59 @@
+:root {
+	/* Spacing scale — the original 9 tokens, plus --space-9, which fills the
+	   exact gap the scale itself left between --space-8 and --space-10. */
+	--space-1: 4px;
+	--space-2: 8px;
+	--space-3: 12px;
+	--space-4: 16px;
+	--space-5: 20px;
+	--space-6: 24px;
+	--space-7: 28px;
+	--space-8: 32px;
+	--space-9: 36px; /* added — see rollout notes */
+	--space-10: 40px;
+
+	/* Half-steps — values that sit exactly halfway between two scale rungs.
+	   Named --space-N-5 = the step halfway between --space-N and
+	   --space-(N+1), consistent with the convention used elsewhere (e.g.
+	   Tailwind's spacing scale) — note this corrects a naming bug from the
+	   original Phase 3 pass, where these were numbered one step too high
+	   (--space-6-5 held 22px instead of 26px, etc). Values are unchanged;
+	   only the names moved. See rollout notes. */
+	--space-0-5: 2px;
+	--space-1-5: 6px;
+	--space-2-5: 10px;
+	--space-3-5: 14px;
+	--space-4-5: 18px;
+	--space-5-5: 22px;
+	--space-6-5: 26px; /* added for homepage — Nav padding, Hero margin/gap */
+	--space-7-5: 30px; /* added for homepage — Hero button padding-x, Footer padding */
+	--space-8-5: 34px; /* added for homepage — Nav-links gap */
+
+	/* Large structural spacing, used for section-level padding — the given
+	   scale tops out at --space-10 (40px), well below what the page's own
+	   sections actually use. 44/48/60/80/120 continue the scale's own ×4
+	   pattern cleanly. 90 and 110 do not — see rollout notes. */
+	--space-11: 44px;
+	--space-12: 48px;
+	--space-13: 52px; /* added for homepage — Audiences h2 margin-bottom */
+	--space-14: 56px; /* added for homepage — Meet grid gap */
+	--space-15: 60px;
+	--space-20: 80px;
+	--space-22-5: 90px; /* off-grid — not a multiple of 4, see rollout notes */
+	--space-25: 100px; /* added for homepage — Contact top padding */
+	--space-27-5: 110px; /* off-grid — not a multiple of 4, see rollout notes */
+	--space-30: 120px;
+	--space-32-5: 130px; /* added for homepage — Hero bottom padding */
+
+	/* Border widths */
+	--border-hairline: 1px;
+	--border-strong: 2px;
+
+	/* Radius — --radius-sm covers the small 2px uses (inline code, homepage
+	   CTA buttons). --radius-card was originally specified for Journal,
+	   which turned out to have no card component to attach it to (see
+	   earlier rollout notes) — the Resources page is the first thing that
+	   actually needs it. */
+	--radius-sm: 2px;
+	--radius-card: 12px;
+}

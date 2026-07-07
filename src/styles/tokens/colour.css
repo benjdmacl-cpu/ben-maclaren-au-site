@@ -1,0 +1,49 @@
+:root {
+	/* Semantic color roles for the Journal system. These alias the site's
+	   real palette (defined in ../global.css) rather than introducing a
+	   second, competing set of raw hex values — see rollout notes. */
+
+	/* Surfaces */
+	--color-bg-page: var(--cream);
+	--color-bg-card: var(--cream-deep);
+
+	/* Text */
+	--color-text-primary: var(--ink);
+	--color-text-secondary: var(--ink-soft);
+	--color-text-muted: var(--ink-soft); /* aliases secondary, not --sage —
+	                        see contrast note in rollout notes */
+
+	/* Accent */
+	--color-accent: var(--terracotta-deep); /* the contrast-safe tone used for
+	                        any accent text (kickers, tags, CTAs, hovers) */
+	--color-accent-link: var(--terracotta); /* added — the lighter resting
+	                        tone used only by underlined inline links and
+	                        decorative accents; see contrast flag in rollout
+	                        notes */
+	--color-accent-solid: var(--terracotta); /* added — homepage solid-fill
+	                        CTA backgrounds (Nav/Hero buttons). Same raw value
+	                        as --color-accent-link today, but a distinct role
+	                        (fill vs. underlined text) that may not always
+	                        share a value, so it gets its own token */
+	--color-on-accent: var(--cream); /* added — text color for content placed
+	                        on a solid --color-accent-solid fill (button
+	                        labels). Distinct from --color-text-on-dark below,
+	                        even though both alias --cream today: one is text
+	                        on a button, the other is text on the dark
+	                        section background */
+
+	/* Borders */
+	--color-border: var(--line);
+	--color-border-strong: var(--ink);
+
+	/* Dark-section variants — Contact and Footer sit on an inverted (--ink)
+	   background, so text/accent/border colors need their own contrast-safe
+	   set rather than reusing the light-background tokens above. */
+	--color-bg-dark: var(--ink);
+	--color-text-on-dark: var(--cream);
+	--color-accent-on-dark: var(--terracotta-on-dark);
+	--color-accent-on-dark-muted: var(--terracotta-on-dark-muted);
+	--color-accent-on-dark-hover: var(--terracotta-on-dark-hover);
+	--color-text-muted-on-dark: var(--sage-on-dark);
+	--color-border-on-dark: var(--line-on-dark);
+}

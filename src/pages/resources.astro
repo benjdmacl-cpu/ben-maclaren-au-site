@@ -1,0 +1,262 @@
+---
+import { getCollection } from 'astro:content';
+import BreathingCircle from '../components/BreathingCircle.astro';
+import ResourceIcon from '../components/ResourceIcon.astro';
+import Layout from '../layouts/Layout.astro';
+
+// Fixed for now per the design brief — not an open-ended taxonomy. Segment
+// `slug`s double as the section `id`s below, which is what a future
+// anchor-scroll segment nav (see .segment-nav below) would target.
+const SEGMENTS = [
+	{
+		slug: 'act-therapy',
+		label: 'ACT therapy',
+		description: 'tools grounded in acceptance and commitment work',
+	},
+	{
+		slug: 'mindfulness',
+		label: 'Mindfulness',
+		description: 'practices for slowing down and coming back to the present',
+	},
+	{
+		slug: 'relationships',
+		label: 'Relationships',
+		description: 'tools for communication, conflict, and connection',
+	},
+	{
+		slug: 'life-design',
+		label: 'Life design',
+		description: "reflection and planning for what's next",
+	},
+] as const;
+
+const INTERACTION_LABELS: Record<string, string> = {
+	interactive: 'Try it here',
+	worksheet: 'Worksheet',
+};
+
+const allResources = await getCollection('resources');
+
+const segments = SEGMENTS.map((segment) => ({
+	...segment,
+	resources: allResources.filter((resource) => resource.data.segment === segment.slug),
+}));
+---
+
+<Layout
+	title="Resources — Ben Maclaren"
+	description="Free tools and worksheets for ACT therapy, mindfulness, relationships, and life design from Ben Maclaren, counsellor in Canberra, ACT."
+>
+	<div class="wrap top-nav">
+		<a class="back-link" href="/">← Home</a>
+	</div>
+
+	<section class="resources-header">
+		<div class="wrap">
+			<span class="eyebrow">Resources</span>
+			<h1>Things to try, right now.</h1>
+		</div>
+	</section>
+
+	<!--
+		Segment nav strip — labels only for now, not yet functional as
+		anchor/filter links. This is prepped for future anchor-scroll
+		navigation once segments grow long enough to need it: each label
+		below corresponds 1:1 with a segment `id` further down the page
+		(act-therapy, mindfulness, relationships, life-design). Wiring is
+		deferred per the design brief.
+	-->
+	<nav class="segment-nav" aria-label="Resource segments">
+		<div class="wrap segment-nav-inner">
+			{
+				SEGMENTS.map((segment, i) => (
+					<>
+						{i > 0 && <span class="segment-nav-sep">·</span>}
+						<span class="segment-nav-label">{segment.label}</span>
+					</>
+				))
+			}
+		</div>
+	</nav>
+
+	{
+		segments.map((segment) => (
+			<section class="segment" id={segment.slug}>
+				<div class="wrap">
+					<div class="segment-header">
+						<span class="segment-title">{segment.label}</span>
+						<span class="segment-desc"> — {segment.description}</span>
+					</div>
+					<div class="resource-grid">
+						{segment.resources.map((resource) => {
+							const href = resource.data.downloadUrl;
+							const CardTag = href ? 'a' : 'div';
+							return (
+								<CardTag
+									class:list={['resource-card', href && 'resource-card--linked']}
+									{...(href ? { href, target: '_blank', rel: 'noopener noreferrer' } : {})}
+								>
+									{resource.data.featured ? (
+										<BreathingCircle />
+									) : (
+										<ResourceIcon icon={resource.data.icon} />
+									)}
+									<h3 class="resource-title">{resource.data.title}</h3>
+									<span class="resource-type">
+										{INTERACTION_LABELS[resource.data.interactionType]}
+									</span>
+								</CardTag>
+							);
+						})}
+					</div>
+				</div>
+			</section>
+		))
+	}
+</Layout>
+
+<style>
+	.top-nav {
+		padding-top: var(--space-10);
+	}
+
+	.back-link {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--color-text-secondary);
+		display: inline-block;
+	}
+
+	.back-link:hover {
+		color: var(--color-accent);
+	}
+
+	/* ---------- Page header ---------- */
+	.resources-header {
+		padding: var(--space-20) 0 var(--space-10);
+	}
+
+	.resources-header .eyebrow {
+		margin-bottom: var(--space-5-5);
+		display: block;
+	}
+
+	.resources-header h1 {
+		font-size: var(--fs-display);
+		max-width: 640px;
+	}
+
+	/* ---------- Segment nav strip ---------- */
+	.segment-nav {
+		border-top: var(--border-hairline) solid var(--color-border-strong);
+		border-bottom: var(--border-hairline) solid var(--color-border-strong);
+		padding: var(--space-4-5) 0;
+	}
+
+	.segment-nav-inner {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: var(--space-2-5) var(--space-4);
+	}
+
+	.segment-nav-label {
+		font-family: var(--font-mono);
+		font-size: var(--fs-eyebrow);
+		letter-spacing: var(--ls-caps);
+		text-transform: uppercase;
+		color: var(--color-text-secondary);
+	}
+
+	.segment-nav-sep {
+		color: var(--color-text-muted);
+		font-size: var(--fs-eyebrow);
+	}
+
+	/* ---------- Segments ---------- */
+	.segment {
+		padding: var(--space-20) 0;
+		border-top: var(--border-hairline) solid var(--color-border);
+	}
+
+	.segment:first-of-type {
+		border-top: none;
+	}
+
+	.segment-header {
+		margin-bottom: var(--space-8);
+	}
+
+	.segment-title {
+		font-family: var(--font-display);
+		font-size: var(--fs-tagline);
+		font-weight: var(--fw-medium);
+		color: var(--color-text-primary);
+	}
+
+	.segment-desc {
+		font-size: var(--fs-caption);
+		color: var(--color-text-muted);
+	}
+
+	/* ---------- Resource cards ---------- */
+	.resource-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-6);
+	}
+
+	.resource-card {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-3);
+		background: var(--color-bg-card);
+		border-radius: var(--radius-card);
+		padding: var(--space-6);
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.resource-card--linked {
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.resource-card--linked:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 10px 24px rgba(56, 44, 36, 0.1);
+	}
+
+	.resource-title {
+		font-family: var(--font-display);
+		font-size: var(--fs-h3);
+		font-weight: var(--fw-medium);
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.resource-type {
+		font-family: var(--font-mono);
+		font-size: var(--fs-micro);
+		letter-spacing: var(--ls-caps);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	@media (max-width: 720px) {
+		.segment {
+			padding: var(--space-12) 0;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.resource-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
