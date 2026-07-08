@@ -1,0 +1,370 @@
+---
+// Sibling to JournalPost.astro — deliberately reuses its DNA (back-link,
+// meta row treatment, ~readable body width, SourcesBlock) so the two feel
+// like one site. What differs is the centre of the page: an article is
+// read, a resource is used, so this renders a hero slot (interactive,
+// download, or both) plus flexible instructions instead of prose.
+import BreathingPaceInteractive from '../components/BreathingPaceInteractive.astro';
+import ResourceIcon from '../components/ResourceIcon.astro';
+import SourcesBlock from '../components/SourcesBlock.astro';
+import { primaryInteractionLabel, SEGMENT_LABELS } from '../lib/resource-labels';
+import Layout from './Layout.astro';
+
+type Reference = { label: string; url?: string };
+type Step = { title: string; body?: string };
+
+type Props = {
+	title: string;
+	segment: string;
+	intro: string;
+	interactionType: string[];
+	componentSlug?: string;
+	downloadUrl?: string;
+	downloadMeta?: string;
+	instructionsLabel: string;
+	steps?: Step[];
+	instructionsProse?: string;
+	references?: Reference[];
+};
+
+const {
+	title,
+	segment,
+	intro,
+	interactionType,
+	componentSlug,
+	downloadUrl,
+	downloadMeta,
+	instructionsLabel,
+	steps,
+	instructionsProse,
+	references,
+} = Astro.props;
+
+const hasInteractive = interactionType.includes('interactive');
+const hasWorksheet = interactionType.includes('worksheet');
+const typeLabel = primaryInteractionLabel(interactionType);
+const segmentLabel = SEGMENT_LABELS[segment];
+
+// Only "breathing-pace" is built for this pass — the mechanism is in place
+// for more interactives to register here later (see design brief §6).
+const INTERACTIVE_COMPONENTS: Record<string, unknown> = {
+	'breathing-pace': BreathingPaceInteractive,
+};
+
+let InteractiveComponent;
+if (hasInteractive) {
+	InteractiveComponent = componentSlug ? INTERACTIVE_COMPONENTS[componentSlug] : undefined;
+	if (!InteractiveComponent) {
+		throw new Error(
+			`ResourcePost: "${title}" declares interactionType "interactive" but componentSlug "${componentSlug}" has no registered component.`,
+		);
+	}
+}
+
+const hasSteps = Boolean(steps && steps.length > 0);
+const hasProse = Boolean(instructionsProse);
+const showInstructions = hasSteps || hasProse;
+const showDownloadStrip = hasInteractive && hasWorksheet;
+---
+
+<Layout title={`${title} — Resources`} description={intro}>
+	<article class="resource-article">
+		<div class="wrap">
+			<div class="meta-row">
+				<a class="back-link" href="/resources">← Resources</a>
+				<span class="type-label">{segmentLabel} · {typeLabel}</span>
+			</div>
+
+			<div class="article-head">
+				<h1>{title}</h1>
+				<p class="intro">{intro}</p>
+			</div>
+
+			<div class="hero-panel">
+				{
+					hasInteractive && InteractiveComponent ? (
+						<InteractiveComponent />
+					) : (
+						<div class="download-hero">
+							<ResourceIcon icon="file-text" size={40} />
+							<p class="download-title">{title}</p>
+							{downloadMeta && <p class="download-meta">{downloadMeta}</p>}
+							{downloadUrl ? (
+								<a class="download-btn" href={downloadUrl} target="_blank" rel="noopener noreferrer">
+									<ResourceIcon icon="download" /> Download
+								</a>
+							) : (
+								<span class="download-btn download-btn--pending">Coming soon</span>
+							)}
+						</div>
+					)
+				}
+			</div>
+
+			{
+				showInstructions && (
+					<div class="instructions">
+						<span class="instructions-label">{instructionsLabel}</span>
+						{hasSteps ? (
+							<ol class="steps">
+								{steps!.map((step, i) => (
+									<li class="step">
+										<span class="step-number">{String(i + 1).padStart(2, '0')}</span>
+										<div class="step-content">
+											<p class="step-title">{step.title}</p>
+											{step.body && <p class="step-body">{step.body}</p>}
+										</div>
+									</li>
+								))}
+							</ol>
+						) : (
+							<p class="instructions-prose">{instructionsProse}</p>
+						)}
+					</div>
+				)
+			}
+
+			{
+				showDownloadStrip && (
+					<div class="offline-strip">
+						<ResourceIcon icon="download" />
+						<span>Prefer it offline?</span>
+						{downloadUrl ? (
+							<a href={downloadUrl} target="_blank" rel="noopener noreferrer">
+								Download the printable version →
+							</a>
+						) : (
+							<span class="offline-strip-pending">Printable version coming soon</span>
+						)}
+					</div>
+				)
+			}
+
+			<SourcesBlock references={references} />
+		</div>
+	</article>
+</Layout>
+
+<style>
+	.resource-article {
+		padding: var(--space-22-5) 0 var(--space-27-5);
+	}
+
+	.wrap {
+		max-width: 600px;
+	}
+
+	.meta-row {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: var(--space-2) var(--space-5);
+		margin-bottom: var(--space-12);
+	}
+
+	.back-link {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--color-text-secondary);
+	}
+
+	.back-link:hover {
+		color: var(--color-accent);
+	}
+
+	.type-label {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-wide-label);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.article-head {
+		margin-bottom: var(--space-12);
+	}
+
+	.article-head h1 {
+		font-size: var(--fs-resource-title);
+		font-weight: var(--fw-medium);
+		line-height: var(--lh-tight);
+		margin-bottom: var(--space-4);
+	}
+
+	.intro {
+		font-size: var(--fs-h3);
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	/* ---------- Hero panel ---------- */
+	.hero-panel {
+		background: var(--color-bg-card);
+		border-radius: var(--radius-card);
+		padding: var(--space-14) var(--space-8);
+		margin-bottom: var(--space-12);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.download-hero {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--space-3);
+		text-align: center;
+	}
+
+	.download-title {
+		font-family: var(--font-display);
+		font-size: var(--fs-h2);
+		font-weight: var(--fw-medium);
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.download-meta {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		color: var(--color-text-muted);
+		margin: 0 0 var(--space-2);
+	}
+
+	.download-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2);
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--color-on-accent);
+		background: var(--color-accent);
+		padding: var(--space-4) var(--space-7-5);
+		border-radius: var(--radius-sm);
+		transition:
+			filter 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.download-btn:hover {
+		filter: brightness(0.9);
+		transform: translateY(-1px);
+	}
+
+	.download-btn--pending {
+		color: var(--color-text-muted);
+		background: var(--color-bg-page);
+		cursor: default;
+	}
+
+	.download-btn--pending:hover {
+		filter: none;
+		transform: none;
+	}
+
+	/* ---------- Instructions ---------- */
+	.instructions {
+		margin-bottom: var(--space-12);
+	}
+
+	.instructions-label {
+		font-family: var(--font-mono);
+		font-size: var(--fs-eyebrow);
+		letter-spacing: var(--ls-caps);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		display: block;
+		margin-bottom: var(--space-5);
+	}
+
+	.instructions-prose {
+		font-size: var(--fs-h3);
+		line-height: var(--lh-body);
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.steps {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+	}
+
+	.step {
+		display: flex;
+		gap: var(--space-4);
+	}
+
+	.step-number {
+		flex: 0 0 20px;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		color: var(--color-accent);
+	}
+
+	.step-content {
+		flex: 1;
+	}
+
+	.step-title {
+		font-size: var(--fs-h3);
+		font-weight: var(--fw-medium);
+		color: var(--color-text-primary);
+		margin: 0 0 var(--space-1);
+	}
+
+	.step-body {
+		font-size: var(--fs-caption);
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	/* ---------- Offline download strip (interactive + worksheet) ---------- */
+	.offline-strip {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		color: var(--color-text-muted);
+		margin-bottom: var(--space-12);
+	}
+
+	.offline-strip a {
+		color: var(--color-accent-link);
+		text-decoration: underline;
+	}
+
+	.offline-strip a:hover {
+		color: var(--color-accent);
+	}
+
+	@media (max-width: 720px) {
+		.resource-article {
+			padding: var(--space-15) 0 var(--space-20);
+		}
+	}
+
+	@media (max-width: 480px) {
+		.meta-row {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: var(--space-2-5);
+		}
+
+		.hero-panel {
+			padding: var(--space-8) var(--space-4);
+		}
+	}
+</style>

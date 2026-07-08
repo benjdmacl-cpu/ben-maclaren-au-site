@@ -15,6 +15,8 @@ import clipboardHeart from '@tabler/icons/outline/clipboard-heart.svg?raw';
 import chartPie from '@tabler/icons/outline/chart-pie.svg?raw';
 import target from '@tabler/icons/outline/target.svg?raw';
 import notebook from '@tabler/icons/outline/notebook.svg?raw';
+import fileText from '@tabler/icons/outline/file-text.svg?raw';
+import download from '@tabler/icons/outline/download.svg?raw';
 
 const ICONS: Record<string, string> = {
 	compass,
@@ -30,13 +32,16 @@ const ICONS: Record<string, string> = {
 	'chart-pie': chartPie,
 	target,
 	notebook,
+	'file-text': fileText,
+	download,
 };
 
 interface Props {
 	icon: string;
+	size?: number;
 }
 
-const { icon } = Astro.props;
+const { icon, size = 18 } = Astro.props;
 const svg = ICONS[icon];
 
 if (!svg) {
@@ -46,7 +51,7 @@ if (!svg) {
 }
 ---
 
-<span class="resource-icon" set:html={svg} />
+<span class="resource-icon" style={`--icon-size: ${size}px`} set:html={svg} />
 
 <style>
 	.resource-icon {
@@ -55,7 +60,7 @@ if (!svg) {
 	}
 
 	.resource-icon :global(svg) {
-		width: 18px;
-		height: 18px;
+		width: var(--icon-size, 18px);
+		height: var(--icon-size, 18px);
 	}
 </style>

@@ -1,6 +1,7 @@
 ---
 import FormattedDate from '../components/FormattedDate.astro';
 import JournalKicker from '../components/JournalKicker.astro';
+import SourcesBlock from '../components/SourcesBlock.astro';
 import Layout from './Layout.astro';
 
 type Reference = { label: string; url?: string };
@@ -72,26 +73,7 @@ const hasReferences = Boolean(references && references.length > 0);
 			<div class="prose">
 				<slot />
 			</div>
-			{
-				hasReferences && (
-					<div class="references" id="references">
-						<span class="references-kicker">Sources</span>
-						<ul>
-							{references.map((ref) => (
-								<li>
-									{ref.url ? (
-										<a href={ref.url} target="_blank" rel="noopener noreferrer">
-											{ref.label}
-										</a>
-									) : (
-										<span>{ref.label}</span>
-									)}
-								</li>
-							))}
-						</ul>
-					</div>
-				)
-			}
+			<SourcesBlock references={references} />
 		</div>
 	</article>
 </Layout>
@@ -243,45 +225,6 @@ const hasReferences = Boolean(references && references.length > 0);
 		background: var(--color-bg-card);
 		padding: var(--space-0-5) var(--space-1-5);
 		border-radius: var(--radius-sm);
-	}
-
-	/* ---------- References / sources ---------- */
-	.references {
-		max-width: 720px;
-		margin: var(--space-12) auto 0;
-		padding-top: var(--space-8);
-		border-top: var(--border-hairline) solid var(--color-border);
-	}
-
-	.references-kicker {
-		font-family: var(--font-mono);
-		font-size: var(--fs-micro);
-		letter-spacing: var(--ls-caps);
-		text-transform: uppercase;
-		color: var(--color-text-muted);
-		display: block;
-		margin-bottom: var(--space-4);
-	}
-
-	.references ul {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.references li {
-		font-size: var(--fs-caption);
-		line-height: var(--lh-loose);
-		color: var(--color-text-secondary);
-	}
-
-	.references a {
-		color: var(--color-accent-link);
-		text-decoration: underline;
-	}
-
-	.references a:hover {
-		color: var(--color-accent);
 	}
 
 	@media (max-width: 720px) {

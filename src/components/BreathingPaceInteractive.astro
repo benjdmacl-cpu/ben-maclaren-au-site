@@ -1,0 +1,197 @@
+---
+// The hero interactive for the paced-breathing resource (componentSlug:
+// "breathing-pace"). Larger and genuinely controllable version of
+// BreathingCircle.astro, which stays as the small decorative index-card
+// preview. Pure vanilla JS — no framework — since this is the only
+// interactive resource in scope for this pass (see design brief §6).
+---
+
+<div class="breathing-interactive" id="breathing-pace">
+	<div class="breathing-visual" aria-hidden="true">
+		<span class="ring"></span>
+		<span class="dot"></span>
+	</div>
+	<p class="breathing-label" role="status" aria-live="polite">Breathe in…</p>
+	<div class="breathing-controls">
+		<button type="button" class="breathing-btn" data-action="toggle">Pause</button>
+		<button type="button" class="breathing-btn" data-action="reset">Reset</button>
+	</div>
+	<p class="breathing-fallback">
+		Breathe in for a few seconds, hold briefly, then breathe out slowly. Repeat at your own pace.
+	</p>
+</div>
+
+<style>
+	.breathing-interactive {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--space-5);
+		text-align: center;
+	}
+
+	.breathing-visual {
+		position: relative;
+		width: 160px;
+		height: 160px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.ring {
+		position: absolute;
+		inset: 0;
+		border: var(--border-hairline) solid var(--color-accent);
+		border-radius: 50%;
+		opacity: 0.35;
+	}
+
+	.dot {
+		display: block;
+		width: 60%;
+		height: 60%;
+		border-radius: 50%;
+		background: var(--color-accent);
+		animation: breathe 12s ease-in-out infinite;
+	}
+
+	@keyframes breathe {
+		0% {
+			transform: scale(0.55);
+			opacity: 0.7;
+		}
+		33% {
+			transform: scale(1);
+			opacity: 1;
+		}
+		50% {
+			transform: scale(1);
+			opacity: 1;
+		}
+		100% {
+			transform: scale(0.55);
+			opacity: 0.7;
+		}
+	}
+
+	.breathing-label {
+		font-family: var(--font-display);
+		font-style: italic;
+		font-size: var(--fs-tagline);
+		color: var(--color-text-primary);
+		margin: 0;
+		min-height: 1.2em;
+	}
+
+	.breathing-controls {
+		display: flex;
+		gap: var(--space-4);
+	}
+
+	.breathing-btn {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		color: var(--color-text-primary);
+		background: none;
+		border: var(--border-hairline) solid var(--color-border-strong);
+		border-radius: var(--radius-sm);
+		padding: var(--space-2-5) var(--space-4-5);
+		cursor: pointer;
+		transition:
+			border-color 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.breathing-btn:hover {
+		border-color: var(--color-accent);
+		color: var(--color-accent);
+	}
+
+	.breathing-fallback {
+		display: none;
+		font-size: var(--fs-caption);
+		color: var(--color-text-secondary);
+		max-width: 360px;
+		margin: 0;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.dot {
+			animation: none;
+			transform: scale(0.85);
+		}
+
+		.breathing-label,
+		.breathing-controls {
+			display: none;
+		}
+
+		.breathing-fallback {
+			display: block;
+		}
+	}
+</style>
+
+<script>
+	const root = document.getElementById('breathing-pace');
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	if (root && !prefersReducedMotion) {
+		const dot = root.querySelector<HTMLElement>('.dot');
+		const label = root.querySelector<HTMLElement>('.breathing-label');
+		const toggleBtn = root.querySelector<HTMLButtonElement>('[data-action="toggle"]');
+		const resetBtn = root.querySelector<HTMLButtonElement>('[data-action="reset"]');
+
+		const PHASES = [
+			{ text: 'Breathe in…', duration: 4000 },
+			{ text: 'Hold…', duration: 2000 },
+			{ text: 'Breathe out…', duration: 6000 },
+		];
+
+		let phaseIndex = 0;
+		let timer: ReturnType<typeof setTimeout> | null = null;
+		let paused = false;
+
+		function runPhase() {
+			if (!label) return;
+			label.textContent = PHASES[phaseIndex].text;
+			timer = setTimeout(() => {
+				phaseIndex = (phaseIndex + 1) % PHASES.length;
+				runPhase();
+			}, PHASES[phaseIndex].duration);
+		}
+
+		runPhase();
+
+		toggleBtn?.addEventListener('click', () => {
+			paused = !paused;
+			if (paused) {
+				if (timer) clearTimeout(timer);
+				if (dot) dot.style.animationPlayState = 'paused';
+				toggleBtn.textContent = 'Resume';
+			} else {
+				if (dot) dot.style.animationPlayState = 'running';
+				toggleBtn.textContent = 'Pause';
+				runPhase();
+			}
+		});
+
+		resetBtn?.addEventListener('click', () => {
+			if (timer) clearTimeout(timer);
+			phaseIndex = 0;
+			paused = false;
+			if (toggleBtn) toggleBtn.textContent = 'Pause';
+			if (dot) {
+				dot.style.animation = 'none';
+				// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+				dot.offsetHeight; // force reflow so the animation restarts from 0
+				dot.style.animation = '';
+				dot.style.animationPlayState = 'running';
+			}
+			runPhase();
+		});
+	}
+</script>

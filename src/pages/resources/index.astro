@@ -1,39 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
-import BreathingCircle from '../components/BreathingCircle.astro';
-import ResourceIcon from '../components/ResourceIcon.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Fixed for now per the design brief — not an open-ended taxonomy. Segment
-// `slug`s double as the section `id`s below, which is what a future
-// anchor-scroll segment nav (see .segment-nav below) would target.
-const SEGMENTS = [
-	{
-		slug: 'act-therapy',
-		label: 'ACT therapy',
-		description: 'tools grounded in acceptance and commitment work',
-	},
-	{
-		slug: 'mindfulness',
-		label: 'Mindfulness',
-		description: 'practices for slowing down and coming back to the present',
-	},
-	{
-		slug: 'relationships',
-		label: 'Relationships',
-		description: 'tools for communication, conflict, and connection',
-	},
-	{
-		slug: 'life-design',
-		label: 'Life design',
-		description: "reflection and planning for what's next",
-	},
-] as const;
-
-const INTERACTION_LABELS: Record<string, string> = {
-	interactive: 'Try it here',
-	worksheet: 'Worksheet',
-};
+import BreathingCircle from '../../components/BreathingCircle.astro';
+import ResourceIcon from '../../components/ResourceIcon.astro';
+import Layout from '../../layouts/Layout.astro';
+import { primaryInteractionLabel, SEGMENTS } from '../../lib/resource-labels';
 
 const allResources = await getCollection('resources');
 
@@ -88,26 +58,19 @@ const segments = SEGMENTS.map((segment) => ({
 						<span class="segment-desc"> — {segment.description}</span>
 					</div>
 					<div class="resource-grid">
-						{segment.resources.map((resource) => {
-							const href = resource.data.downloadUrl;
-							const CardTag = href ? 'a' : 'div';
-							return (
-								<CardTag
-									class:list={['resource-card', href && 'resource-card--linked']}
-									{...(href ? { href, target: '_blank', rel: 'noopener noreferrer' } : {})}
-								>
-									{resource.data.featured ? (
-										<BreathingCircle />
-									) : (
-										<ResourceIcon icon={resource.data.icon} />
-									)}
-									<h3 class="resource-title">{resource.data.title}</h3>
-									<span class="resource-type">
-										{INTERACTION_LABELS[resource.data.interactionType]}
-									</span>
-								</CardTag>
-							);
-						})}
+						{segment.resources.map((resource) => (
+							<a class="resource-card" href={`/resources/${resource.id}/`}>
+								{resource.data.featured ? (
+									<BreathingCircle />
+								) : (
+									<ResourceIcon icon={resource.data.icon} />
+								)}
+								<h3 class="resource-title">{resource.data.title}</h3>
+								<span class="resource-type">
+									{primaryInteractionLabel(resource.data.interactionType)}
+								</span>
+							</a>
+						))}
 					</div>
 				</div>
 			</section>
@@ -219,15 +182,12 @@ const segments = SEGMENTS.map((segment) => ({
 		padding: var(--space-6);
 		text-decoration: none;
 		color: inherit;
-	}
-
-	.resource-card--linked {
 		transition:
 			transform 0.15s ease,
 			box-shadow 0.15s ease;
 	}
 
-	.resource-card--linked:hover {
+	.resource-card:hover {
 		transform: translateY(-2px);
 		box-shadow: 0 10px 24px rgba(56, 44, 36, 0.1);
 	}

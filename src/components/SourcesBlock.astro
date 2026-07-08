@@ -1,0 +1,74 @@
+---
+// Shared by the Journal article page and the Resource detail page — both
+// cite sources with identical styling. Renders nothing if there are no
+// references, so callers can pass the field through unconditionally.
+type Reference = { label: string; url?: string };
+
+interface Props {
+	references?: Reference[];
+}
+
+const { references } = Astro.props;
+const hasReferences = Boolean(references && references.length > 0);
+---
+
+{
+	hasReferences && (
+		<div class="references" id="references">
+			<span class="references-kicker">Sources</span>
+			<ul>
+				{references!.map((ref) => (
+					<li>
+						{ref.url ? (
+							<a href={ref.url} target="_blank" rel="noopener noreferrer">
+								{ref.label}
+							</a>
+						) : (
+							<span>{ref.label}</span>
+						)}
+					</li>
+				))}
+			</ul>
+		</div>
+	)
+}
+
+<style>
+	.references {
+		max-width: 720px;
+		margin: var(--space-12) auto 0;
+		padding-top: var(--space-8);
+		border-top: var(--border-hairline) solid var(--color-border);
+	}
+
+	.references-kicker {
+		font-family: var(--font-mono);
+		font-size: var(--fs-micro);
+		letter-spacing: var(--ls-caps);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		display: block;
+		margin-bottom: var(--space-4);
+	}
+
+	.references ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.references li {
+		font-size: var(--fs-caption);
+		line-height: var(--lh-loose);
+		color: var(--color-text-secondary);
+	}
+
+	.references a {
+		color: var(--color-accent-link);
+		text-decoration: underline;
+	}
+
+	.references a:hover {
+		color: var(--color-accent);
+	}
+</style>

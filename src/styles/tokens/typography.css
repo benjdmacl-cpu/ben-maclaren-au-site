@@ -45,6 +45,12 @@
 	                       for body text */
 	--fs-meta-label: 11.5px; /* Contact .label, Footer p */
 
+	/* Font sizes — added for the Resource detail page. --fs-resource-title is
+	   deliberately a fixed 28px, not a reuse of --fs-article-title's fluid
+	   32–44px clamp — the brief specifies a smaller, non-fluid title for
+	   resources, distinct from Journal's long-form article scale. */
+	--fs-resource-title: 28px;
+
 	/* Line heights */
 	--lh-tight: 1.2;
 	--lh-snug: 1.25;
