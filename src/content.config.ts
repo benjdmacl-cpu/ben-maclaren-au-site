@@ -13,16 +13,21 @@ const referenceSchema = z.array(
 const journal = defineCollection({
 	// Load Markdown and MDX files in the `src/content/journal/` directory.
 	loader: glob({ base: './src/content/journal', pattern: '**/*.{md,mdx}' }),
-	// title, description, date, category, and articleType are required. draft,
-	// references, and substackUrl are optional — draft defaults to false
-	// (set draft: true to keep an entry off the live site); references and
-	// substackUrl simply don't render their associated UI when omitted.
+	// title, description, date, and articleType are required. category is
+	// optional — guides don't fit the response/research category taxonomy,
+	// so they're left uncategorised; response/research pieces should still
+	// always set one by convention. icon is only used by guide-type entries
+	// (for their tile on the Journal index). draft, references, and
+	// substackUrl are optional — draft defaults to false (set draft: true to
+	// keep an entry off the live site); references and substackUrl simply
+	// don't render their associated UI when omitted.
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
 		date: z.coerce.date(),
-		category: z.enum(['practice', 'men', 'neurodivergent', 'life-and-career', 'grief']),
-		articleType: z.enum(['response', 'research']),
+		category: z.enum(['practice', 'men', 'neurodivergent', 'life-and-career', 'grief']).optional(),
+		articleType: z.enum(['response', 'research', 'guide']),
+		icon: z.string().optional(), // Tabler outline icon slug — guide-type entries only, see ResourceIcon.astro
 		references: referenceSchema.optional(),
 		substackUrl: z.string().url().optional(),
 		draft: z.boolean().optional().default(false),
@@ -66,4 +71,14 @@ const resources = defineCollection({
 	}),
 });
 
-export const collections = { journal, resources };
+const faqs = defineCollection({
+	// Load Markdown files in the `src/content/faqs/` directory.
+	loader: glob({ base: './src/content/faqs', pattern: '**/*.md' }),
+	schema: z.object({
+		question: z.string(),
+		answer: z.string(),
+		order: z.number().optional(),
+	}),
+});
+
+export const collections = { journal, resources, faqs };

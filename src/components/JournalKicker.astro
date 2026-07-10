@@ -3,7 +3,7 @@ import FormattedDate from './FormattedDate.astro';
 import { CATEGORY_LABELS, TYPE_LABELS } from '../lib/journal-labels';
 
 interface Props {
-	articleType: 'response' | 'research';
+	articleType: 'response' | 'research' | 'guide';
 	category: string;
 	date: Date;
 }
@@ -11,7 +11,7 @@ interface Props {
 const { articleType, category, date } = Astro.props;
 ---
 
-<span class:list={['kicker', articleType === 'research' && 'kicker-research']}>
+<span class:list={['kicker', articleType !== 'response' && 'kicker-muted']}>
 	{TYPE_LABELS[articleType]} · {CATEGORY_LABELS[category]} · <FormattedDate date={date} />
 </span>
 
@@ -25,8 +25,11 @@ const { articleType, category, date } = Astro.props;
 		display: block;
 	}
 
-	/* Research pieces read in a quieter register than response pieces. */
-	.kicker-research {
+	/* Only response pieces get the accent — research and (in principle)
+	   guide read in a quieter register. In practice this component is
+	   never invoked for guides, since guide entries leave category unset
+	   and JournalPost falls back to a plain date-only meta line instead. */
+	.kicker-muted {
 		color: var(--color-text-muted);
 	}
 </style>

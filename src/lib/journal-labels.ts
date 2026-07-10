@@ -12,4 +12,5 @@ export const CATEGORY_ORDER = ['practice', 'men', 'neurodivergent', 'life-and-ca
 export const TYPE_LABELS: Record<string, string> = {
 	response: 'Response',
 	research: 'Research',
+	guide: 'Guide',
 };

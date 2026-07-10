@@ -51,6 +51,16 @@
 	   resources, distinct from Journal's long-form article scale. */
 	--fs-resource-title: 28px;
 
+	/* Font sizes — added for the Field Journal redesign (journal/index.astro).
+	   Tier 1's sidebar (16px) and Tier 2's headline (17px) are only 1px
+	   apart, but that's a deliberate hierarchy step in a 3-tier system, not
+	   noise — kept distinct rather than collapsed into one token. */
+	--fs-lead-headline: 31px; /* Tier 1 lead headline */
+	--fs-sidebar-headline: 16px; /* Tier 1 sidebar items; also reused for the
+	                       Guides tile title, which asked for "16–18px" */
+	--fs-tier2-headline: 17px; /* Tier 2 row-of-three headline */
+	--fs-drop-cap: 46px; /* the lead excerpt's single drop-cap flourish */
+
 	/* Line heights */
 	--lh-tight: 1.2;
 	--lh-snug: 1.25;
@@ -59,6 +69,9 @@
 	--lh-loose: 1.9;
 	--lh-article-title: 1.15; /* added — didn't round cleanly to --lh-tight (1.2) */
 	--lh-hero: 1.05; /* added — Hero h1, tighter than any existing heading */
+	--lh-excerpt: 1.72; /* added — Field Journal lead excerpt; the brief calls
+	                       out line-height specifically as part of a deliberate
+	                       readability fix, so this isn't rounded to --lh-body */
 
 	/* Letter spacing */
 	--ls-label: 0.08em;

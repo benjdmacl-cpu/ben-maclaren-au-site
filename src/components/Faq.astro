@@ -1,0 +1,195 @@
+---
+import { getCollection } from 'astro:content';
+
+const faqs = (await getCollection('faqs')).sort((a, b) => {
+	const orderA = a.data.order ?? Number.MAX_SAFE_INTEGER;
+	const orderB = b.data.order ?? Number.MAX_SAFE_INTEGER;
+	if (orderA !== orderB) return orderA - orderB;
+	// Fall back to file order (creation order) when neither has `order` set.
+	return a.id.localeCompare(b.id);
+});
+---
+
+{
+	faqs.length > 0 && (
+		<section class="faq" id="faq">
+			<div class="wrap">
+				<span class="eyebrow">Common questions</span>
+				<h2>The things people usually ask first</h2>
+				<div class="faq-list">
+					{faqs.map((faq, i) => (
+						<div class="faq-item">
+							<h3 class="faq-question-wrap">
+								<button
+									type="button"
+									class="faq-toggle"
+									aria-expanded="false"
+									aria-controls={`faq-answer-${i}`}
+									id={`faq-toggle-${i}`}
+								>
+									<span class="faq-question">{faq.data.question}</span>
+									<span class="faq-icon" aria-hidden="true" />
+								</button>
+							</h3>
+							<div class="faq-panel" id={`faq-answer-${i}`} role="region" aria-labelledby={`faq-toggle-${i}`}>
+								<div class="faq-panel-inner">
+									<p class="faq-answer">{faq.data.answer}</p>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+	)
+}
+
+<style>
+	.faq {
+		padding: var(--space-20) 0;
+		border-top: var(--border-strong) solid var(--color-border-strong);
+	}
+
+	.faq .eyebrow {
+		margin-bottom: var(--space-4);
+		display: block;
+	}
+
+	.faq h2 {
+		font-size: var(--fs-tagline);
+		font-weight: var(--fw-medium);
+		margin-bottom: var(--space-8);
+	}
+
+	.faq-list {
+		max-width: 680px;
+	}
+
+	.faq-item {
+		border-bottom: var(--border-hairline) solid var(--color-border);
+	}
+
+	.faq-item:first-child {
+		border-top: var(--border-hairline) solid var(--color-border);
+	}
+
+	.faq-question-wrap {
+		margin: 0;
+	}
+
+	.faq-toggle {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-4);
+		width: 100%;
+		background: none;
+		border: none;
+		padding: var(--space-4) 0;
+		font-family: var(--font-body);
+		text-align: left;
+		cursor: pointer;
+	}
+
+	.faq-toggle:focus-visible {
+		outline: var(--border-strong) solid var(--color-accent);
+		outline-offset: var(--space-1);
+	}
+
+	.faq-question {
+		font-family: var(--font-display);
+		font-size: var(--fs-sidebar-headline);
+		font-weight: var(--fw-medium);
+		color: var(--color-text-primary);
+	}
+
+	.faq-icon {
+		flex: 0 0 auto;
+		position: relative;
+		width: var(--fs-sidebar-headline);
+		height: var(--fs-sidebar-headline);
+		color: var(--color-accent);
+	}
+
+	.faq-icon::before,
+	.faq-icon::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		background: currentColor;
+		transform: translate(-50%, -50%);
+	}
+
+	.faq-icon::before {
+		width: 100%;
+		height: var(--border-strong);
+	}
+
+	.faq-icon::after {
+		width: var(--border-strong);
+		height: 100%;
+		transition: opacity 0.15s ease;
+	}
+
+	.faq-toggle[aria-expanded='true'] .faq-icon::after {
+		opacity: 0;
+	}
+
+	.faq-panel {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.25s ease;
+	}
+
+	.faq-item.is-open .faq-panel {
+		grid-template-rows: 1fr;
+	}
+
+	.faq-panel-inner {
+		overflow: hidden;
+		opacity: 0;
+		transition: opacity 0.2s ease;
+	}
+
+	.faq-item.is-open .faq-panel-inner {
+		opacity: 1;
+	}
+
+	.faq-answer {
+		font-size: var(--fs-h3);
+		line-height: var(--lh-excerpt);
+		color: var(--color-text-body);
+		padding: 0 var(--space-7-5) var(--space-4) 0;
+		margin: 0;
+	}
+
+	@media (max-width: 600px) {
+		.faq-answer {
+			padding-right: var(--space-5);
+		}
+	}
+</style>
+
+<script>
+	const items = document.querySelectorAll<HTMLElement>('.faq-item');
+
+	items.forEach((item) => {
+		const button = item.querySelector<HTMLButtonElement>('.faq-toggle');
+		if (!button) return;
+
+		button.addEventListener('click', () => {
+			const willOpen = !item.classList.contains('is-open');
+
+			// Single-open: closing every other item before opening this one.
+			items.forEach((other) => {
+				if (other === item) return;
+				other.classList.remove('is-open');
+				other.querySelector('.faq-toggle')?.setAttribute('aria-expanded', 'false');
+			});
+
+			item.classList.toggle('is-open', willOpen);
+			button.setAttribute('aria-expanded', String(willOpen));
+		});
+	});
+</script>

@@ -12,6 +12,15 @@
 	--color-text-secondary: var(--ink-soft);
 	--color-text-muted: var(--ink-soft); /* aliases secondary, not --sage —
 	                        see contrast note in rollout notes */
+	--color-text-body: var(--ink); /* added — the Field Journal redesign asks
+	                        for a "darker body colour" (~#3D362C) for lead
+	                        excerpts, as part of a deliberate readability fix.
+	                        That hex is a near-exact match for --ink, so this
+	                        aliases the same value as --color-text-primary
+	                        rather than introducing another near-duplicate raw
+	                        colour — kept as its own token since the role
+	                        (long-form reading text) is distinct from primary
+	                        (headings) and could diverge later */
 
 	/* Accent */
 	--color-accent: var(--terracotta-deep); /* the contrast-safe tone used for
