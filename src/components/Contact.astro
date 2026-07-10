@@ -11,11 +11,7 @@
 		<div class="contact-grid">
 			<div class="contact-item">
 				<span class="label">Email</span>
-				<a class="value" href="mailto:hello@benmaclaren.com.au">hello@benmaclaren.com.au</a>
-			</div>
-			<div class="contact-item">
-				<span class="label">Text · Call</span>
-				<a class="value" href="tel:0499746502">0499 746 502</a>
+				<a class="value" id="email-link" href="#contact">Email</a>
 			</div>
 		</div>
 	</div>
@@ -63,10 +59,7 @@
 	}
 
 	.contact-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: var(--space-11);
-		max-width: 480px;
+		max-width: 320px;
 	}
 
 	.contact-item .label {
@@ -89,11 +82,27 @@
 	.contact-item .value:hover {
 		color: var(--color-accent-on-dark-hover);
 	}
-
-	@media (max-width: 720px) {
-		.contact-grid {
-			grid-template-columns: 1fr;
-			gap: var(--space-8);
-		}
-	}
 </style>
+
+<script>
+	// Base64-encoded rather than a plain string: the build minifier constant-folds
+	// simple string concatenation back into the literal address at build time, which
+	// would defeat the point. atob() is a runtime-only call, so the decoded address
+	// never appears as text anywhere in the built output for scrapers to find.
+	const link = document.getElementById('email-link');
+	if (link instanceof HTMLAnchorElement) {
+		const address = atob('aGVsbG9AYmVubWFjbGFyZW4uY29tLmF1');
+		link.href = `mailto:${address}`;
+		link.textContent = address;
+
+		link.addEventListener('click', (e) => {
+			e.preventDefault();
+			navigator.clipboard?.writeText(address);
+			const original = link.textContent;
+			link.textContent = 'Copied!';
+			setTimeout(() => {
+				link.textContent = original;
+			}, 1500);
+		});
+	}
+</script>

@@ -11,9 +11,10 @@
 		<h1>A steady place<br />to work things out.</h1>
 		<p class="tagline">Supporting a life worth living, through mental health.</p>
 		<div class="hero-ctas">
-			<a class="btn-primary" href="/#contact">Book a conversation</a>
-			<a class="hero-contact-line" href="tel:0499746502">0499 746 502</a>
+			<a class="btn-primary" href="/#contact">Book a session</a>
+			<a class="btn-secondary" href="/#contact">Book an intro call</a>
 		</div>
+		<a class="hero-contact-line" id="hero-email-link" href="#contact">Email</a>
 	</div>
 </section>
 
@@ -95,6 +96,28 @@
 		transform: translateY(-1px);
 	}
 
+	.btn-secondary {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--color-accent-solid);
+		background: transparent;
+		border: var(--border-hairline) solid var(--color-accent-solid);
+		padding: calc(var(--space-4) - var(--border-hairline)) calc(var(--space-7-5) - var(--border-hairline));
+		border-radius: var(--radius-sm);
+		transition:
+			background 0.15s ease,
+			color 0.15s ease;
+		display: inline-block;
+	}
+
+	.btn-secondary:hover {
+		background: var(--color-accent-solid);
+		color: var(--color-on-accent);
+	}
+
 	.hero-contact-line {
 		font-family: var(--font-mono);
 		font-size: var(--fs-caption);
@@ -102,6 +125,8 @@
 		text-decoration: none;
 		border-bottom: var(--border-hairline) solid var(--color-border);
 		padding-bottom: var(--space-0-5);
+		display: inline-block;
+		margin-top: var(--space-6-5);
 	}
 
 	.hero-contact-line:hover {
@@ -109,3 +134,25 @@
 		color: var(--color-accent);
 	}
 </style>
+
+<script>
+	// Same rationale as Contact.astro's email link — base64 + atob() so the
+	// address is assembled at runtime and never appears as literal text in
+	// the built HTML/JS for scrapers to find.
+	const link = document.getElementById('hero-email-link');
+	if (link instanceof HTMLAnchorElement) {
+		const address = atob('aGVsbG9AYmVubWFjbGFyZW4uY29tLmF1');
+		link.href = `mailto:${address}`;
+		link.textContent = address;
+
+		link.addEventListener('click', (e) => {
+			e.preventDefault();
+			navigator.clipboard?.writeText(address);
+			const original = link.textContent;
+			link.textContent = 'Copied!';
+			setTimeout(() => {
+				link.textContent = original;
+			}, 1500);
+		});
+	}
+</script>

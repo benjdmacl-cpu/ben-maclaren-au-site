@@ -25,6 +25,7 @@ type Props = {
 	steps?: Step[];
 	instructionsProse?: string;
 	references?: Reference[];
+	noindex?: boolean;
 };
 
 const {
@@ -39,6 +40,7 @@ const {
 	steps,
 	instructionsProse,
 	references,
+	noindex,
 } = Astro.props;
 
 const hasInteractive = interactionType.includes('interactive');
@@ -68,7 +70,7 @@ const showInstructions = hasSteps || hasProse;
 const showDownloadStrip = hasInteractive && hasWorksheet;
 ---
 
-<Layout title={`${title} — Resources`} description={intro}>
+<Layout title={`${title} — Resources`} description={intro} noindex={noindex}>
 	<article class="resource-article">
 		<div class="wrap">
 			<div class="meta-row">

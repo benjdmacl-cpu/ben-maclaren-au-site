@@ -18,6 +18,7 @@ type Props = {
 	eyebrow?: string;
 	backHref?: string;
 	backLabel?: string;
+	noindex?: boolean;
 };
 
 const {
@@ -32,12 +33,13 @@ const {
 	eyebrow = 'Journal',
 	backHref = '/journal',
 	backLabel = '← Journal',
+	noindex,
 } = Astro.props;
 
 const hasReferences = Boolean(references && references.length > 0);
 ---
 
-<Layout title={pageTitle} description={description}>
+<Layout title={pageTitle} description={description} noindex={noindex}>
 	<article class="journal-article">
 		<div class="wrap">
 			<a class="back-link" href={backHref}>{backLabel}</a>
