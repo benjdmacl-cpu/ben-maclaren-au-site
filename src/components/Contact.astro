@@ -10,10 +10,6 @@
 		<h2>Book a conversation, no pressure to commit further.</h2>
 		<div class="contact-grid">
 			<div class="contact-item">
-				<span class="label">Book a conversation</span>
-				<a class="value" href="https://benmaclaren.com.au">benmaclaren.com.au</a>
-			</div>
-			<div class="contact-item">
 				<span class="label">Email</span>
 				<a class="value" href="mailto:hello@benmaclaren.com.au">hello@benmaclaren.com.au</a>
 			</div>
@@ -68,8 +64,9 @@
 
 	.contact-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(2, 1fr);
 		gap: var(--space-11);
+		max-width: 480px;
 	}
 
 	.contact-item .label {
