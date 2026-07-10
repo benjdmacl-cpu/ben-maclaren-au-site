@@ -1,5 +1,5 @@
 ---
-title: 'What counselling with a neurodivergent client actually looks like'
+title: 'Lorem ipsum dolor sit amet'
 description: 'Less masking, more room to think out loud. A few ways the work shifts when the client is neurodivergent.'
 date: 2026-06-27
 category: neurodivergent

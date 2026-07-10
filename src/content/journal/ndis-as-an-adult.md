@@ -1,5 +1,5 @@
 ---
-title: 'Navigating the NDIS as an adult'
+title: 'Quis nostrud exercitation ullamco'
 description: 'What access actually requires, and where most applications get stuck.'
 date: 2026-06-15
 articleType: 'guide'

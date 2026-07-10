@@ -1,5 +1,5 @@
 ---
-title: 'What it means to actually listen without fixing'
+title: 'Eiusmod tempor incididunt ut labore'
 description: "'Just listen' sounds simple until you try it. Here's what gets in the way, and what's on the other side of it."
 date: 2026-06-30
 category: practice

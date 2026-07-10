@@ -1,5 +1,5 @@
 ---
-title: 'Getting a Mental Health Care Plan'
+title: 'Ut enim ad minim veniam'
 description: 'How to ask your GP for one, and what it actually gets you.'
 date: 2026-06-20
 articleType: 'guide'

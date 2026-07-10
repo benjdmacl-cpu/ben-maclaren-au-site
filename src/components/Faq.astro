@@ -47,7 +47,7 @@ const faqs = (await getCollection('faqs')).sort((a, b) => {
 <style>
 	.faq {
 		padding: var(--space-20) 0;
-		border-top: var(--border-strong) solid var(--color-border-strong);
+		border-top: var(--border-hairline) solid var(--color-border);
 	}
 
 	.faq .eyebrow {
@@ -56,7 +56,8 @@ const faqs = (await getCollection('faqs')).sort((a, b) => {
 	}
 
 	.faq h2 {
-		font-size: var(--fs-tagline);
+		font-size: var(--fs-display);
+		line-height: var(--lh-article-title);
 		font-weight: var(--fw-medium);
 		margin-bottom: var(--space-8);
 	}
@@ -98,16 +99,21 @@ const faqs = (await getCollection('faqs')).sort((a, b) => {
 
 	.faq-question {
 		font-family: var(--font-display);
-		font-size: var(--fs-sidebar-headline);
+		font-size: var(--fs-card-title);
 		font-weight: var(--fw-medium);
 		color: var(--color-text-primary);
+		transition: color 0.15s ease;
+	}
+
+	.faq-toggle:hover .faq-question {
+		color: var(--color-accent);
 	}
 
 	.faq-icon {
 		flex: 0 0 auto;
 		position: relative;
-		width: var(--fs-sidebar-headline);
-		height: var(--fs-sidebar-headline);
+		width: var(--fs-card-title);
+		height: var(--fs-card-title);
 		color: var(--color-accent);
 	}
 

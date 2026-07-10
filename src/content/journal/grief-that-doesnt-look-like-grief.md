@@ -1,5 +1,5 @@
 ---
-title: "On grief that doesn't look like grief"
+title: 'Consectetur adipiscing elit sed do'
 description: "Not all grief follows a death. Some of the heaviest kind never gets named as grief at all — which is often why it doesn't move."
 date: 2026-07-04
 category: grief

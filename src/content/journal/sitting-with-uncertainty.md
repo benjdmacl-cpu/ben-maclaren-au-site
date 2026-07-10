@@ -1,5 +1,5 @@
 ---
-title: 'Sitting with uncertainty before naming the problem'
+title: 'Duis aute irure dolor in reprehenderit'
 description: 'Most people arrive wanting a diagnosis for what''s wrong. The more useful first step is usually slower than that.'
 date: 2026-06-09
 category: practice

@@ -1,5 +1,5 @@
 ---
-title: 'Understanding therapy rebates'
+title: 'Sunt in culpa qui officia deserunt'
 description: "What Medicare actually covers, and what it doesn't."
 date: 2026-06-25
 articleType: 'guide'

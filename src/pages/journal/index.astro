@@ -44,6 +44,10 @@ const older = afterTier2.slice(TIER3_CAP);
 	title="Field Journal — Ben Maclaren"
 	description="Common questions from clients, worked through in plain terms. Field notes on counselling from Ben Maclaren, counsellor in Canberra, ACT."
 >
+	<div class="wip-banner">
+		<p>This page is a work in progress and not currently in use.</p>
+	</div>
+
 	<div class="wrap top-nav">
 		<a class="back-link" href="/">← Home</a>
 	</div>
@@ -183,6 +187,21 @@ const older = afterTier2.slice(TIER3_CAP);
 </Layout>
 
 <style>
+	.wip-banner {
+		background: var(--color-accent-solid);
+		padding: var(--space-2) var(--space-4);
+		text-align: center;
+	}
+
+	.wip-banner p {
+		margin: 0;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		color: var(--color-on-accent);
+	}
+
 	.top-nav {
 		padding-top: var(--space-10);
 	}
@@ -341,7 +360,7 @@ const older = afterTier2.slice(TIER3_CAP);
 		display: block;
 		padding-bottom: var(--space-3);
 		margin-bottom: var(--space-5);
-		border-bottom: var(--border-hairline) solid var(--color-border-strong);
+		border-bottom: var(--border-hairline) solid var(--color-border);
 	}
 
 	.sidebar-list {
@@ -392,7 +411,7 @@ const older = afterTier2.slice(TIER3_CAP);
 	/* ---------- Tier 2: row of three ---------- */
 	.tier2 {
 		padding: var(--space-12) 0;
-		border-top: var(--border-strong) solid var(--color-border-strong);
+		border-top: var(--border-hairline) solid var(--color-border);
 	}
 
 	.tier2-grid {
@@ -526,7 +545,7 @@ const older = afterTier2.slice(TIER3_CAP);
 	/* ---------- Guides ---------- */
 	.guides {
 		padding: var(--space-14) 0 var(--space-20);
-		border-top: var(--border-strong) solid var(--color-border-strong);
+		border-top: var(--border-hairline) solid var(--color-border);
 	}
 
 	.guides-header {

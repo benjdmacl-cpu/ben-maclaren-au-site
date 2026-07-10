@@ -1,5 +1,5 @@
 ---
-title: "Starting counselling as a man who's never done this before"
+title: 'Excepteur sint occaecat cupidatat non'
 description: "A lot of men arrive at a first session having never said most of this out loud to anyone. Here's what that first hour is actually for."
 date: 2026-07-02
 category: men

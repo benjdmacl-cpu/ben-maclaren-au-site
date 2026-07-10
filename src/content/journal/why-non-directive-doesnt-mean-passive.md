@@ -1,5 +1,5 @@
 ---
-title: "Why 'non-directive' doesn't mean passive"
+title: 'Lorem ipsum dolor sit amet consectetur'
 description: "Non-directive counselling gets mistaken for doing nothing. Here's what's actually happening in the space it creates."
 date: 2026-05-18
 category: practice
