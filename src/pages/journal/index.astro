@@ -9,11 +9,13 @@ const allPosts = (await getCollection('journal', ({ data }) => !data.draft)).sor
 	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 
-// Guides are real journal articles (articleType: 'guide') rendered under
-// their own section below rather than in the tiered ranking — pulled out
-// of the pool before tier assignment so they never leak into Tier 1–3.
-const guides = allPosts.filter((post) => post.data.articleType === 'guide');
-const articles = allPosts.filter((post) => post.data.articleType !== 'guide');
+// Guides and locals are both real journal articles rendered under their own
+// section below rather than in the tiered ranking — pulled out of the pool
+// before tier assignment so they never leak into Tier 1–3. `local` takes
+// precedence over articleType: 'guide', so a post is never in both sections.
+const locals = allPosts.filter((post) => post.data.local);
+const guides = allPosts.filter((post) => post.data.articleType === 'guide' && !post.data.local);
+const articles = allPosts.filter((post) => post.data.articleType !== 'guide' && !post.data.local);
 
 // Lead priority: response-type only, carried forward from the earlier
 // newspaper brief. The redesign brief explicitly asked whether this still
@@ -178,6 +180,33 @@ const older = afterTier2.slice(TIER3_CAP);
 								</div>
 								<h3 class="guide-title">{guide.data.title}</h3>
 								<p class="guide-desc">{guide.data.description}</p>
+							</a>
+						))}
+					</div>
+				</div>
+			</section>
+		)
+	}
+
+	{
+		locals.length > 0 && (
+			<section class="locals">
+				<div class="wrap">
+					<div class="locals-header">
+						<h2>For the locals</h2>
+						<p class="locals-note">Canberra-specific notes for each of the areas I work in</p>
+					</div>
+					<div class="locals-grid">
+						{locals.map((post) => (
+							<a class="local-tile" href={`/journal/${post.id}/`}>
+								<div class="local-tile-top">
+									<ResourceIcon icon={post.data.icon ?? 'map-pin'} size={20} />
+									{post.data.category && (
+										<span class="local-tag">{CATEGORY_LABELS[post.data.category]}</span>
+									)}
+								</div>
+								<h3 class="local-title">{post.data.title}</h3>
+								<p class="local-desc">{post.data.description}</p>
 							</a>
 						))}
 					</div>
@@ -627,6 +656,90 @@ const older = afterTier2.slice(TIER3_CAP);
 		margin: 0;
 	}
 
+	/* ---------- For the locals ---------- */
+	.locals {
+		padding: var(--space-14) 0 var(--space-20);
+		border-top: var(--border-hairline) solid var(--color-border);
+	}
+
+	.locals-header {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: var(--space-2) var(--space-5);
+		margin-bottom: var(--space-8);
+	}
+
+	.locals-header h2 {
+		font-size: var(--fs-tagline);
+		font-weight: var(--fw-medium);
+	}
+
+	.locals-note {
+		font-family: var(--font-display);
+		font-style: italic;
+		font-size: var(--fs-caption);
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	.locals-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-6);
+	}
+
+	.local-tile {
+		display: block;
+		background: var(--color-bg-card);
+		border-radius: var(--radius-card);
+		padding: var(--space-6);
+		text-decoration: none;
+		color: inherit;
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.local-tile:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 10px 24px rgba(56, 44, 36, 0.1);
+	}
+
+	.local-tile-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: var(--space-4);
+	}
+
+	.local-tag {
+		font-family: var(--font-mono);
+		font-size: var(--fs-micro);
+		letter-spacing: var(--ls-caps);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.local-title {
+		font-size: var(--fs-sidebar-headline);
+		font-weight: var(--fw-medium);
+		color: var(--color-text-primary);
+		margin: 0 0 var(--space-2);
+		transition: color 0.15s ease;
+	}
+
+	.local-tile:hover .local-title {
+		color: var(--color-accent);
+	}
+
+	.local-desc {
+		font-size: var(--fs-caption);
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
 	/* ---------- Empty state ---------- */
 	.journal-empty {
 		padding: var(--space-15) 0 var(--space-30);
@@ -679,6 +792,10 @@ const older = afterTier2.slice(TIER3_CAP);
 		}
 
 		.guides-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.locals-grid {
 			grid-template-columns: 1fr;
 		}
 	}

@@ -61,3 +61,28 @@ const { title, description, image, noindex = false } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 {image && <meta property="twitter:image" content={new URL(image.src, Astro.url)} />}
+
+<!-- Structured data — email/phone deliberately omitted; they'd sit in the
+     page source as plain scrapeable text, defeating the anti-harvesting
+     work on the Contact/Hero email links. -->
+<script type="application/ld+json" set:html={JSON.stringify({
+	'@context': 'https://schema.org',
+	'@type': 'ProfessionalService',
+	'@id': 'https://benmaclaren.com.au/#business',
+	name: 'Ben Maclaren — Counsellor',
+	url: 'https://benmaclaren.com.au',
+	address: {
+		'@type': 'PostalAddress',
+		addressLocality: 'Canberra',
+		addressRegion: 'ACT',
+		addressCountry: 'AU',
+	},
+	areaServed: 'Canberra, ACT',
+	priceRange: '$120',
+	founder: {
+		'@type': 'Person',
+		name: 'Ben Maclaren',
+		jobTitle: 'Counsellor',
+	},
+})}
+/>
