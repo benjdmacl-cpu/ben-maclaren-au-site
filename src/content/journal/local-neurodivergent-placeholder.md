@@ -5,7 +5,6 @@ date: 2026-06-21
 category: neurodivergent
 articleType: response
 local: true
-icon: 'map-pin'
 ---
 
 Placeholder body copy.

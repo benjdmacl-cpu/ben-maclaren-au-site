@@ -16,23 +16,24 @@ const journal = defineCollection({
 	// title, description, date, and articleType are required. category is
 	// optional — guides don't fit the response/research category taxonomy,
 	// so they're left uncategorised; response/research pieces should still
-	// always set one by convention. icon is used by guide-type entries and
-	// local-type entries (both get a tile on the Journal index). local is an
-	// independent flag, not an articleType — a local piece is usually a
-	// response/research article with Canberra worked into it, not a guide.
-	// It takes precedence over articleType: 'guide' for section placement
-	// (see journal/index.astro), so a post is never in both the Guides and
-	// "For the locals" sections at once. draft, references, and substackUrl
-	// are optional — draft defaults to false (set draft: true to keep an
-	// entry off the live site); references and substackUrl simply don't
-	// render their associated UI when omitted.
+	// always set one by convention. icon is only used by guide-type entries
+	// (for their tile on the Journal index) — local entries render in the
+	// same editorial style as Tier 2 (kicker/headline/excerpt), no icon.
+	// local is an independent flag, not an articleType — a local piece is
+	// usually a response/research article with Canberra worked into it, not
+	// a guide. It takes precedence over articleType: 'guide' for section
+	// placement (see journal/index.astro), so a post is never in both the
+	// Guides and "For the locals" sections at once. draft, references, and
+	// substackUrl are optional — draft defaults to false (set draft: true to
+	// keep an entry off the live site); references and substackUrl simply
+	// don't render their associated UI when omitted.
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
 		date: z.coerce.date(),
 		category: z.enum(['practice', 'men', 'neurodivergent', 'life-and-career', 'grief']).optional(),
 		articleType: z.enum(['response', 'research', 'guide']),
-		icon: z.string().optional(), // Tabler outline icon slug — guide/local entries only, see ResourceIcon.astro
+		icon: z.string().optional(), // Tabler outline icon slug — guide-type entries only, see ResourceIcon.astro
 		local: z.boolean().optional().default(false), // pulls the entry into "For the locals" on the Journal index
 		references: referenceSchema.optional(),
 		substackUrl: z.string().url().optional(),

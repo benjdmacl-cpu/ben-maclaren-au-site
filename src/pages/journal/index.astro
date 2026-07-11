@@ -196,18 +196,19 @@ const older = afterTier2.slice(TIER3_CAP);
 						<h2>For the locals</h2>
 						<p class="locals-note">Canberra-specific notes for each of the areas I work in</p>
 					</div>
-					<div class="locals-grid">
+					<div class="locals-grid" style={`--locals-count: ${locals.length}`}>
 						{locals.map((post) => (
-							<a class="local-tile" href={`/journal/${post.id}/`}>
-								<div class="local-tile-top">
-									<ResourceIcon icon={post.data.icon ?? 'map-pin'} size={20} />
-									{post.data.category && (
-										<span class="local-tag">{CATEGORY_LABELS[post.data.category]}</span>
-									)}
-								</div>
-								<h3 class="local-title">{post.data.title}</h3>
-								<p class="local-desc">{post.data.description}</p>
-							</a>
+							<article class="local-item">
+								<span class="local-kicker">
+									{post.data.category && CATEGORY_LABELS[post.data.category]}
+									{post.data.category && ' · '}
+									<FormattedDate date={post.data.date} />
+								</span>
+								<h3>
+									<a href={`/journal/${post.id}/`}>{post.data.title}</a>
+								</h3>
+								<p class="local-excerpt">{post.data.description}</p>
+							</article>
 						))}
 					</div>
 				</div>
@@ -686,55 +687,51 @@ const older = afterTier2.slice(TIER3_CAP);
 
 	.locals-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--space-6);
+		grid-template-columns: repeat(var(--locals-count, 3), 1fr);
 	}
 
-	.local-tile {
-		display: block;
-		background: var(--color-bg-card);
-		border-radius: var(--radius-card);
-		padding: var(--space-6);
-		text-decoration: none;
-		color: inherit;
-		transition:
-			transform 0.15s ease,
-			box-shadow 0.15s ease;
+	.local-item {
+		padding: 0 var(--space-6);
 	}
 
-	.local-tile:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 10px 24px rgba(56, 44, 36, 0.1);
+	.local-item:first-child {
+		padding-left: 0;
 	}
 
-	.local-tile-top {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: var(--space-4);
+	.local-item:last-child {
+		padding-right: 0;
 	}
 
-	.local-tag {
+	.local-item:not(:last-child) {
+		border-right: var(--border-hairline) solid var(--color-border);
+	}
+
+	.local-kicker {
 		font-family: var(--font-mono);
-		font-size: var(--fs-micro);
+		font-size: var(--fs-eyebrow);
 		letter-spacing: var(--ls-caps);
 		text-transform: uppercase;
 		color: var(--color-text-muted);
+		display: block;
+		margin-bottom: var(--space-3);
 	}
 
-	.local-title {
-		font-size: var(--fs-sidebar-headline);
-		font-weight: var(--fw-medium);
+	.local-item h3 {
+		font-size: var(--fs-tier2-headline);
+		line-height: var(--lh-snug);
+		margin-bottom: var(--space-2);
+	}
+
+	.local-item h3 a {
 		color: var(--color-text-primary);
-		margin: 0 0 var(--space-2);
-		transition: color 0.15s ease;
+		text-decoration: none;
 	}
 
-	.local-tile:hover .local-title {
+	.local-item h3 a:hover {
 		color: var(--color-accent);
 	}
 
-	.local-desc {
+	.local-excerpt {
 		font-size: var(--fs-caption);
 		color: var(--color-text-muted);
 		margin: 0;
@@ -797,6 +794,24 @@ const older = afterTier2.slice(TIER3_CAP);
 
 		.locals-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.local-item {
+			padding: var(--space-6) 0;
+		}
+
+		.local-item:not(:last-child) {
+			border-right: none;
+			border-bottom: var(--border-hairline) solid var(--color-border);
+		}
+
+		.local-item:first-child {
+			padding-top: 0;
+		}
+
+		.local-item:last-child {
+			padding-bottom: 0;
+			border-bottom: none;
 		}
 	}
 
