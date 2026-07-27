@@ -1,0 +1,356 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const sections = [
+	{ id: 'website-analytics', label: 'Website analytics' },
+	{ id: 'enquiries-and-bookings', label: 'Enquiries and bookings' },
+	{ id: 'client-records', label: 'Client records' },
+	{ id: 'confidentiality-and-its-limits', label: 'Confidentiality and its limits' },
+	{ id: 'data-breaches', label: 'Data breaches' },
+	{ id: 'your-rights', label: 'Your rights' },
+	{ id: 'third-party-services', label: 'Third-party services' },
+	{ id: 'questions', label: 'Questions' },
+];
+---
+
+<Layout
+	title="Privacy & Confidentiality"
+	description="How this practice handles website analytics, enquiry information, and client records."
+	noindex
+>
+	<article class="privacy-page">
+		<div class="wrap">
+			<a class="back-link" href="/">← Home</a>
+			<h1>Privacy &amp; Confidentiality</h1>
+
+			<p class="intro">
+				I take privacy seriously, both as a general obligation to anyone visiting this website and as a
+				core part of how I practise as a counsellor. This page explains what information I collect, how I
+				use and store it, and what confidentiality means in the context of counselling specifically —
+				including its limits. The confidentiality and record-keeping practices described here follow the
+				Australian Counselling Association (ACA) Code of Ethics and Practice, which I'm registered under,
+				and reflect comparable standards set out in the PACFA Code of Ethics and PACFA's Guidelines on
+				Client Records.
+			</p>
+
+			<nav class="jump-nav" aria-label="Page sections">
+				<span class="jump-nav-label">Jump to:</span>
+				{
+					sections.map((section, i) => (
+						<>
+							{i > 0 && <span class="jump-nav-sep">·</span>}
+							<a href={`#${section.id}`}>{section.label}</a>
+						</>
+					))
+				}
+			</nav>
+
+			<div class="prose">
+				<section id="website-analytics">
+					<h2>Website analytics</h2>
+					<p>
+						This site uses a lightweight, privacy-focused analytics tool (GoatCounter) to understand
+						how many people visit, which pages they read, and what they've clicked. This tool doesn't
+						use cookies, doesn't track you across other websites, and doesn't collect anything that
+						identifies you personally. It gives me aggregate numbers only — how many visits, from
+						roughly where, and which pages get read — not who visited.
+					</p>
+				</section>
+
+				<hr />
+
+				<section id="enquiries-and-bookings">
+					<h2>Enquiries and bookings</h2>
+					<p>
+						If you get in touch through the contact form or booking system, I collect what you provide,
+						typically your name, contact details, and anything you write in your message. This is used
+						only to respond to you and, if you go ahead, to arrange and manage sessions. It isn't
+						shared with third parties beyond the booking software itself, and isn't used for marketing.
+					</p>
+				</section>
+
+				<hr />
+
+				<section id="client-records">
+					<h2>Client records (session notes)</h2>
+					<p>
+						If you become a client, I keep clinical records of our work together. This is both a
+						professional requirement and good practice — it helps me provide continuity of care and is
+						expected under the ACA Code of Ethics and Practice, which requires client records to be
+						kept securely, whether in digital or hard-copy form.
+					</p>
+					<p>
+						<strong>What I keep:</strong> brief session notes covering what we discussed, clinical
+						observations, and any plans or referrals. I don't record sessions or keep verbatim
+						transcripts.
+					</p>
+					<p>
+						<strong>How it's stored:</strong> records are kept in a secure, access-controlled system,
+						separate from general business records. Only I have access to them.
+					</p>
+					<p>
+						<strong>How long I keep them:</strong> in line with standard practice for health records in
+						Australia, adult client records are retained for at least 7 years after the last contact.
+						Records for clients who were minors at the time of counselling are retained until they
+						turn 25. After that period, records are securely destroyed.
+					</p>
+				</section>
+
+				<hr />
+
+				<section id="confidentiality-and-its-limits">
+					<h2>Confidentiality — and its limits</h2>
+					<p>
+						Everything discussed in sessions is confidential. I don't share the content of our
+						conversations with anyone else, including family members, without your consent, except in
+						the following circumstances:
+					</p>
+					<ul>
+						<li>
+							<strong>Risk of serious harm.</strong> If I believe there's a serious risk to your life
+							or safety, or to someone else's, I may need to act to prevent that harm, which can
+							include contacting emergency services or another relevant party.
+						</li>
+						<li>
+							<strong>Mandatory reporting.</strong> Counsellors in the ACT are subject to mandatory
+							reporting obligations regarding the safety of children. If information raises a
+							mandatory reporting concern, I'm legally required to act on it.
+						</li>
+						<li>
+							<strong>Legal requirement.</strong> If a court orders disclosure of records (for
+							example, via subpoena), I may be legally required to comply, though I'll do what I
+							reasonably can to protect your privacy within that process.
+						</li>
+						<li>
+							<strong>Clinical supervision.</strong> I discuss aspects of my work in professional
+							supervision, as required by the ACA, but this is done in a way that protects your
+							identity wherever possible.
+						</li>
+					</ul>
+					<p>
+						Sessions themselves are private — they won't be recorded, overheard, or observed by anyone
+						else without your informed consent, in line with ACA standards on session privacy.
+					</p>
+					<p>
+						The ACA requires these terms, and the degree of confidentiality offered, to be agreed with
+						you clearly before counselling begins — so I'll always talk this through with you directly
+						at the start of our work together, not just leave it on a page.
+					</p>
+				</section>
+
+				<hr />
+
+				<section id="data-breaches">
+					<h2>Data breaches</h2>
+					<p>
+						In the unlikely event of a data breach involving your personal information that's likely to
+						result in serious harm, I'll notify you and the Office of the Australian Information
+						Commissioner (OAIC), in line with the Notifiable Data Breaches scheme.
+					</p>
+				</section>
+
+				<hr />
+
+				<section id="your-rights">
+					<h2>Your rights</h2>
+					<p>
+						You can ask to see the personal information I hold about you, ask me to correct it if it's
+						wrong, and ask questions about how it's handled at any time. If you have a concern about
+						how your information has been handled, you're welcome to raise it with me directly first.
+						If it's not resolved to your satisfaction, you can make a complaint to:
+					</p>
+					<ul>
+						<li>
+							ACA (as my professional association) —{' '}
+							<a href="https://www.theaca.net.au/" target="_blank" rel="noopener noreferrer">
+								theaca.net.au
+							</a>
+						</li>
+						<li>
+							The Office of the Australian Information Commissioner (OAIC) —{' '}
+							<a href="https://www.oaic.gov.au/" target="_blank" rel="noopener noreferrer">
+								oaic.gov.au
+							</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr />
+
+				<section id="third-party-services">
+					<h2>Third-party services this site uses</h2>
+					<ul>
+						<li>GoatCounter — anonymous website analytics</li>
+						<li>
+							<em>[Booking/practice management software — name once chosen]</em> — for scheduling and
+							client records
+						</li>
+						<li>
+							<em>[Email provider, e.g. Fastmail]</em> — for professional correspondence
+						</li>
+					</ul>
+				</section>
+
+				<hr />
+
+				<section id="questions">
+					<h2>Questions</h2>
+					<p>
+						If you have any questions about this policy or how your information is handled, contact me
+						at <a class="value" id="privacy-email-link" href="#">this email</a>.
+					</p>
+				</section>
+			</div>
+
+			<p class="meta-footer">Last updated: <em>[date pending]</em>.</p>
+		</div>
+	</article>
+</Layout>
+
+<script>
+	const link = document.getElementById('privacy-email-link');
+	if (link instanceof HTMLAnchorElement) {
+		const address = atob('aGVsbG9AYmVubWFjbGFyZW4uY29tLmF1');
+		link.href = `mailto:${address}`;
+		link.textContent = address;
+	}
+</script>
+
+<style>
+	.privacy-page {
+		padding: var(--space-15) 0 var(--space-20);
+	}
+
+	.back-link {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--color-text-secondary);
+		display: inline-block;
+		margin-bottom: var(--space-10);
+	}
+
+	.back-link:hover {
+		color: var(--color-accent);
+	}
+
+	h1 {
+		font-size: var(--fs-display);
+		line-height: var(--lh-article-title);
+		max-width: 70ch;
+		margin-bottom: var(--space-5);
+	}
+
+	.intro {
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-secondary);
+		max-width: 70ch;
+		margin: 0 0 var(--space-8);
+	}
+
+	.jump-nav {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		color: var(--color-text-secondary);
+		max-width: 70ch;
+		margin-bottom: var(--space-12);
+		line-height: var(--lh-loose);
+	}
+
+	.jump-nav-label {
+		color: var(--color-text-muted);
+		margin-right: var(--space-1);
+	}
+
+	.jump-nav a {
+		color: var(--color-text-secondary);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+
+	.jump-nav a:hover {
+		color: var(--color-accent);
+	}
+
+	.jump-nav-sep {
+		color: var(--color-text-muted);
+		margin: 0 var(--space-1);
+	}
+
+	.prose {
+		max-width: 70ch;
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-secondary);
+	}
+
+	.prose h2 {
+		font-size: var(--fs-h1);
+		color: var(--color-text-primary);
+		margin: 0 0 var(--space-4);
+		scroll-margin-top: var(--space-8);
+	}
+
+	.prose p {
+		margin: 0 0 var(--space-4);
+	}
+
+	.prose p:last-child {
+		margin-bottom: 0;
+	}
+
+	.prose strong {
+		color: var(--color-text-primary);
+	}
+
+	.prose ul {
+		margin: 0 0 var(--space-4);
+		padding-left: var(--space-5);
+	}
+
+	.prose ul:last-child {
+		margin-bottom: 0;
+	}
+
+	.prose li {
+		margin-bottom: var(--space-2);
+	}
+
+	.prose li:last-child {
+		margin-bottom: 0;
+	}
+
+	.prose a {
+		color: var(--color-accent-link);
+		text-decoration: underline;
+	}
+
+	.prose a:hover {
+		color: var(--color-accent);
+	}
+
+	.prose section {
+		padding: var(--space-8) 0;
+	}
+
+	.prose section:first-child {
+		padding-top: 0;
+	}
+
+	.prose hr {
+		border: none;
+		border-top: var(--border-hairline) solid var(--color-border);
+		margin: 0;
+	}
+
+	.meta-footer {
+		font-family: var(--font-mono);
+		font-size: var(--fs-meta-label);
+		color: var(--color-text-muted);
+		max-width: 70ch;
+		margin-top: var(--space-12);
+		padding-top: var(--space-8);
+		border-top: var(--border-hairline) solid var(--color-border);
+	}
+</style>
