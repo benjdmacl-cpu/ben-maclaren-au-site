@@ -17,6 +17,11 @@ const { title, description, noindex } = Astro.props;
 	<head>
 		<BaseHead title={title} description={description} noindex={noindex} />
 		<slot name="head" />
+		<script
+			is:inline
+			data-goatcounter="https://benjd.goatcounter.com/count"
+			async
+			src="//gc.zgo.at/count.js"></script>
 	</head>
 	<body>
 		<Nav />

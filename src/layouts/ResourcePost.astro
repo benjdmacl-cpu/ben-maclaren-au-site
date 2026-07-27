@@ -26,6 +26,7 @@ type Props = {
 	instructionsProse?: string;
 	references?: Reference[];
 	noindex?: boolean;
+	slug?: string;
 };
 
 const {
@@ -41,6 +42,7 @@ const {
 	instructionsProse,
 	references,
 	noindex,
+	slug,
 } = Astro.props;
 
 const hasInteractive = interactionType.includes('interactive');
@@ -93,7 +95,13 @@ const showDownloadStrip = hasInteractive && hasWorksheet;
 							<p class="download-title">{title}</p>
 							{downloadMeta && <p class="download-meta">{downloadMeta}</p>}
 							{downloadUrl ? (
-								<a class="download-btn" href={downloadUrl} target="_blank" rel="noopener noreferrer">
+								<a
+									class="download-btn"
+									href={downloadUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									data-goatcounter-click={`resource-download-${slug}`}
+								>
 									<ResourceIcon icon="download" /> Download
 								</a>
 							) : (
@@ -133,7 +141,12 @@ const showDownloadStrip = hasInteractive && hasWorksheet;
 						<ResourceIcon icon="download" />
 						<span>Prefer it offline?</span>
 						{downloadUrl ? (
-							<a href={downloadUrl} target="_blank" rel="noopener noreferrer">
+							<a
+								href={downloadUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								data-goatcounter-click={`resource-download-offline-${slug}`}
+							>
 								Download the printable version →
 							</a>
 						) : (
