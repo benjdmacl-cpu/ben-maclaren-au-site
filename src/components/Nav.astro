@@ -74,8 +74,24 @@
 	}
 
 	@media (max-width: 720px) {
+		nav .wrap {
+			flex-wrap: wrap;
+			row-gap: var(--space-3);
+		}
+
+		.nav-name {
+			order: 1;
+		}
+
+		.nav-cta {
+			order: 2;
+		}
+
 		.nav-links {
-			display: none;
+			order: 3;
+			flex-basis: 100%;
+			padding-top: var(--space-3);
+			border-top: var(--border-hairline) solid var(--color-border);
 		}
 	}
 </style>
