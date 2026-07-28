@@ -7,6 +7,9 @@
 	--terracotta-deep: #9c4620;
 	--sage: #8b8172;
 	--line: rgba(56, 44, 36, 0.14);
+	--success-green: #2f6e4f; /* added — Contact form success feedback, the
+	                        one place on the site that needed a non-accent,
+	                        non-ink semantic colour */
 
 	/* Terracotta/sage variants tuned for legibility on the dark --ink background */
 	--terracotta-on-dark: #d89a6e;

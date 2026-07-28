@@ -45,6 +45,9 @@
 	--color-border: var(--line);
 	--color-border-strong: var(--ink);
 
+	/* Feedback — form status messages (Contact section) */
+	--color-success: var(--success-green);
+
 	/* Dark-section variants — Contact and Footer sit on an inverted (--ink)
 	   background, so text/accent/border colors need their own contrast-safe
 	   set rather than reusing the light-background tokens above. */

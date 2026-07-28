@@ -1,17 +1,82 @@
+---
+// Real booking link, already used by the Nav/Hero CTAs — reused here
+// rather than a separate placeholder constant.
+const BOOKING_URL = 'https://www.halaxy.com/book/benjamin-maclaren/counsellor/1780895/1362507';
+---
+
 <section class="contact" id="contact">
-	<svg class="contact-motif" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-		<circle cx="100" cy="100" r="10" fill="none" stroke-width="1.4"></circle>
-		<circle cx="100" cy="100" r="34" fill="none" stroke-width="1.2"></circle>
-		<circle cx="100" cy="100" r="62" fill="none" stroke-width="1"></circle>
-		<circle cx="100" cy="100" r="94" fill="none" stroke-width="0.8"></circle>
-	</svg>
 	<div class="wrap">
 		<span class="eyebrow">Get in touch</span>
-		<h2>Book a conversation, no pressure to commit further.</h2>
+		<h2>Ready to take the first step?</h2>
 		<div class="contact-grid">
-			<div class="contact-item">
-				<span class="label">Email</span>
-				<a class="value" id="email-link" href="#contact" data-goatcounter-click="contact-email">Email</a>
+			<div class="contact-booking">
+				<span class="col-subheading">Book a conversation</span>
+				<p class="lead">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+					labore et dolore magna aliqua.
+				</p>
+				<p class="lead">
+					Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+					commodo consequat.
+				</p>
+				<a
+					class="btn-outline"
+					href={BOOKING_URL}
+					target="_blank"
+					rel="noopener noreferrer"
+					data-goatcounter-click="contact-book">Book</a
+				>
+				<p class="note">Lorem ipsum — availability / age-restriction note placeholder.</p>
+				<p class="faq-pointer">Got a question first? <a href="#faq">Check the FAQ</a>.</p>
+			</div>
+
+			<div class="contact-form-col">
+				<span class="col-subheading">Send a message</span>
+				<p class="form-intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+				<form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contact-form">
+					<input type="hidden" name="form-name" value="contact" />
+					<p hidden>
+						<label>Don't fill this out if you're human: <input name="bot-field" /></label>
+					</p>
+
+					<label class="field">
+						<span>Name</span>
+						<input type="text" name="name" autocomplete="name" required />
+					</label>
+
+					<label class="field">
+						<span>Phone (optional)</span>
+						<input type="tel" name="phone" autocomplete="tel" />
+					</label>
+
+					<label class="field">
+						<span>Email</span>
+						<input type="email" name="email" autocomplete="email" required />
+					</label>
+
+					<label class="field">
+						<span>Message</span>
+						<textarea name="message" rows="4" required></textarea>
+					</label>
+
+					<div class="captcha-row">
+						<label class="captcha-field">
+							<span id="captcha-question">— + — =</span>
+							<input
+								type="text"
+								inputmode="numeric"
+								name="captcha"
+								id="captcha-input"
+								autocomplete="off"
+								required
+							/>
+						</label>
+						<button type="submit">Send</button>
+					</div>
+				</form>
+
+				<p class="form-status" id="form-status" role="status" aria-live="polite"></p>
 			</div>
 		</div>
 	</div>
@@ -19,90 +84,266 @@
 
 <style>
 	.contact {
-		background: var(--color-bg-dark);
-		color: var(--color-text-on-dark);
-		padding: var(--space-25) 0 var(--space-20);
-		position: relative;
-		overflow: hidden;
-	}
-
-	.contact-motif {
-		position: absolute;
-		bottom: -80px;
-		left: -80px;
-		width: 360px;
-		height: 360px;
-		opacity: 0.14;
-		color: var(--cream);
-	}
-
-	.contact-motif circle {
-		stroke: currentColor;
-	}
-
-	.contact .wrap {
-		position: relative;
-		z-index: 2;
+		padding: var(--space-22-5) 0;
+		background: var(--color-bg-page);
+		border-top: var(--border-hairline) solid var(--color-border);
 	}
 
 	.contact .eyebrow {
-		color: var(--color-accent-on-dark);
-		margin-bottom: var(--space-4);
+		margin-bottom: var(--space-3-5);
 		display: block;
 	}
 
 	.contact h2 {
-		color: var(--color-text-on-dark);
-		font-size: var(--fs-contact-heading);
-		max-width: 520px;
-		margin-bottom: var(--space-14);
+		font-size: var(--fs-display);
+		line-height: var(--lh-article-title);
+		max-width: 640px;
+		margin-bottom: var(--space-13);
 	}
 
 	.contact-grid {
-		max-width: 320px;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem; /* brief-specified exact value — no existing space token matches 64px */
 	}
 
-	.contact-item .label {
-		font-family: var(--font-mono);
-		font-size: var(--fs-meta-label);
-		letter-spacing: var(--ls-meta-label);
-		text-transform: uppercase;
-		color: var(--color-accent-on-dark-muted);
-		margin-bottom: var(--space-2-5);
+	.col-subheading {
 		display: block;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-wide-label);
+		text-transform: uppercase;
+		color: var(--color-accent);
+		font-weight: var(--fw-medium);
+		margin-bottom: var(--space-4);
 	}
 
-	.contact-item .value {
-		font-family: var(--font-display);
-		font-size: var(--fs-tagline);
-		color: var(--color-text-on-dark);
+	.contact-booking .lead {
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-secondary);
+		margin: 0 0 var(--space-4);
+	}
+
+	.btn-outline {
+		display: inline-block;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
 		text-decoration: none;
+		color: var(--color-accent-solid);
+		background: transparent;
+		border: var(--border-hairline) solid var(--color-accent-solid);
+		padding: calc(var(--space-4) - var(--border-hairline)) calc(var(--space-7-5) - var(--border-hairline));
+		border-radius: var(--radius-sm);
+		transition:
+			background 0.15s ease,
+			color 0.15s ease;
+		margin: var(--space-2) 0 var(--space-5);
 	}
 
-	.contact-item .value:hover {
-		color: var(--color-accent-on-dark-hover);
+	.btn-outline:hover {
+		background: var(--color-accent-solid);
+		color: var(--color-on-accent);
+	}
+
+	.note {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		color: var(--color-text-muted);
+		margin: 0 0 var(--space-3);
+	}
+
+	.faq-pointer {
+		font-size: var(--fs-caption);
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	.faq-pointer a {
+		color: var(--color-accent-link);
+		text-decoration: underline;
+	}
+
+	.faq-pointer a:hover {
+		color: var(--color-accent);
+	}
+
+	.form-intro {
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-secondary);
+		margin: 0 0 var(--space-5);
+	}
+
+	#contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+	}
+
+	.field {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1-5);
+	}
+
+	.field span {
+		font-family: var(--font-mono);
+		font-size: var(--fs-eyebrow);
+		letter-spacing: var(--ls-caps);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.field input,
+	.field textarea {
+		font-family: var(--font-body);
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-primary);
+		background: var(--color-bg-page);
+		border: var(--border-hairline) solid var(--color-accent-link);
+		border-radius: var(--radius-sm);
+		padding: var(--space-3) var(--space-4);
+	}
+
+	.field textarea {
+		resize: vertical;
+	}
+
+	.field input:focus,
+	.field textarea:focus {
+		outline: none;
+		border-color: var(--color-accent);
+	}
+
+	.captcha-row {
+		display: flex;
+		align-items: flex-end;
+		flex-wrap: wrap;
+		gap: var(--space-4);
+	}
+
+	.captcha-field {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		color: var(--color-text-secondary);
+	}
+
+	.captcha-field input {
+		width: 60px;
+		font-family: var(--font-body);
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-primary);
+		background: var(--color-bg-page);
+		border: var(--border-hairline) solid var(--color-accent-link);
+		border-radius: var(--radius-sm);
+		padding: var(--space-2) var(--space-3);
+		text-align: center;
+	}
+
+	.captcha-field input:focus {
+		outline: none;
+		border-color: var(--color-accent);
+	}
+
+	.captcha-row button {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		color: var(--color-on-accent);
+		background: var(--color-accent-solid);
+		border: none;
+		padding: var(--space-3) var(--space-6);
+		border-radius: var(--radius-sm);
+		cursor: pointer;
+		transition: background 0.15s ease;
+	}
+
+	.captcha-row button:hover {
+		background: var(--color-accent);
+	}
+
+	.form-status {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		margin: var(--space-4) 0 0;
+		min-height: 1.2em;
+	}
+
+	.form-status[data-state='success'] {
+		color: var(--color-success);
+	}
+
+	.form-status[data-state='error'] {
+		color: var(--color-accent);
+	}
+
+	@media (max-width: 820px) {
+		.contact-grid {
+			grid-template-columns: 1fr;
+			gap: var(--space-12); /* brief-specified 3rem, which is exactly --space-12 */
+		}
 	}
 </style>
 
 <script>
-	// Base64-encoded rather than a plain string: the build minifier constant-folds
-	// simple string concatenation back into the literal address at build time, which
-	// would defeat the point. atob() is a runtime-only call, so the decoded address
-	// never appears as text anywhere in the built output for scrapers to find.
-	const link = document.getElementById('email-link');
-	if (link instanceof HTMLAnchorElement) {
-		const address = atob('aGVsbG9AYmVubWFjbGFyZW4uY29tLmF1');
-		link.href = `mailto:${address}`;
-		link.textContent = address;
+	const form = document.getElementById('contact-form');
+	const questionEl = document.getElementById('captcha-question');
+	const captchaInput = document.getElementById('captcha-input');
+	const statusEl = document.getElementById('form-status');
 
-		link.addEventListener('click', (e) => {
+	let expected = 0;
+
+	function newCaptcha() {
+		const a = Math.floor(Math.random() * 8) + 1;
+		const b = Math.floor(Math.random() * 8) + 1;
+		expected = a + b;
+		if (questionEl) questionEl.textContent = `${a} + ${b} =`;
+		if (captchaInput instanceof HTMLInputElement) captchaInput.value = '';
+	}
+
+	newCaptcha();
+
+	if (form instanceof HTMLFormElement && statusEl && captchaInput instanceof HTMLInputElement) {
+		form.addEventListener('submit', async (e) => {
 			e.preventDefault();
-			navigator.clipboard?.writeText(address);
-			const original = link.textContent;
-			link.textContent = 'Copied!';
-			setTimeout(() => {
-				link.textContent = original;
-			}, 1500);
+
+			if (Number(captchaInput.value) !== expected) {
+				statusEl.textContent = "That answer doesn't look right — please try again.";
+				statusEl.dataset.state = 'error';
+				newCaptcha();
+				return;
+			}
+
+			const formData = new FormData(form);
+			const body = new URLSearchParams();
+			for (const [key, value] of formData.entries()) {
+				if (key === 'captcha') continue;
+				body.append(key, String(value));
+			}
+
+			try {
+				const response = await fetch('/', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+					body: body.toString(),
+				});
+
+				if (!response.ok) throw new Error(`Status ${response.status}`);
+
+				statusEl.textContent = "Thanks, message sent. I'll get back to you soon.";
+				statusEl.dataset.state = 'success';
+				form.reset();
+				newCaptcha();
+			} catch {
+				statusEl.textContent = 'Something went wrong sending that — please try again, or email directly.';
+				statusEl.dataset.state = 'error';
+				newCaptcha();
+			}
 		});
 	}
 </script>
