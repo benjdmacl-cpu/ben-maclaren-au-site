@@ -39,6 +39,15 @@ const faqs = (await getCollection('faqs')).sort((a, b) => {
 						</div>
 					))}
 				</div>
+				<div class="faq-closing">
+					<p class="faq-closing-text">Still have questions? Send me an email, I'll reply personally.</p>
+					<a
+						class="faq-cta-btn"
+						href="#"
+						id="faq-email-link"
+						data-goatcounter-click="faq-email">Email me</a
+					>
+				</div>
 			</div>
 		</section>
 	)
@@ -175,6 +184,41 @@ const faqs = (await getCollection('faqs')).sort((a, b) => {
 			padding-right: var(--space-5);
 		}
 	}
+
+	.faq-closing {
+		max-width: 680px;
+		margin-top: var(--space-10);
+		padding-top: var(--space-8);
+		border-top: var(--border-hairline) solid var(--color-border);
+	}
+
+	.faq-closing-text {
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-secondary);
+		margin: 0 0 var(--space-4);
+	}
+
+	.faq-cta-btn {
+		display: inline-block;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--color-accent-solid);
+		background: transparent;
+		border: var(--border-hairline) solid var(--color-accent-solid);
+		padding: calc(var(--space-4) - var(--border-hairline)) calc(var(--space-7-5) - var(--border-hairline));
+		border-radius: var(--radius-sm);
+		transition:
+			background 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.faq-cta-btn:hover {
+		background: var(--color-accent-solid);
+		color: var(--color-on-accent);
+	}
 </style>
 
 <script>
@@ -198,4 +242,22 @@ const faqs = (await getCollection('faqs')).sort((a, b) => {
 			button.setAttribute('aria-expanded', String(willOpen));
 		});
 	});
+
+	// Same base64 + atob() approach as Hero/Contact's email links — see
+	// those files for the anti-scraping rationale.
+	const emailLink = document.getElementById('faq-email-link');
+	if (emailLink instanceof HTMLAnchorElement) {
+		const address = atob('aGVsbG9AYmVubWFjbGFyZW4uY29tLmF1');
+		emailLink.href = `mailto:${address}`;
+
+		emailLink.addEventListener('click', (e) => {
+			e.preventDefault();
+			navigator.clipboard?.writeText(address);
+			const original = emailLink.textContent;
+			emailLink.textContent = 'Copied!';
+			setTimeout(() => {
+				emailLink.textContent = original;
+			}, 1500);
+		});
+	}
 </script>

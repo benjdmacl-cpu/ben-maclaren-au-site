@@ -16,16 +16,10 @@
 				href="https://www.halaxy.com/book/benjamin-maclaren/counsellor/1780895/1362507"
 				target="_blank"
 				rel="noopener noreferrer"
-				data-goatcounter-click="hero-book-conversation">Book a conversation</a
+				data-goatcounter-click="hero-book-clarity-call">Book a clarity call</a
 			>
 			<a class="btn-secondary" href="/#contact" data-goatcounter-click="hero-send-message">Send a message</a>
 		</div>
-		<a
-			class="hero-contact-line"
-			id="hero-email-link"
-			href="#contact"
-			data-goatcounter-click="hero-email">Email</a
-		>
 	</div>
 </section>
 
@@ -128,42 +122,4 @@
 		background: var(--color-accent-solid);
 		color: var(--color-on-accent);
 	}
-
-	.hero-contact-line {
-		font-family: var(--font-mono);
-		font-size: var(--fs-caption);
-		color: var(--color-text-secondary);
-		text-decoration: none;
-		border-bottom: var(--border-hairline) solid var(--color-border);
-		padding-bottom: var(--space-0-5);
-		display: inline-block;
-		margin-top: var(--space-6-5);
-	}
-
-	.hero-contact-line:hover {
-		border-color: var(--color-accent-link);
-		color: var(--color-accent);
-	}
 </style>
-
-<script>
-	// Same rationale as Contact.astro's email link — base64 + atob() so the
-	// address is assembled at runtime and never appears as literal text in
-	// the built HTML/JS for scrapers to find.
-	const link = document.getElementById('hero-email-link');
-	if (link instanceof HTMLAnchorElement) {
-		const address = atob('aGVsbG9AYmVubWFjbGFyZW4uY29tLmF1');
-		link.href = `mailto:${address}`;
-		link.textContent = address;
-
-		link.addEventListener('click', (e) => {
-			e.preventDefault();
-			navigator.clipboard?.writeText(address);
-			const original = link.textContent;
-			link.textContent = 'Copied!';
-			setTimeout(() => {
-				link.textContent = original;
-			}, 1500);
-		});
-	}
-</script>

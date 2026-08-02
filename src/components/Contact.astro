@@ -10,29 +10,31 @@ const BOOKING_URL = 'https://www.halaxy.com/book/benjamin-maclaren/counsellor/17
 		<h2>Ready to take the first step?</h2>
 		<div class="contact-grid">
 			<div class="contact-booking">
-				<span class="col-subheading">Book a conversation</span>
+				<span class="col-subheading">Book a clarity call</span>
 				<p class="lead">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-					labore et dolore magna aliqua.
+					A 15-minute call, not a session. It's a chance to get a feel for how I work, ask any
+					questions, and see if this is the right fit.
 				</p>
 				<p class="lead">
-					Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-					commodo consequat.
+					We'll talk about what's bringing you here, and you can get a sense of my approach before
+					deciding anything.
 				</p>
 				<a
 					class="btn-outline"
 					href={BOOKING_URL}
 					target="_blank"
 					rel="noopener noreferrer"
-					data-goatcounter-click="contact-book">Book</a
+					data-goatcounter-click="contact-book">Book a clarity call</a
 				>
-				<p class="note">Lorem ipsum — availability / age-restriction note placeholder.</p>
 				<p class="faq-pointer">Got a question first? <a href="#faq">Check the FAQ</a>.</p>
 			</div>
 
 			<div class="contact-form-col">
 				<span class="col-subheading">Send a message</span>
-				<p class="form-intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				<p class="form-intro">
+					If you'd rather write first, send a message instead. Tell me a little about what's going on,
+					and I'll get back to you personally.
+				</p>
 
 				<form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contact-form">
 					<input type="hidden" name="form-name" value="contact" />
@@ -145,13 +147,6 @@ const BOOKING_URL = 'https://www.halaxy.com/book/benjamin-maclaren/counsellor/17
 	.btn-outline:hover {
 		background: var(--color-accent-solid);
 		color: var(--color-on-accent);
-	}
-
-	.note {
-		font-family: var(--font-mono);
-		font-size: var(--fs-caption);
-		color: var(--color-text-muted);
-		margin: 0 0 var(--space-3);
 	}
 
 	.faq-pointer {
