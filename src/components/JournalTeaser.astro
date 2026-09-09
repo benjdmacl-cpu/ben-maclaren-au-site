@@ -1,0 +1,180 @@
+---
+import { getCollection } from 'astro:content';
+import { CATEGORY_LABELS } from '../lib/journal-labels';
+import FormattedDate from './FormattedDate.astro';
+
+// Section is on, but the Journal itself is still placeholder content
+// (every title is literal "Lorem ipsum..." text, and the Journal index
+// shows a visible work-in-progress banner) — so real posts stay unused
+// and a "coming soon" message renders instead. Flip this to true once
+// real articles replace the placeholders; no other changes needed here.
+const HAS_REAL_POSTS = false;
+
+// Guides and "For the locals" pieces are excluded — this teaser previews
+// the tiered/editorial articles only, matching how the Journal index
+// itself keeps those in separate sections rather than the main pool.
+const posts = HAS_REAL_POSTS
+	? (await getCollection('journal', ({ data }) => !data.draft))
+			.filter((post) => post.data.articleType !== 'guide' && !post.data.local)
+			.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+			.slice(0, 3)
+	: [];
+---
+
+<section class="journal-teaser">
+	<div class="wrap">
+		<div class="teaser-header">
+			<span class="eyebrow">From the Journal</span>
+			<h2>Recent notes from the field</h2>
+		</div>
+		{HAS_REAL_POSTS && posts.length > 0 ? (
+			<>
+				<div class="teaser-grid">
+					{posts.map((post) => (
+						<article class="teaser-item">
+							<span class="teaser-kicker">
+								{post.data.category && CATEGORY_LABELS[post.data.category]}
+								{post.data.category && ' · '}
+								<FormattedDate date={post.data.date} />
+							</span>
+							<h3>
+								<a href={`/journal/${post.id}/`}>{post.data.title}</a>
+							</h3>
+							<p class="teaser-excerpt">{post.data.description}</p>
+						</article>
+					))}
+				</div>
+				<a class="teaser-link" href="/journal">
+					Read the Field Journal →
+				</a>
+			</>
+		) : (
+			<p class="teaser-coming-soon">New articles are on the way. Check back soon.</p>
+		)}
+	</div>
+</section>
+
+<style>
+	.journal-teaser {
+		padding: var(--space-20) 0;
+		background: var(--color-bg-page);
+		border-top: var(--border-hairline) solid var(--color-border);
+	}
+
+	.teaser-header {
+		margin-bottom: var(--space-10);
+	}
+
+	.journal-teaser .eyebrow {
+		margin-bottom: var(--space-3-5);
+		display: block;
+	}
+
+	.journal-teaser h2 {
+		font-size: var(--fs-display);
+		line-height: var(--lh-article-title);
+		max-width: 640px;
+	}
+
+	.teaser-coming-soon {
+		font-family: var(--font-display);
+		font-style: italic;
+		font-size: var(--fs-h3);
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.teaser-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		margin-bottom: var(--space-8);
+	}
+
+	.teaser-item {
+		padding: 0 var(--space-6);
+	}
+
+	.teaser-item:first-child {
+		padding-left: 0;
+	}
+
+	.teaser-item:last-child {
+		padding-right: 0;
+	}
+
+	.teaser-item:not(:last-child) {
+		border-right: var(--border-hairline) solid var(--color-border);
+	}
+
+	.teaser-kicker {
+		font-family: var(--font-mono);
+		font-size: var(--fs-eyebrow);
+		letter-spacing: var(--ls-caps);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		display: block;
+		margin-bottom: var(--space-3);
+	}
+
+	.teaser-item h3 {
+		font-size: var(--fs-tier2-headline);
+		line-height: var(--lh-snug);
+		margin-bottom: var(--space-2);
+	}
+
+	.teaser-item h3 a {
+		color: var(--color-text-primary);
+		text-decoration: none;
+	}
+
+	.teaser-item h3 a:hover {
+		color: var(--color-accent);
+	}
+
+	.teaser-excerpt {
+		font-size: var(--fs-caption);
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	.teaser-link {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--color-text-secondary);
+		border-bottom: var(--border-hairline) solid var(--color-border);
+		padding-bottom: var(--space-0-5);
+		display: inline-block;
+	}
+
+	.teaser-link:hover {
+		color: var(--color-accent);
+		border-color: var(--color-accent-link);
+	}
+
+	@media (max-width: 820px) {
+		.teaser-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.teaser-item {
+			padding: var(--space-6) 0;
+		}
+
+		.teaser-item:first-child {
+			padding-top: 0;
+		}
+
+		.teaser-item:last-child {
+			padding-bottom: 0;
+			border-bottom: none;
+		}
+
+		.teaser-item:not(:last-child) {
+			border-right: none;
+			border-bottom: var(--border-hairline) solid var(--color-border);
+		}
+	}
+</style>

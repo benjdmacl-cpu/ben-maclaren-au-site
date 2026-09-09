@@ -1,9 +1,12 @@
 ---
-import Approach from '../components/Approach.astro';
 import Audiences from '../components/Audiences.astro';
 import Contact from '../components/Contact.astro';
+import Events from '../components/Events.astro';
 import Faq from '../components/Faq.astro';
 import Hero from '../components/Hero.astro';
+// JournalTeaser hidden for now — reactivate later by restoring the import
+// and usage below. The Journal itself is still placeholder content.
+// import JournalTeaser from '../components/JournalTeaser.astro';
 import Meet from '../components/Meet.astro';
 import Layout from '../layouts/Layout.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
@@ -13,7 +16,8 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	<Hero />
 	<Meet />
 	<Audiences />
-	<Approach />
+	<!-- <JournalTeaser /> -->
+	<Events />
 	<Contact />
 	<Faq />
 </Layout>

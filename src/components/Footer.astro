@@ -1,25 +1,37 @@
 <footer>
-	<div class="wrap">
-		<div class="footer-group">
-			<p>Ben Maclaren — Counsellor</p>
-			<p>Canberra, ACT</p>
-		</div>
-		<div class="footer-group footer-meta">
-			<p>ABN 50 228 140 416</p>
-			<p>ACA Membership No. S84574</p>
-			<p><a href="/privacy">Privacy &amp; Confidentiality</a></p>
+	<div class="wrap footer-inner">
+		<div class="footer-top">
+			<div class="footer-group">
+				<p>Ben Maclaren — Counsellor</p>
+				<p>Canberra, ACT</p>
+			</div>
+			<div class="footer-group footer-meta">
+				<p>ABN 50 228 140 416</p>
+				<p>ACA Membership No. S84574</p>
+				<p><a href="/privacy">Privacy &amp; Confidentiality</a></p>
+			</div>
 		</div>
 	</div>
 </footer>
 
 <style>
 	footer {
-		padding: var(--space-7-5) 0 var(--space-12);
+		min-height: 20vh;
+		display: flex;
+		align-items: center;
+		padding: var(--space-8) 0;
 		background: var(--color-bg-dark);
 		border-top: var(--border-hairline) solid var(--color-border-on-dark);
 	}
 
-	footer .wrap {
+	.footer-inner {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-8);
+	}
+
+	.footer-top {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -55,7 +67,7 @@
 	}
 
 	@media (max-width: 480px) {
-		footer .wrap {
+		.footer-top {
 			flex-direction: column;
 			align-items: flex-start;
 		}

@@ -88,4 +88,20 @@ const faqs = defineCollection({
 	}),
 });
 
-export const collections = { journal, resources, faqs };
+const events = defineCollection({
+	// Load Markdown files in the `src/content/events/` directory. endDate is
+	// only needed for multi-day events — the homepage section falls back to
+	// startDate when it's omitted. externalUrl is where the card's link
+	// points (a third-party booking/event page, not an internal route).
+	loader: glob({ base: './src/content/events', pattern: '**/*.md' }),
+	schema: z.object({
+		title: z.string(),
+		startDate: z.coerce.date(),
+		endDate: z.coerce.date().optional(),
+		description: z.string(),
+		externalUrl: z.string().url(),
+		linkLabel: z.string().optional().default('View event'),
+	}),
+});
+
+export const collections = { journal, resources, faqs, events };

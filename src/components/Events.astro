@@ -1,0 +1,166 @@
+---
+import { getCollection } from 'astro:content';
+
+// Events happening today should still show, so the cutoff is the start of
+// today rather than the exact current moment (which would hide a same-day
+// event once it's past midnight-anywhere-o'clock).
+const todayStart = new Date();
+todayStart.setHours(0, 0, 0, 0);
+
+const events = (await getCollection('events'))
+	.filter((event) => (event.data.endDate ?? event.data.startDate) >= todayStart)
+	.sort((a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf());
+
+function formatDateRange(start: Date, end?: Date) {
+	const monthDay: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' };
+
+	if (!end || start.toDateString() === end.toDateString()) {
+		return start.toLocaleDateString('en-us', { ...monthDay, year: 'numeric' });
+	}
+
+	const sameYear = start.getFullYear() === end.getFullYear();
+	const sameMonth = sameYear && start.getMonth() === end.getMonth();
+
+	if (sameMonth) {
+		const month = start.toLocaleDateString('en-us', { month: 'short' });
+		return `${month} ${start.getDate()}–${end.getDate()}, ${start.getFullYear()}`;
+	}
+
+	if (sameYear) {
+		return `${start.toLocaleDateString('en-us', monthDay)} – ${end.toLocaleDateString('en-us', monthDay)}, ${start.getFullYear()}`;
+	}
+
+	return `${start.toLocaleDateString('en-us', { ...monthDay, year: 'numeric' })} – ${end.toLocaleDateString('en-us', { ...monthDay, year: 'numeric' })}`;
+}
+---
+
+<section class="events" id="events">
+	<div class="wrap">
+		<span class="eyebrow">Upcoming</span>
+		<h2>Events I'm hosting</h2>
+		{events.length > 0 ? (
+			<div class="events-grid">
+				{events.map((event) => (
+					<div class="event-card">
+						<span class="event-dates">{formatDateRange(event.data.startDate, event.data.endDate)}</span>
+						<h3 class="event-title">{event.data.title}</h3>
+						<p class="event-desc">{event.data.description}</p>
+						<a
+							class="event-link"
+							href={event.data.externalUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							data-goatcounter-click={`event-${event.id}`}
+						>
+							{event.data.linkLabel} →
+						</a>
+					</div>
+				))}
+			</div>
+		) : (
+			<p class="events-empty">
+				Nothing on yet! Check out our <a href="#" data-goatcounter-click="events-empty-facebook">Facebook page</a> or{' '}
+				<a href="/#contact" data-goatcounter-click="events-empty-message">send us a message</a>.
+			</p>
+		)}
+	</div>
+</section>
+
+<style>
+	.events {
+		padding: var(--space-20) 0;
+		background: var(--color-bg-card);
+		border-top: var(--border-hairline) solid var(--color-border);
+	}
+
+	.events .eyebrow {
+		margin-bottom: var(--space-3-5);
+		display: block;
+	}
+
+	.events h2 {
+		font-size: var(--fs-display);
+		line-height: var(--lh-article-title);
+		margin-bottom: var(--space-13);
+		max-width: 640px;
+	}
+
+	.events-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-6);
+	}
+
+	.events-empty {
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.events-empty a {
+		color: var(--color-accent-link);
+		text-decoration: underline;
+	}
+
+	.events-empty a:hover {
+		color: var(--color-accent);
+	}
+
+	.event-card {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-2);
+		background: var(--color-bg-page);
+		border-radius: var(--radius-card);
+		padding: var(--space-6);
+	}
+
+	.event-dates {
+		font-family: var(--font-mono);
+		font-size: var(--fs-micro);
+		letter-spacing: var(--ls-caps);
+		text-transform: uppercase;
+		color: var(--color-accent);
+	}
+
+	.event-title {
+		font-family: var(--font-display);
+		font-size: var(--fs-h3);
+		font-weight: var(--fw-medium);
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.event-desc {
+		font-size: var(--fs-caption);
+		color: var(--color-text-muted);
+		margin: 0 0 var(--space-1);
+	}
+
+	.event-link {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--color-accent-link);
+		border-bottom: var(--border-hairline) solid var(--color-border);
+		padding-bottom: var(--space-0-5);
+		transition:
+			color 0.15s ease,
+			border-color 0.15s ease;
+		margin-top: auto;
+	}
+
+	.event-link:hover {
+		color: var(--color-accent);
+		border-color: var(--color-accent-link);
+	}
+
+	@media (max-width: 720px) {
+		.events-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
