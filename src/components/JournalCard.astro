@@ -1,0 +1,112 @@
+---
+// The single uniform card used in the Journal's flat grid — replaces what
+// used to be three separate visual treatments (Tier 1 sidebar item, Tier 2
+// row-of-three card, Tier 3 plain-list row). Also the intended building
+// block for JournalTeaser.astro once that's reworked to match — see the
+// styleguide's journal.md for the full restructure rationale.
+import FormattedDate from './FormattedDate.astro';
+import { CATEGORY_LABELS, TAG_LABELS } from '../lib/journal-labels';
+
+interface Props {
+	href: string;
+	title: string;
+	excerpt: string;
+	date: Date;
+	category?: string;
+	tags: string[];
+}
+
+const { href, title, excerpt, date, category, tags } = Astro.props;
+---
+
+<a class="journal-card" href={href} data-category={category ?? ''} data-tags={tags.join(',')}>
+	<span class="journal-card-kicker">
+		{category && CATEGORY_LABELS[category]}
+		{category && ' · '}
+		<FormattedDate date={date} />
+	</span>
+	<h3 class="journal-card-title">{title}</h3>
+	<p class="journal-card-excerpt">{excerpt}</p>
+	{
+		tags.length > 0 && (
+			<div class="journal-card-tags">
+				{tags.map((tag) => (
+					<span class="journal-card-tag">{TAG_LABELS[tag] ?? tag}</span>
+				))}
+			</div>
+		)
+	}
+</a>
+
+<style>
+	.journal-card {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-2);
+		background: var(--color-bg-card);
+		border-radius: var(--radius-card);
+		padding: var(--space-6);
+		text-decoration: none;
+		color: inherit;
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.journal-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 10px 24px rgba(56, 44, 36, 0.1);
+	}
+
+	/* Toggled by JournalFilterBar.astro's script — lives here rather than in
+	   that component's own styles, since Astro scopes CSS per-component and
+	   a rule written there wouldn't reach elements rendered by this one. */
+	.journal-card.is-filtered-out {
+		display: none;
+	}
+
+	.journal-card-kicker {
+		font-family: var(--font-mono);
+		font-size: var(--fs-eyebrow);
+		letter-spacing: var(--ls-caps);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.journal-card-title {
+		font-size: var(--fs-tier2-headline);
+		line-height: var(--lh-snug);
+		color: var(--color-text-primary);
+		margin: 0;
+		transition: color 0.15s ease;
+	}
+
+	.journal-card:hover .journal-card-title {
+		color: var(--color-accent);
+	}
+
+	.journal-card-excerpt {
+		font-size: var(--fs-caption);
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	.journal-card-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-1-5);
+		margin-top: var(--space-1);
+	}
+
+	.journal-card-tag {
+		font-family: var(--font-mono);
+		font-size: var(--fs-micro);
+		letter-spacing: var(--ls-caps);
+		text-transform: uppercase;
+		color: var(--color-accent);
+		border: var(--border-hairline) solid var(--color-border);
+		border-radius: 999px;
+		padding: var(--space-0-5) var(--space-3);
+	}
+</style>

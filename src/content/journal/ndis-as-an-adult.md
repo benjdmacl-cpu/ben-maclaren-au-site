@@ -2,8 +2,9 @@
 title: 'Quis nostrud exercitation ullamco'
 description: 'What access actually requires, and where most applications get stuck.'
 date: 2026-06-15
-articleType: 'guide'
 icon: 'map-2'
+tags: [guide]
+featured: false
 ---
 
 Most adults who could benefit from NDIS support never apply, usually because the process looks more opaque than it actually is. Here's the shape of it.

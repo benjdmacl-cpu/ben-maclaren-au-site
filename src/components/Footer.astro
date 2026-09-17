@@ -8,9 +8,14 @@
 			<div class="footer-group footer-meta">
 				<p>ABN 50 228 140 416</p>
 				<p>ACA Membership No. S84574</p>
-				<p><a href="/privacy">Privacy &amp; Confidentiality</a></p>
 			</div>
 		</div>
+		<nav class="footer-sitemap" aria-label="Site pages">
+			<a href="/">Home</a>
+			<a href="/journal">Journal</a>
+			<a href="/resources">Resources</a>
+			<a href="/privacy">Privacy &amp; Confidentiality</a>
+		</nav>
 	</div>
 </footer>
 
@@ -64,6 +69,22 @@
 
 	footer a:hover {
 		color: var(--color-accent-on-dark);
+	}
+
+	.footer-sitemap {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2-5) var(--space-6);
+		padding-top: var(--space-6);
+		border-top: var(--border-hairline) solid var(--color-border-on-dark);
+	}
+
+	.footer-sitemap a {
+		font-family: var(--font-mono);
+		font-size: var(--fs-meta-label);
+		letter-spacing: var(--ls-tight-label);
+		text-transform: uppercase;
+		color: var(--color-text-muted-on-dark);
 	}
 
 	@media (max-width: 480px) {

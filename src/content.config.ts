@@ -10,31 +10,54 @@ const referenceSchema = z.array(
 	}),
 );
 
+// Curated, not freeform — same philosophy as `category` below: extend this
+// list deliberately when a new tag is genuinely needed, rather than letting
+// posts accumulate one-off tag strings that make the hub's filter bar
+// unusable. `guide` and `canberra` are load-bearing (see journal/index.astro
+// — `guide` decides the icon-tile grid, `canberra` is just a filterable/
+// displayed tag with no structural effect). The rest are examples to extend
+// from, not an exhaustive taxonomy.
+const JOURNAL_TAGS = [
+	// Format
+	'guide',
+	'personal-reflection',
+	'explainer',
+	// Locality
+	'canberra',
+	// Topic (starter set — add more here as real posts need them)
+	'first-session',
+	'masking',
+	'boundaries',
+	'grief-processing',
+] as const;
+
 const journal = defineCollection({
 	// Load Markdown and MDX files in the `src/content/journal/` directory.
 	loader: glob({ base: './src/content/journal', pattern: '**/*.{md,mdx}' }),
-	// title, description, date, and articleType are required. category is
-	// optional — guides don't fit the response/research category taxonomy,
-	// so they're left uncategorised; response/research pieces should still
-	// always set one by convention. icon is only used by guide-type entries
-	// (for their tile on the Journal index) — local entries render in the
-	// same editorial style as Tier 2 (kicker/headline/excerpt), no icon.
-	// local is an independent flag, not an articleType — a local piece is
-	// usually a response/research article with Canberra worked into it, not
-	// a guide. It takes precedence over articleType: 'guide' for section
-	// placement (see journal/index.astro), so a post is never in both the
-	// Guides and "For the locals" sections at once. draft, references, and
-	// substackUrl are optional — draft defaults to false (set draft: true to
-	// keep an entry off the live site); references and substackUrl simply
-	// don't render their associated UI when omitted.
+	// title, description, and date are required. category is optional —
+	// guide-tagged posts don't fit the taxonomy, so they're left
+	// uncategorised; everything else should still set one by convention.
+	// icon is only used by guide-tagged entries (for their tile on the
+	// Journal index). tags replaces the old articleType/local pair: the
+	// `guide` tag is what routes a post to the icon-tile grid instead of the
+	// flat card grid, and `canberra` is what used to be the `local` boolean
+	// — now just a filterable/displayed tag, not a separate structural
+	// section. featured pins at most one post above the flat grid as a
+	// deliberate "start here" recommendation — this is a convention, not a
+	// constraint the schema enforces, so keep at most one `true` across the
+	// collection by hand. draft, references, and substackUrl are optional —
+	// draft defaults to false (set draft: true to keep an entry off the live
+	// site, though nothing currently filters on it — see journal.md in the
+	// styleguide); references and substackUrl simply don't render their
+	// associated UI when omitted.
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
 		date: z.coerce.date(),
 		category: z.enum(['practice', 'men', 'neurodivergent', 'life-and-career', 'grief']).optional(),
-		articleType: z.enum(['response', 'research', 'guide']),
-		icon: z.string().optional(), // Tabler outline icon slug — guide-type entries only, see ResourceIcon.astro
-		local: z.boolean().optional().default(false), // pulls the entry into "For the locals" on the Journal index
+		tags: z.array(z.enum(JOURNAL_TAGS)).optional().default([]),
+		featured: z.boolean().optional().default(false),
+		icon: z.string().optional(), // Tabler outline icon slug — guide-tagged entries only, see ResourceIcon.astro
 		references: referenceSchema.optional(),
 		substackUrl: z.string().url().optional(),
 		draft: z.boolean().optional().default(false),

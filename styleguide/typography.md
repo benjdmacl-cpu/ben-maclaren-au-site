@@ -113,7 +113,7 @@ were added; all live together as flat tokens in `typography.css`.
 
 ## Known deviations
 
-- **Audiences heading is 32px, not 34px.** Every other homepage section heading (Meet, Approach,
+- **Audiences heading is 32px, not 34px.** Every other homepage section heading (Meet, Events,
   FAQ) uses `--fs-display` (34px). Audiences alone uses `--fs-section-heading` (32px). This was
   flagged as an open gap in the token file itself and hasn't been resolved. Contact's 38px is
   intentionally distinct (closing CTA section) and isn't part of this inconsistency.

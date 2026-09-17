@@ -3,7 +3,8 @@ title: 'Lorem ipsum dolor sit amet consectetur'
 description: "Non-directive counselling gets mistaken for doing nothing. Here's what's actually happening in the space it creates."
 date: 2026-05-18
 category: practice
-articleType: response
+tags: []
+featured: false
 ---
 
 People sometimes hear "non-directive" and picture a counsellor nodding along for fifty minutes, offering nothing. It's a fair guess if the only reference point is advice — and advice is what most of us expect when we bring a problem to another person. So it's worth saying plainly: non-directive doesn't mean passive. It means the direction comes from you, not from me.

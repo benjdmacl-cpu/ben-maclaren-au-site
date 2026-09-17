@@ -10,12 +10,23 @@ over — see "Known deviations" in each file.
 
 ## Contents
 
+Token reference (design-system level, applies everywhere):
+
 - [typography.md](./typography.md) — type families, the full font-size/line-height/letter-spacing
   scale, weights, and where each token is used
 - [colour.md](./colour.md) — the raw palette, the semantic colour tokens built on top of it, and
   the light/dark-section rules
 - [spacing.md](./spacing.md) — the spacing scale, border widths, radius, and the two-tier border
   system (hairline vs. strong)
+
+Page design reference (how a specific page is assembled, section by section):
+
+- [homepage.md](./homepage.md) — section order and purpose, the background-alternation system, and
+  the three-tier contact hierarchy (book / message / text-call) that repeats across Hero and Contact
+- [journal.md](./journal.md) — the Field Journal's flat, tag-filterable hub (featured / guides /
+  flat-grid pools), the curated tag vocabulary, and its current placeholder-content status
+- [resources.md](./resources.md) — the segmented (not tiered) index layout, the interactive-vs-
+  worksheet hero pattern on individual resource pages, and the interactive-component registry
 
 ## How the token system is wired up
 
@@ -59,6 +70,8 @@ silently inconsistent:
   that pass. See [colour.md](./colour.md#border-tokens) for the hairline-vs-strong rule.
 - **Audiences heading is 2px off the standard.** `.audiences h2` uses `--fs-section-heading`
   (32px) instead of `--fs-display` (34px), which every other homepage section heading uses. See
-  [typography.md](./typography.md#known-deviations).
-- **Unused `.pull` blockquote style.** [`Approach.astro`](../src/components/Approach.astro) defines
-  a fully-styled `.pull` class (italic serif pull-quote) that no markup currently uses.
+  [typography.md](./typography.md#known-deviations). Still unresolved as of this writing.
+- **`Approach.astro` no longer exists.** It was merged into `Meet.astro` as part of the "About me"
+  section consolidation — see [homepage.md](./homepage.md). Any older notes referencing a
+  standalone Approach section (including previous versions of this deviation list, which used to
+  flag an unused `.pull` blockquote class on that file) are stale.

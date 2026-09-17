@@ -2,8 +2,9 @@
 title: 'Sunt in culpa qui officia deserunt'
 description: "What Medicare actually covers, and what it doesn't."
 date: 2026-06-25
-articleType: 'guide'
 icon: 'receipt'
+tags: [guide]
+featured: false
 ---
 
 Rebates are one of the more confusing parts of starting therapy, mostly because "rebate" gets used loosely to mean a few different things.

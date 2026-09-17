@@ -3,7 +3,8 @@ title: 'Duis aute irure dolor in reprehenderit'
 description: 'Most people arrive wanting a diagnosis for what''s wrong. The more useful first step is usually slower than that.'
 date: 2026-06-09
 category: practice
-articleType: response
+tags: []
+featured: false
 ---
 
 Almost everyone who sits down for a first session wants the same thing early on: a name for what's happening to them. Anxiety, burnout, a bad relationship pattern, unresolved grief — something with edges, something that can be looked up and worked on. I understand the pull. A name feels like progress, even before anything has actually changed.

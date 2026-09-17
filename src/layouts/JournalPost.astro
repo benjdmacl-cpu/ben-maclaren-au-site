@@ -11,7 +11,6 @@ type Props = {
 	description: string;
 	date: Date;
 	category?: string;
-	articleType?: 'response' | 'research' | 'guide';
 	references?: Reference[];
 	substackUrl?: string;
 	pageTitle?: string;
@@ -26,7 +25,6 @@ const {
 	description,
 	date,
 	category,
-	articleType,
 	references,
 	substackUrl,
 	pageTitle = title,
@@ -48,8 +46,8 @@ const hasReferences = Boolean(references && references.length > 0);
 				<h1>{title}</h1>
 				<div class="meta-row">
 					{
-						category && articleType ? (
-							<JournalKicker articleType={articleType} category={category} date={date} />
+						category ? (
+							<JournalKicker category={category} date={date} />
 						) : (
 							<div class="meta">
 								<FormattedDate date={date} />

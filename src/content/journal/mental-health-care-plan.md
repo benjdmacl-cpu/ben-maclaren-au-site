@@ -2,8 +2,9 @@
 title: 'Ut enim ad minim veniam'
 description: 'How to ask your GP for one, and what it actually gets you.'
 date: 2026-06-20
-articleType: 'guide'
 icon: 'stethoscope'
+tags: [guide]
+featured: false
 ---
 
 A Mental Health Care Plan is the most common way people access rebated sessions with a psychologist or counsellor in Australia, and it's a shorter conversation than most people expect.

@@ -1,0 +1,100 @@
+---
+// Single-select-at-a-time filtering (click a filter, see matching posts) —
+// deliberately not multi-select, per the "avoid over-engineering" pattern
+// already established elsewhere on the site. Only ever affects the flat
+// grid below it: the featured post and Guides are structural pools, not
+// part of the filtered set, so they're untouched by this component and
+// simply live outside its reach in the DOM.
+import { CATEGORY_LABELS, TAG_LABELS } from '../lib/journal-labels';
+
+interface Props {
+	categories: string[];
+	tags: string[];
+}
+
+const { categories, tags } = Astro.props;
+---
+
+<div class="journal-filters" role="group" aria-label="Filter journal posts">
+	<button type="button" class="filter-btn is-active" data-filter-type="all">All</button>
+	{
+		categories.map((category) => (
+			<button type="button" class="filter-btn" data-filter-type="category" data-filter-value={category}>
+				{CATEGORY_LABELS[category]}
+			</button>
+		))
+	}
+	{
+		tags.map((tag) => (
+			<button type="button" class="filter-btn" data-filter-type="tag" data-filter-value={tag}>
+				{TAG_LABELS[tag] ?? tag}
+			</button>
+		))
+	}
+</div>
+
+<style>
+	.journal-filters {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2-5);
+		margin-bottom: var(--space-8);
+	}
+
+	.filter-btn {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		color: var(--color-text-secondary);
+		background: transparent;
+		border: var(--border-hairline) solid var(--color-border);
+		border-radius: 999px;
+		padding: calc(var(--space-2) - var(--border-hairline)) calc(var(--space-4) - var(--border-hairline));
+		cursor: pointer;
+		transition:
+			background 0.15s ease,
+			color 0.15s ease,
+			border-color 0.15s ease;
+	}
+
+	.filter-btn:hover {
+		border-color: var(--color-accent-link);
+		color: var(--color-accent);
+	}
+
+	.filter-btn.is-active {
+		background: var(--color-accent-solid);
+		border-color: var(--color-accent-solid);
+		color: var(--color-on-accent);
+	}
+</style>
+
+<script>
+	const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+	const cards = document.querySelectorAll<HTMLElement>('.journal-card');
+
+	buttons.forEach((button) => {
+		button.addEventListener('click', () => {
+			buttons.forEach((other) => other.classList.remove('is-active'));
+			button.classList.add('is-active');
+
+			const type = button.dataset.filterType;
+			const value = button.dataset.filterValue;
+
+			cards.forEach((card) => {
+				if (type === 'all') {
+					card.classList.remove('is-filtered-out');
+					return;
+				}
+
+				const matches =
+					type === 'category'
+						? card.dataset.category === value
+						: (card.dataset.tags ?? '').split(',').includes(value ?? '');
+
+				card.classList.toggle('is-filtered-out', !matches);
+			});
+		});
+	});
+</script>
