@@ -20,6 +20,7 @@
 			>
 			<a class="btn-secondary" href="/#contact" data-goatcounter-click="hero-send-message">Send a message</a>
 		</div>
+		<p class="contact-tertiary" id="hero-tertiary"></p>
 	</div>
 </section>
 
@@ -122,4 +123,36 @@
 		background: var(--color-accent-solid);
 		color: var(--color-on-accent);
 	}
+
+	.contact-tertiary {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		color: var(--color-text-secondary);
+		margin-top: var(--space-5);
+	}
+
+	.contact-tertiary :global(a) {
+		color: var(--color-accent-link);
+		text-decoration: underline;
+	}
+
+	.contact-tertiary :global(a:hover) {
+		color: var(--color-accent);
+	}
 </style>
+
+<script>
+	// Number assembled from non-contiguous parts and inserted into the DOM
+	// only after page load — never sitting as plain text/href in the page
+	// source — so scraping bots reading raw HTML don't pick it up, while a
+	// human visitor sees and can tap it normally.
+	const el = document.getElementById('hero-tertiary');
+	if (el) {
+		const parts = ['0494', '746', '502'];
+		const number = parts.join('');
+		const display = parts.join(' ');
+		const message =
+			"Hi Ben, I found your site and I'm thinking about counselling. Would love to have a chat when you're free.";
+		el.innerHTML = `Or <a href="sms:${number}?body=${encodeURIComponent(message)}" data-goatcounter-click="hero-text">text</a> or <a href="tel:${number}" data-goatcounter-click="hero-call">call</a>: ${display}`;
+	}
+</script>

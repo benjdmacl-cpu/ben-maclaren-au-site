@@ -26,6 +26,7 @@ const BOOKING_URL = 'https://www.halaxy.com/book/benjamin-maclaren/counsellor/17
 					rel="noopener noreferrer"
 					data-goatcounter-click="contact-book">Book an intro call</a
 				>
+				<p class="contact-tertiary" id="contact-tertiary"></p>
 				<p class="faq-pointer">Got a question first? <a href="#faq">Check the FAQ</a>.</p>
 			</div>
 
@@ -147,6 +148,22 @@ const BOOKING_URL = 'https://www.halaxy.com/book/benjamin-maclaren/counsellor/17
 	.btn-outline:hover {
 		background: var(--color-accent-solid);
 		color: var(--color-on-accent);
+	}
+
+	.contact-tertiary {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		color: var(--color-text-secondary);
+		margin: 0 0 var(--space-3);
+	}
+
+	.contact-tertiary :global(a) {
+		color: var(--color-accent-link);
+		text-decoration: underline;
+	}
+
+	.contact-tertiary :global(a:hover) {
+		color: var(--color-accent);
 	}
 
 	.faq-pointer {
@@ -286,6 +303,21 @@ const BOOKING_URL = 'https://www.halaxy.com/book/benjamin-maclaren/counsellor/17
 </style>
 
 <script>
+	// Number assembled from non-contiguous parts and inserted into the DOM
+	// only after page load — never sitting as plain text/href in the page
+	// source — so scraping bots reading raw HTML don't pick it up, while a
+	// human visitor sees and can tap it normally. Same approach as Hero's
+	// tertiary text/call line.
+	const tertiaryEl = document.getElementById('contact-tertiary');
+	if (tertiaryEl) {
+		const parts = ['0494', '746', '502'];
+		const number = parts.join('');
+		const display = parts.join(' ');
+		const message =
+			"Hi Ben, I found your site and I'm thinking about counselling. Would love to have a chat when you're free.";
+		tertiaryEl.innerHTML = `Or <a href="sms:${number}?body=${encodeURIComponent(message)}" data-goatcounter-click="contact-text">text</a> or <a href="tel:${number}" data-goatcounter-click="contact-call">call</a>: ${display}`;
+	}
+
 	const form = document.getElementById('contact-form');
 	const questionEl = document.getElementById('captcha-question');
 	const captchaInput = document.getElementById('captcha-input');
