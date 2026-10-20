@@ -1,0 +1,46 @@
+<section class="trust-banner">
+	<div class="wrap">
+		<ul class="trust-list">
+			<li class="trust-pill">Neuro-affirming</li>
+			<li class="trust-pill">LGBTQ+ Friendly</li>
+			<li class="trust-pill">All identities and cultures are welcome here.</li>
+		</ul>
+	</div>
+</section>
+
+<style>
+	.trust-banner {
+		padding: var(--space-6) 0;
+		background: var(--color-bg-page);
+		border-top: var(--border-hairline) solid var(--color-border);
+		border-bottom: var(--border-hairline) solid var(--color-border);
+	}
+
+	.trust-list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--space-4);
+	}
+
+	.trust-pill {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-tight-label);
+		color: var(--color-text-secondary);
+		border: var(--border-hairline) solid var(--color-border);
+		border-radius: 999px;
+		padding: var(--space-2) var(--space-5);
+		text-align: center;
+	}
+
+	@media (max-width: 480px) {
+		.trust-list {
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+</style>

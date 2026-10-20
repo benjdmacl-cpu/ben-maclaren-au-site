@@ -14,9 +14,8 @@ token-level detail (exact font sizes, colours, spacing values), see
 <Layout>
   <Hero />
   <Meet />        <!-- "About me" — Welcome + the old Approach section, merged -->
-  <Audiences />
   <!-- <JournalTeaser /> -->   <!-- built, currently commented out -->
-  <Events />
+  <!-- <Events /> -->          <!-- built, currently commented out -->
   <Contact />
   <Faq />
 </Layout>
@@ -27,10 +26,9 @@ Nothing here is arbitrary — each section earns its position:
 
 1. **Hero** — the pitch + the fastest path to booking, above the fold
 2. **Meet ("About me")** — who you'd actually be talking to, and how he works
-3. **Audiences** — "is this for someone like me?"
-4. **Events** *(JournalTeaser sits here when enabled)* — proof of ongoing activity
-5. **Contact** — the full ask, once trust is established
-6. **FAQ** — objection-handling, deliberately last before the Footer
+3. **Events** *(JournalTeaser sits here when enabled)* — proof of ongoing activity, currently hidden
+4. **Contact** — the full ask, once trust is established
+5. **FAQ** — objection-handling, deliberately last before the Footer
 
 ## Background alternation
 
@@ -41,9 +39,8 @@ hard rule between all of them:
 |---|---|
 | Hero | `--color-bg-page` (implicit — no rule set, inherits `body`) |
 | Meet | `--color-bg-card` |
-| Audiences | `--color-bg-page` |
 | *(JournalTeaser, when enabled)* | `--color-bg-page` |
-| Events | `--color-bg-card` |
+| *(Events, when enabled)* | `--color-bg-card` |
 | Contact | `--color-bg-page` |
 | FAQ | `--color-bg-card` |
 
@@ -97,22 +94,15 @@ masthead) as the site's one recurring decorative element.
 **Meet / "About me"** (`Meet.astro`) — merged from two previously-separate sections (Welcome +
 Approach) into one, per an explicit brief. Two-column layout: fixed-width circular portrait on the
 left (`align-items: start` on the grid, not `center`, because the text column is now much taller
-than the photo), flowing text on the right — eyebrow, h2 "Welcome", intro line, bio paragraph, an
-"How I work" subheading absorbing the old Approach copy, and a "See more about me" text link
-pointing at `/about` (itself still a content stub — see below). A pair of placeholder trust badges
-("LGBTQ+" / "Neurodivergent Inclusive") sat between the bio and "How I work" briefly, styled as
-plain outlined pills with a `TODO` to swap for a supplied sticker-style graphic — removed again
-before that graphic was wired in, so there's currently no trust-badge markup or CSS in this file at
-all. Social media pills (Substack/Facebook/YouTube/LinkedIn) were built and tried here, explicitly
-removed from this section per a later brief, then briefly tried in the Footer and removed again —
-the code isn't deleted from the project, just not rendered anywhere. Check git history if reviving
-them.
-
-**Audiences** (`Audiences.astro`) — 3-card grid, one per audience (Neurodivergent, Men, Life and
-career transitions — in that order, changed from the original Men-first order on request). Each
-card is hand-drawn inline SVG line art (no icon library), a heading, and 1–2 paragraphs. Copy here
-has been rewritten multiple times toward a more direct, strength-based voice — see the git history
-on this file for the range of tones tried before landing on the current copy.
+than the photo), flowing text on the right — eyebrow, h2, intro line, bio paragraph, and a "See
+more about me" text link pointing at `/about`. The h2 and bio copy have been rewritten multiple
+times since the initial merge (current heading: "You are not alone."); check git history for the
+range of copy tried. A second `.meet-caption` line under the portrait now also carries the ACA
+registration number. The old "How I work" subheading/copy block that used to sit under the bio was
+removed entirely — it isn't hidden, it no longer exists in this file. Social media pills
+(Substack/Facebook/YouTube/LinkedIn) were built and tried here, explicitly removed from this
+section per a later brief, then briefly tried in the Footer and removed again — the code isn't
+deleted from the project, just not rendered anywhere. Check git history if reviving them.
 
 **Events** (`Events.astro`) — backed by its own `events` content collection (`title`, `startDate`,
 optional `endDate`, `description`, `externalUrl`, `linkLabel`). Filters to upcoming only (compares
@@ -155,6 +145,10 @@ Journal, Resources, Privacy).
 
 ## Known deviations / in-progress state
 
+- **Audiences was removed entirely**, not just hidden — the old "I work often with" 3-card section
+  (Neurodivergent, Men, Life and career transitions) was deleted along with `Audiences.astro`.
+  Unlike JournalTeaser/Events below, this isn't recoverable by uncommenting an import; the file no
+  longer exists in the working tree (recoverable via git history only).
 - **JournalTeaser is built but disabled** (see above) — Journal content isn't ready to surface.
 - **Social pills were removed from the working tree entirely** — built in Meet, explicitly removed
   per a later brief, then briefly tried in Footer and reverted. Not present in any current file;

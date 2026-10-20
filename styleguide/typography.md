@@ -57,10 +57,8 @@ were added; all live together as flat tokens in `typography.css`.
 | `--fs-hero` | `clamp(42px, 6vw, 64px)` | Hero `<h1>` |
 | `--fs-tagline` | 21px | Hero `.tagline`, Contact `.value`, Resources `.segment-title` |
 | `--fs-brand` | 19px | Nav `.nav-name`, Meet `.meet-signoff` |
-| `--fs-section-heading` | 32px | Audiences `<h2>` only — 2px off `--fs-display`; see [Known deviations](#known-deviations) |
 | `--fs-contact-heading` | 38px | Contact `<h2>` — deliberately the largest homepage heading, since Contact is the closing CTA |
-| `--fs-card-title` | 23px | Audience card `<h3>`; also FAQ question text (`.faq-question`) |
-| `--fs-card-body` | 15px | Audience card body copy. Same pixel value as `--fs-h3` but kept as a separate token — it's a body-scale role in an unrelated hierarchy, not a heading |
+| `--fs-card-title` | 23px | FAQ question text (`.faq-question`) and icon dimensions |
 | `--fs-meta-label` | 11.5px | Contact `.label`, Footer `<p>` |
 
 ### Added for the Resource detail page
@@ -113,9 +111,5 @@ were added; all live together as flat tokens in `typography.css`.
 
 ## Known deviations
 
-- **Audiences heading is 32px, not 34px.** Every other homepage section heading (Meet, Events,
-  FAQ) uses `--fs-display` (34px). Audiences alone uses `--fs-section-heading` (32px). This was
-  flagged as an open gap in the token file itself and hasn't been resolved. Contact's 38px is
-  intentionally distinct (closing CTA section) and isn't part of this inconsistency.
 - **`--fs-tier2-headline` (17px) vs `--fs-sidebar-headline` (16px)** is a deliberate 1px hierarchy
   step in the Field Journal's 3-tier system — don't "fix" this by collapsing them into one token.

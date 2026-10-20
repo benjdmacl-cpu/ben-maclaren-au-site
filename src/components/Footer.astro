@@ -1,22 +1,39 @@
 <footer>
 	<div class="wrap footer-inner">
-		<div class="footer-top">
-			<div class="footer-group">
-				<p>Ben Maclaren — Counsellor</p>
-				<p>Canberra, ACT</p>
+		<p class="footer-brand">Ben Maclaren — Counsellor</p>
+		<div class="footer-columns">
+			<div class="footer-col">
+				<h3 class="footer-heading">Site map</h3>
+				<nav class="footer-links" aria-label="Site pages">
+					<a href="/">Home</a>
+					<!-- Journal and Resources hidden for now — reactivate later. -->
+					<!-- <a href="/journal">Journal</a>
+					<a href="/resources">Resources</a> -->
+					<a href="/privacy">Privacy &amp; Confidentiality</a>
+				</nav>
 			</div>
-			<div class="footer-group footer-meta">
-				<p>ABN 50 228 140 416</p>
-				<p>ACA Membership No. S84574</p>
+			<div class="footer-col">
+				<h3 class="footer-heading">Contact</h3>
+				<div class="footer-links">
+					<a href="#" id="footer-email-link" data-goatcounter-click="footer-email">Email</a>
+					<p id="footer-phone"></p>
+					<p>Canberra, ACT — in person &amp; online</p>
+				</div>
+			</div>
+			<div class="footer-col">
+				<h3 class="footer-heading">Elsewhere</h3>
+				<div class="footer-links">
+					<a
+						href="https://www.facebook.com/profile.php?id=61594133174779"
+						target="_blank"
+						rel="noopener noreferrer"
+						data-goatcounter-click="footer-facebook">Facebook</a
+					>
+					<p>ABN 50 228 140 416</p>
+					<p>ACA Registration No. R84574</p>
+				</div>
 			</div>
 		</div>
-		<nav class="footer-sitemap" aria-label="Site pages">
-			<a href="/">Home</a>
-			<!-- Journal and Resources hidden for now — reactivate later. -->
-			<!-- <a href="/journal">Journal</a>
-			<a href="/resources">Resources</a> -->
-			<a href="/privacy">Privacy &amp; Confidentiality</a>
-		</nav>
 	</div>
 </footer>
 
@@ -34,25 +51,45 @@
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-8);
+		gap: var(--space-6-5);
 	}
 
-	.footer-top {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		flex-wrap: wrap;
-		gap: var(--space-2-5) var(--space-8);
+	.footer-brand {
+		font-family: var(--font-display);
+		font-size: var(--fs-brand);
+		font-weight: var(--fw-semibold);
+		color: var(--color-text-on-dark);
+		margin: 0;
 	}
 
-	.footer-group {
+	.footer-columns {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-6) var(--space-8);
+		padding-top: var(--space-6);
+		border-top: var(--border-hairline) solid var(--color-border-on-dark);
+	}
+
+	.footer-col {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-1);
+		gap: var(--space-2-5);
 	}
 
-	.footer-meta {
-		text-align: right;
+	.footer-heading {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-wide-label);
+		text-transform: uppercase;
+		color: var(--color-accent-on-dark);
+		font-weight: var(--fw-medium);
+		margin: 0;
+	}
+
+	.footer-links {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1-5);
 	}
 
 	footer p {
@@ -64,7 +101,10 @@
 	}
 
 	footer a {
-		color: inherit;
+		font-family: var(--font-mono);
+		font-size: var(--fs-meta-label);
+		letter-spacing: var(--ls-tight-label);
+		color: var(--color-text-muted-on-dark);
 		text-decoration: none;
 	}
 
@@ -72,30 +112,40 @@
 		color: var(--color-accent-on-dark);
 	}
 
-	.footer-sitemap {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-2-5) var(--space-6);
-		padding-top: var(--space-6);
-		border-top: var(--border-hairline) solid var(--color-border-on-dark);
-	}
-
-	.footer-sitemap a {
-		font-family: var(--font-mono);
-		font-size: var(--fs-meta-label);
-		letter-spacing: var(--ls-tight-label);
-		text-transform: uppercase;
-		color: var(--color-text-muted-on-dark);
-	}
-
-	@media (max-width: 480px) {
-		.footer-top {
-			flex-direction: column;
-			align-items: flex-start;
-		}
-
-		.footer-meta {
-			text-align: left;
+	@media (max-width: 640px) {
+		.footer-columns {
+			grid-template-columns: 1fr;
+			gap: var(--space-6);
 		}
 	}
 </style>
+
+<script>
+	// Same base64 + atob() and split-parts anti-scraping approach used in
+	// Hero/Contact/Faq — see those files for the rationale. Neither the
+	// email address nor the phone number ever sits as plain text in the
+	// page source; both are assembled client-side after load.
+	const emailLink = document.getElementById('footer-email-link');
+	if (emailLink instanceof HTMLAnchorElement) {
+		const address = atob('aGVsbG9AYmVubWFjbGFyZW4uY29tLmF1');
+		emailLink.href = `mailto:${address}`;
+
+		emailLink.addEventListener('click', (e) => {
+			e.preventDefault();
+			navigator.clipboard?.writeText(address);
+			const original = emailLink.textContent;
+			emailLink.textContent = 'Copied!';
+			setTimeout(() => {
+				emailLink.textContent = original;
+			}, 1500);
+		});
+	}
+
+	const phoneEl = document.getElementById('footer-phone');
+	if (phoneEl) {
+		const parts = ['0494', '746', '502'];
+		const number = parts.join('');
+		const display = parts.join(' ');
+		phoneEl.innerHTML = `<a href="tel:${number}" data-goatcounter-click="footer-call">${display}</a>`;
+	}
+</script>

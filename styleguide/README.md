@@ -68,9 +68,9 @@ silently inconsistent:
   `--color-border-strong` (the heavy/dark treatment) — the same inconsistency that was found and
   fixed on the homepage FAQ and the Field Journal index. The Resources page wasn't included in
   that pass. See [colour.md](./colour.md#border-tokens) for the hairline-vs-strong rule.
-- **Audiences heading is 2px off the standard.** `.audiences h2` uses `--fs-section-heading`
-  (32px) instead of `--fs-display` (34px), which every other homepage section heading uses. See
-  [typography.md](./typography.md#known-deviations). Still unresolved as of this writing.
+- **`Audiences.astro` no longer exists.** The "I work often with" 3-card homepage section was
+  removed entirely, not just hidden — see [homepage.md](./homepage.md#known-deviations-in-progress-state).
+  This also retired the `--fs-section-heading`/`--fs-card-body` tokens it was the sole user of.
 - **`Approach.astro` no longer exists.** It was merged into `Meet.astro` as part of the "About me"
   section consolidation — see [homepage.md](./homepage.md). Any older notes referencing a
   standalone Approach section (including previous versions of this deviation list, which used to

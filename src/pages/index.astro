@@ -1,5 +1,4 @@
 ---
-import Audiences from '../components/Audiences.astro';
 import Contact from '../components/Contact.astro';
 // Events hidden for now — reactivate later by restoring the import
 // and usage below. The Events component and content are untouched.
@@ -9,15 +8,31 @@ import Hero from '../components/Hero.astro';
 // JournalTeaser hidden for now — reactivate later by restoring the import
 // and usage below. The Journal itself is still placeholder content.
 // import JournalTeaser from '../components/JournalTeaser.astro';
+// JournalPicks, the "Duis aute irure" lorem placeholder, and ClearStructure
+// hidden for now — reactivate later by restoring the imports and usage
+// below. None of these components or their content are touched.
+// import JournalPicks from '../components/JournalPicks.astro';
 import Meet from '../components/Meet.astro';
+// import PlaceholderSection from '../components/PlaceholderSection.astro';
 import Layout from '../layouts/Layout.astro';
+import TrustBanner from '../components/TrustBanner.astro';
+import WhyYoureHere from '../components/WhyYoureHere.astro';
+// import ClearStructure from '../components/ClearStructure.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
 	<Hero />
 	<Meet />
-	<Audiences />
+	<TrustBanner />
+	<WhyYoureHere />
+	<!-- <JournalPicks /> -->
+	<!-- <PlaceholderSection
+		title="Duis aute irure dolor in reprehenderit"
+		body="In voluptate velit esse cillum dolore eu fugiat nulla pariatur, excepteur sint occaecat cupidatat."
+		background="page"
+	/> -->
+	<!-- <ClearStructure /> -->
 	<!-- <JournalTeaser /> -->
 	<!-- <Events /> -->
 	<Contact />

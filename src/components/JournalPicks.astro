@@ -1,0 +1,84 @@
+---
+// Hand-picked, not "most recent" — deliberately one post per distinct
+// audience the site speaks to, rather than whatever happens to be newest.
+// Update this list by slug (= filename without .md) when swapping picks.
+import { getEntry } from 'astro:content';
+import JournalCard from './JournalCard.astro';
+
+const slugs = [
+	'starting-counselling-as-a-man',
+	'counselling-neurodivergent-clients',
+	'grief-that-doesnt-look-like-grief',
+	'asking-for-support-our-real-hidden-strength',
+];
+
+const posts = (await Promise.all(slugs.map((slug) => getEntry('journal', slug)))).filter(
+	(post) => post !== undefined,
+);
+---
+
+<section class="journal-picks">
+	<div class="wrap">
+		<span class="eyebrow">From the journal</span>
+		<h2>A few places to start</h2>
+		<div class="journal-picks-grid">
+			{
+				posts.map((post) => (
+					<JournalCard
+						href={`/journal/${post.id}/`}
+						title={post.data.title}
+						excerpt={post.data.description}
+						date={post.data.date}
+						category={post.data.category}
+						tags={post.data.tags}
+					/>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.journal-picks {
+		padding: var(--space-20) 0;
+		background: var(--color-bg-card);
+		border-top: var(--border-hairline) solid var(--color-border);
+	}
+
+	.journal-picks .eyebrow {
+		margin-bottom: var(--space-4);
+		display: block;
+	}
+
+	.journal-picks h2 {
+		font-size: var(--fs-display);
+		line-height: var(--lh-article-title);
+		font-weight: var(--fw-medium);
+		margin-bottom: var(--space-10);
+	}
+
+	.journal-picks-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: var(--space-6);
+	}
+
+	/* This section's own background is --color-bg-card, so JournalCard's
+	   default card background would blend into it — override to page here,
+	   the same contrast fix Events' .event-card uses against its section. */
+	.journal-picks-grid :global(.journal-card) {
+		background: var(--color-bg-page);
+	}
+
+	@media (max-width: 960px) {
+		.journal-picks-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 480px) {
+		.journal-picks-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

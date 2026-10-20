@@ -1,0 +1,46 @@
+---
+interface Props {
+	title: string;
+	body: string;
+	background?: 'page' | 'card';
+}
+
+const { title, body, background = 'page' } = Astro.props;
+---
+
+<section class={`placeholder-section bg-${background}`}>
+	<div class="wrap">
+		<h2>{title}</h2>
+		<p>{body}</p>
+	</div>
+</section>
+
+<style>
+	.placeholder-section {
+		padding: var(--space-20) 0;
+		border-top: var(--border-hairline) solid var(--color-border);
+	}
+
+	.placeholder-section.bg-page {
+		background: var(--color-bg-page);
+	}
+
+	.placeholder-section.bg-card {
+		background: var(--color-bg-card);
+	}
+
+	.placeholder-section h2 {
+		font-size: var(--fs-display);
+		line-height: var(--lh-article-title);
+		font-weight: var(--fw-medium);
+		max-width: 640px;
+		margin-bottom: var(--space-5);
+	}
+
+	.placeholder-section p {
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-secondary);
+		max-width: 640px;
+		margin: 0;
+	}
+</style>

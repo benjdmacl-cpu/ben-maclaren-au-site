@@ -31,9 +31,9 @@ the convention used elsewhere (e.g. Tailwind's spacing scale). Used for the smal
 | `--space-0-5` | 2px | Hero contact-line underline offset, inline-code padding |
 | `--space-1-5` | 6px | Sidebar kicker margin-bottom |
 | `--space-2-5` | 10px | Contact item label margin, Nav CTA padding-x half |
-| `--space-3-5` | 14px | Audiences eyebrow margin, masthead eyebrow margin |
+| `--space-3-5` | 14px | Contact/Events eyebrow margin, masthead eyebrow margin |
 | `--space-4-5` | 18px | Article-head eyebrow margin, segment-nav padding |
-| `--space-5-5` | 22px | Eyebrow margin-bottom (Approach, Meet, Hero, Audience icon) |
+| `--space-5-5` | 22px | Eyebrow margin-bottom (Meet, Hero, article prose spacing) |
 | `--space-6-5` | 26px | Nav padding, Hero h1 margin/gap |
 | `--space-7-5` | 30px | Hero/download button padding-x, Footer padding, FAQ answer padding-right |
 | `--space-8-5` | 34px | Nav-links gap |
@@ -54,11 +54,11 @@ didn't hit.
 |---|---|---|
 | `--space-11` | 44px | Contact grid gap, `.prose hr`/`h2` margins |
 | `--space-12` | 48px | Journal article-head margin, Tier 2 section padding |
-| `--space-13` | 52px | Audiences h2 margin-bottom |
+| `--space-13` | 52px | Contact/Events h2 margin-bottom |
 | `--space-14` | 56px | Meet grid gap, Journal masthead bottom padding, Guides top padding |
 | `--space-15` | 60px | Mobile article padding, Journal empty-state top padding |
 | `--space-20` | 80px | FAQ section padding, Resources header padding, Journal Guides bottom padding |
-| `--space-22-5` | 90px | Audiences section padding, Journal/Resource article top padding — **off-grid**, not a multiple of 4 |
+| `--space-22-5` | 90px | Contact section padding, Journal/Resource article top padding — **off-grid**, not a multiple of 4 |
 | `--space-25` | 100px | Contact top padding |
 | `--space-27-5` | 110px | Meet/Approach section padding, Journal article bottom padding — **off-grid**, not a multiple of 4 |
 | `--space-30` | 120px | Hero top padding, Journal empty-state bottom padding |

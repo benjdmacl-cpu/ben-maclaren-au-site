@@ -1,29 +1,22 @@
 ---
 // Deliberately not using JournalPost.astro here — that layout assumes a
 // single continuous read, and this page's shape is different: bio prose,
-// an accreditation list, and three photos placed through the page rather
-// than clustered at the top. Built directly on the base Layout instead.
+// accreditation/training lists, and a headshot. Built directly on the base
+// Layout instead.
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+// Same portrait used on the homepage (Meet.astro) — reused rather than a
+// separate about-page photo.
+import portrait from '../assets/portrait/ben-maclaren.jpg';
 
-// Photo placeholders — no source files exist yet. Once real photos are
-// dropped into src/assets/about/, replace each .photo-slot below with:
-//   import { Image } from 'astro:assets';
-//   import headshot from '../assets/about/headshot.jpg';
-//   <Image src={headshot} alt="..." width={...} height={...} class="..." />
-// Sharp (via Astro's <Image>) handles resize/webp conversion automatically
-// — source files don't need pre-optimizing first.
-
-// ACA wording below is deliberate: use "ACA member, working toward Level 1
-// registration" rather than "ACA-registered counsellor" until registration
-// is actually confirmed. Re-check and update once Level 1 comes through —
-// this note is in the frontmatter (not an HTML comment in the template)
-// specifically so the avoided phrase doesn't end up sitting in the page's
-// rendered source as comment text.
+// Registration confirmed — "ACA-registered counsellor" is now accurate
+// (previously this used softer "working toward Level 1" wording until
+// registration came through). Membership number also changed to R84574.
 ---
 
 <Layout
 	title="About Ben Maclaren — Counsellor in Canberra, ACT"
-	description="Ben Maclaren is a counsellor in Canberra, ACT working with men, neurodivergent people, and LGBTQ+ clients. Background in journalism and design. ACA member."
+	description="Ben Maclaren is a counsellor in Canberra, ACT working with men, neurodivergent people, and LGBTQ+ clients. Background in journalism and design. ACA-registered counsellor."
 	noindex
 >
 	<article class="about-page">
@@ -32,90 +25,80 @@ import Layout from '../layouts/Layout.astro';
 
 			<div class="about-head">
 				<span class="eyebrow">About</span>
-				<h1>About Ben</h1>
+				<h1>Me, Myself and Ben</h1>
 			</div>
 
 			<div class="about-body">
-				<div class="photo-slot photo-slot--headshot" role="img" aria-label="Ben Maclaren, counsellor in Canberra, ACT">
-					<p class="photo-slot-label">
-						Headshot placeholder<br />
-						<span>Alt text: "Ben Maclaren, counsellor in Canberra, ACT"</span>
+				<div class="about-intro">
+					<div class="headshot">
+						<Image src={portrait} alt="Ben Maclaren, counsellor in Canberra, ACT" width={320} height={400} />
+					</div>
+
+					<p>
+						Before becoming a counsellor I spent years facilitating groups and teams. These days I
+						find myself working with folks from all walks of life, including men, neurodiverse folk,
+						and youth.
 					</p>
 				</div>
 
 				<p>
-					Before becoming a counsellor I spent years facilitating groups and teams. These days I
-					find myself working with folks from all walks of life, including men, neurodiverse folk,
-					and youth.
+					I'm based in Canberra and see clients both in person and online. My job is to support you
+					in figuring out what is happening and find ways to change that help a good life.
 				</p>
-
-				<p>It's the work of figuring out how to live a good life.</p>
-
-				<div
-					class="photo-slot photo-slot--wide photo-slot--environment"
-					role="img"
-					aria-label="Ben Maclaren in his counselling room in Canberra"
-				>
-					<p class="photo-slot-label">
-						Environment shot placeholder<br />
-						<span>Alt text: "Ben Maclaren in his counselling room in Canberra"</span>
-					</p>
-				</div>
-
-				<p>
-					I work often with neurodivergent people too, of all ages. Autism, ADHD, sensory
-					differences, and the anxiety that tends to ride along with them.
-				</p>
-
-				<p>
-					My approach is neuro-affirming: you don't need fixing, just someone who supports you in how
-					your mind actually works and is here to help.
-				</p>
-
-				<div
-					class="photo-slot photo-slot--wide photo-slot--facilitation"
-					role="img"
-					aria-label="Ben Maclaren facilitating a Man Walk group session in Canberra"
-				>
-					<p class="photo-slot-label">
-						Facilitation shot placeholder<br />
-						<span>Alt text: "Ben Maclaren facilitating a Man Walk group session in Canberra"</span>
-					</p>
-				</div>
 
 				<p>
 					Outside one-on-one sessions, I facilitate a fortnightly men's peer-support walking group
-					with The Man Walk Australia here in Canberra.
-				</p>
-
-				<p>
-					I'm based in Canberra and see clients both in person and online. I keep things simple: no
-					jargon, no performance, just space to work things out.
+					with The Man Walk Australia here in Canberra and run group sessions.
 				</p>
 			</div>
 
+			<div class="about-section">
+				<h2>What approaches do you use?</h2>
+				<p>
+					My approach centres you as the agent to your own life and myself as fellow traveller
+					with expertise about the mind, body and spirit.
+				</p>
+				<p>
+					My role is to be your non-judgemental supporter; to create an environment for safe
+					exploration, growth, discovery and reflection; a sort of sandbox for life, preferably
+					with less grit in the shirt.
+				</p>
+				<ul class="principles-list">
+					<li>
+						<strong>Neuroaffirming:</strong> Many people think and see the world differently from
+						the stock standard norm. Sometimes we might see ourselves as a bit different or fringe;
+						I work with you the way your brain works to build a life that works the way you do.
+					</li>
+				</ul>
+			</div>
+
 			<div class="accreditation">
-				<h2>Accreditation &amp; training</h2>
-				<dl class="accreditation-list">
-					<div class="accreditation-item">
-						<dt>Australian Counselling Association (ACA)</dt>
-						<dd>
-							ACA member, working toward Level 1 registration (S84574). Placement complete; final
-							grading and transcript pending.
-						</dd>
-					</div>
-					<div class="accreditation-item">
-						<dt>Training</dt>
-						<dd>Gestalt Play Therapy.</dd>
-					</div>
-					<div class="accreditation-item">
-						<dt>Facilitation</dt>
-						<dd>
-							Man-bassador, The Man Walk Australia (since May 2026); prior Facilitator / Career
-							Counsellor &amp; Coach, Case Study Club (2022–2025).
-						</dd>
-					</div>
-				</dl>
+				<h2>Accreditation</h2>
+				<ul class="credential-list">
+					<li class="credential-item">
+						<p class="credential-title">ACA-registered counsellor (R84574)</p>
+					</li>
+					<li class="credential-item">
+						<p class="credential-title">University of Canberra</p>
+						<p class="credential-org">Masters of Counselling, Counselling</p>
+						<p class="credential-date">Feb 2025 – Mar 2027</p>
+					</li>
+				</ul>
+			</div>
+
+			<div class="accreditation">
+				<h2>Training</h2>
+				<ul class="credential-list">
+					<li class="credential-item">
+						<p class="credential-title">Gestalt Play Therapy: Oaklander's Approach for all ages</p>
+						<p class="credential-org">Sydney Centre for Creative Change</p>
+						<p class="credential-date">Issued Sep 2026</p>
+					</li>
+					<li class="credential-item">
+						<p class="credential-title">ACA 2026 Child &amp; Youth Symposium</p>
+						<p class="credential-date">22 Oct 2026</p>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</article>
@@ -169,36 +152,71 @@ import Layout from '../layouts/Layout.astro';
 		margin-bottom: 0;
 	}
 
-	.photo-slot {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		text-align: center;
-		background: var(--color-bg-card);
-		border: var(--border-hairline) dashed var(--color-border);
-		border-radius: var(--radius-card);
-		margin: 0 0 var(--space-8);
+	.about-intro {
+		display: grid;
+		grid-template-columns: 200px 1fr;
+		gap: var(--space-8);
+		align-items: start;
+		margin-bottom: var(--space-5-5);
 	}
 
-	.photo-slot--headshot {
+	.about-intro p {
+		margin: 0;
+	}
+
+	.headshot {
 		aspect-ratio: 4 / 5;
 		max-width: 320px;
+		overflow: hidden;
+		border-radius: var(--radius-card);
 	}
 
-	.photo-slot--wide {
-		aspect-ratio: 16 / 9;
+	.headshot :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
 	}
 
-	.photo-slot-label {
-		font-family: var(--font-mono);
-		font-size: var(--fs-caption);
-		color: var(--color-text-muted);
+	.about-section {
+		margin-top: var(--space-12);
+		padding-top: var(--space-10);
+		border-top: var(--border-hairline) solid var(--color-border);
+	}
+
+	.about-section h2 {
+		font-size: var(--fs-tagline);
+		font-weight: var(--fw-medium);
+		margin-bottom: var(--space-5-5);
+	}
+
+	.about-section p {
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-secondary);
+		margin: 0 0 var(--space-5-5);
+	}
+
+	.about-section p:last-child {
+		margin-bottom: 0;
+	}
+
+	.principles-list {
 		margin: 0;
-		padding: var(--space-6);
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3);
 	}
 
-	.photo-slot-label span {
-		font-size: var(--fs-micro);
+	.principles-list li {
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-secondary);
+	}
+
+	.principles-list strong {
+		color: var(--color-text-primary);
+		font-weight: var(--fw-medium);
 	}
 
 	.accreditation {
@@ -213,42 +231,45 @@ import Layout from '../layouts/Layout.astro';
 		margin-bottom: var(--space-8);
 	}
 
-	.accreditation-list {
+	.credential-list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-6);
+	}
+
+	.credential-title {
+		font-size: var(--fs-prose-body);
+		font-weight: var(--fw-medium);
+		color: var(--color-text-primary);
 		margin: 0;
 	}
 
-	.accreditation-item {
-		padding: var(--space-4) 0;
-		border-bottom: var(--border-hairline) solid var(--color-border);
+	.credential-org {
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-secondary);
+		margin: var(--space-1) 0 0;
 	}
 
-	.accreditation-item:first-child {
-		padding-top: 0;
-	}
-
-	.accreditation-item:last-child {
-		border-bottom: none;
-		padding-bottom: 0;
-	}
-
-	.accreditation-item dt {
+	.credential-date {
 		font-family: var(--font-mono);
 		font-size: var(--fs-eyebrow);
 		letter-spacing: var(--ls-caps);
 		text-transform: uppercase;
 		color: var(--color-text-muted);
-		margin-bottom: var(--space-2);
-	}
-
-	.accreditation-item dd {
-		font-size: var(--fs-prose-body);
-		color: var(--color-text-secondary);
-		margin: 0;
+		margin: var(--space-2) 0 0;
 	}
 
 	@media (max-width: 480px) {
-		.photo-slot--headshot {
-			max-width: 100%;
+		.about-intro {
+			grid-template-columns: 1fr;
+		}
+
+		.headshot {
+			max-width: 240px;
+			margin: 0 0 var(--space-5);
 		}
 	}
 </style>

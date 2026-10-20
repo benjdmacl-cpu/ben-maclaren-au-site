@@ -32,17 +32,8 @@
 	--fs-hero: clamp(42px, 6vw, 64px); /* Hero h1, kept fluid like --fs-article-title */
 	--fs-tagline: 21px; /* Hero .tagline, Contact .value */
 	--fs-brand: 19px; /* Nav .nav-name, Meet .meet-signoff */
-	--fs-section-heading: 32px; /* Audiences h2 — 2px off --fs-display (34px),
-	                       which Meet's and Approach's headings both use
-	                       exactly; flagged in rollout notes rather than
-	                       silently unified */
 	--fs-contact-heading: 38px; /* Contact h2 */
-	--fs-card-title: 23px; /* Audiences card h3 */
-	--fs-card-body: 15px; /* Audiences card body copy — same value as
-	                       Journal's --fs-h3, but that's a heading-scale
-	                       token in an unrelated hierarchy; kept distinct
-	                       rather than reusing a name that implies "heading"
-	                       for body text */
+	--fs-card-title: 23px; /* Faq .faq-question and .faq-icon dimensions */
 	--fs-meta-label: 11.5px; /* Contact .label, Footer p */
 
 	/* Font sizes — added for the Resource detail page. --fs-resource-title is

@@ -100,6 +100,6 @@ interchangeable weights:
 
 | Section | Background | Notes |
 |---|---|---|
-| Nav, Hero, Audiences, Journal, Resources | `--color-bg-page` | Standard light |
+| Nav, Hero, Journal, Resources | `--color-bg-page` | Standard light |
 | Meet, Approach | `--color-bg-card` | Slightly deeper cream, alternates with page background to separate sections without a hard rule |
 | Contact, Footer | `--color-bg-dark` | Inverted — uses the dark-section token set exclusively, never the light-background text/accent tokens |
