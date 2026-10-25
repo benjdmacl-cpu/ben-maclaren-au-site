@@ -5,9 +5,11 @@
 // Layout instead.
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-// Same portrait used on the homepage (Meet.astro) — reused rather than a
-// separate about-page photo.
-import portrait from '../assets/portrait/ben-maclaren.jpg';
+// Two dedicated About-page photos (not the homepage portrait). Neither is a
+// tight close-up crop, so each headshot container's object-position is
+// tuned individually to keep him in frame rather than centred.
+import forestPhoto from '../assets/about/headshot-forest.jpg';
+import fishingPhoto from '../assets/about/headshot.jpg';
 
 // Registration confirmed — "ACA-registered counsellor" is now accurate
 // (previously this used softer "working toward Level 1" wording until
@@ -16,8 +18,7 @@ import portrait from '../assets/portrait/ben-maclaren.jpg';
 
 <Layout
 	title="About Ben Maclaren — Counsellor in Canberra, ACT"
-	description="Ben Maclaren is a counsellor in Canberra, ACT working with men, neurodivergent people, and LGBTQ+ clients. Background in journalism and design. ACA-registered counsellor."
-	noindex
+	description="Ben Maclaren is an ACA-registered counsellor in Canberra, ACT, working with men, neurodivergent people, and LGBTQ+ clients. Background in journalism and design."
 >
 	<article class="about-page">
 		<div class="wrap">
@@ -30,37 +31,59 @@ import portrait from '../assets/portrait/ben-maclaren.jpg';
 
 			<div class="about-body">
 				<div class="about-intro">
-					<div class="headshot">
-						<Image src={portrait} alt="Ben Maclaren, counsellor in Canberra, ACT" width={320} height={400} />
+					<div class="headshot headshot--forest">
+						<Image src={forestPhoto} alt="Ben Maclaren, counsellor in Canberra, ACT" width={520} height={650} />
 					</div>
 
-					<p>
-						Before becoming a counsellor I spent years facilitating groups and teams. These days I
-						find myself working with folks from all walks of life, including men, neurodiverse folk,
-						and youth.
-					</p>
+					<div class="about-intro-text">
+						<p>
+							Before being a counsellor, I was a small boy diagnosed with Asperger's in 2001 who
+							hated being told what he could do.
+						</p>
+
+						<p>
+							Shift forward to my 20s, I struggled to get into university; learning was especially
+							hard when I refused to ask for help.
+						</p>
+
+						<p>
+							I also got my try at relationships, and learned how hard it was to communicate well,
+							to competently know what I was feeling, what my own needs were, how to set
+							boundaries, and how to support others.
+						</p>
+					</div>
 				</div>
 
-				<p>
-					I'm based in Canberra and see clients both in person and online. My job is to support you
-					in figuring out what is happening and find ways to change that help a good life.
-				</p>
+				<div class="about-intro about-intro--reverse">
+					<div class="about-intro-text">
+						<p>
+							These days I find myself working with folks from all walks of life, including
+							<strong>men, neurodiverse folk, and youth</strong>.
+						</p>
 
-				<p>
-					Outside one-on-one sessions, I facilitate a fortnightly men's peer-support walking group
-					with The Man Walk Australia here in Canberra and run group sessions.
-				</p>
-			</div>
+						<p>
+							I'm based in <strong>Canberra</strong> and see clients both
+							<strong>in person and online</strong>. My job is to support you in figuring out what is
+							happening and find ways that help you live a good life.
+						</p>
+
+						<p>If this sounds like a good fit, <a href="/#contact">get in touch</a>.</p>
+					</div>
+
+					<div class="headshot headshot--fishing">
+						<Image src={fishingPhoto} alt="Ben Maclaren fly fishing by a lake" width={520} height={650} />
+					</div>
+				</div>
 
 			<div class="about-section">
 				<h2>What approaches do you use?</h2>
 				<p>
 					My approach centres you as the agent to your own life and myself as fellow traveller
-					with expertise about the mind, body and spirit.
+					with expertise about the mind, body, and spirit.
 				</p>
 				<p>
 					My role is to be your non-judgemental supporter; to create an environment for safe
-					exploration, growth, discovery and reflection; a sort of sandbox for life, preferably
+					exploration, growth, discovery, and reflection; a sort of sandbox for life, preferably
 					with less grit in the shirt.
 				</p>
 				<ul class="principles-list">
@@ -154,19 +177,37 @@ import portrait from '../assets/portrait/ben-maclaren.jpg';
 
 	.about-intro {
 		display: grid;
-		grid-template-columns: 200px 1fr;
+		grid-template-columns: 340px 1fr;
 		gap: var(--space-8);
-		align-items: start;
-		margin-bottom: var(--space-5-5);
+		align-items: center;
+		margin-bottom: var(--space-12);
 	}
 
-	.about-intro p {
-		margin: 0;
+	.about-intro--reverse {
+		grid-template-columns: 1fr 340px;
+	}
+
+	.about-intro-text p {
+		margin: 0 0 var(--space-5-5);
+	}
+
+	.about-intro-text p:last-child {
+		margin-bottom: 0;
+	}
+
+	.about-intro-text a {
+		color: var(--color-text-primary);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+
+	.about-intro-text a:hover {
+		color: var(--color-accent);
 	}
 
 	.headshot {
 		aspect-ratio: 4 / 5;
-		max-width: 320px;
+		max-width: 520px;
 		overflow: hidden;
 		border-radius: var(--radius-card);
 	}
@@ -175,7 +216,19 @@ import portrait from '../assets/portrait/ben-maclaren.jpg';
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		object-position: 50% 50%;
 		display: block;
+	}
+
+	/* Forest photo (landscape source, face just right of centre) and fishing
+	   photo (candid, body weighted toward the bottom) each need their own
+	   crop focus rather than the shared default above. */
+	.headshot--forest :global(img) {
+		object-position: 55% 50%;
+	}
+
+	.headshot--fishing :global(img) {
+		object-position: 50% 70%;
 	}
 
 	.about-section {

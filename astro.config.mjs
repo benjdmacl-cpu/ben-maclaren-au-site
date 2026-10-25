@@ -12,10 +12,10 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      // Journal, Resources, and About are hidden from nav and noindexed —
-      // kept out of the sitemap to match.
-      filter: (page) =>
-        !page.includes('/journal') && !page.includes('/resources') && !page.includes('/about'),
+      // Journal and Resources are hidden from nav and noindexed — kept out
+      // of the sitemap to match. About is no longer noindexed (it has real
+      // content now), so it's back in the sitemap.
+      filter: (page) => !page.includes('/journal') && !page.includes('/resources'),
     }),
   ],
 
