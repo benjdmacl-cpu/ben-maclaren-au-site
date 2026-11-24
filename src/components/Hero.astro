@@ -12,19 +12,8 @@ import fishingPhoto from '../assets/hero/fishing-wide.jpg';
 			<span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Open for new clients</span>
 			<span class="status-note">Evenings &amp; weekends available</span>
 		</div>
-		<h1>A way through difficult times</h1>
+		<h1>Support to find a way through difficult times</h1>
 		<p class="tagline">I help find what works so you can get on living a good life.</p>
-		<div class="hero-ctas">
-			<a
-				class="btn-primary"
-				href="https://www.halaxy.com/book/benjamin-maclaren/counsellor/1780895/1362507"
-				target="_blank"
-				rel="noopener noreferrer"
-				data-goatcounter-click="hero-book-intro-call">Book an intro call</a
-			>
-			<a class="btn-secondary" href="/#contact" data-goatcounter-click="hero-send-message">Send a message</a>
-		</div>
-		<p class="contact-tertiary" id="hero-tertiary"></p>
 	</div>
 </section>
 
@@ -34,7 +23,7 @@ import fishingPhoto from '../assets/hero/fishing-wide.jpg';
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		min-height: 880px;
+		min-height: 760px;
 		/* Nav overlays this section (position: absolute), so its ~96px height
 		   is reserved here as plain top padding — excluded from the
 		   justify-content: center math below, so the text centers in the
@@ -53,7 +42,7 @@ import fishingPhoto from '../assets/hero/fishing-wide.jpg';
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		object-position: 50% 100%;
+		object-position: 50% 60%;
 		display: block;
 	}
 
@@ -138,91 +127,4 @@ import fishingPhoto from '../assets/hero/fishing-wide.jpg';
 		max-width: 480px;
 		margin: 0 0 var(--space-8);
 	}
-
-	.hero-ctas {
-		display: flex;
-		align-items: center;
-		gap: var(--space-6-5);
-		flex-wrap: wrap;
-	}
-
-	.btn-primary {
-		font-family: var(--font-mono);
-		font-size: var(--fs-caption);
-		letter-spacing: var(--ls-label);
-		text-transform: uppercase;
-		text-decoration: none;
-		color: var(--color-on-accent);
-		background: var(--color-accent-solid);
-		padding: var(--space-4) var(--space-7-5);
-		border-radius: 999px;
-		transition:
-			background 0.15s ease,
-			transform 0.15s ease;
-		display: inline-block;
-	}
-
-	.btn-primary:hover {
-		background: var(--color-accent);
-		transform: translateY(-1px);
-	}
-
-	.btn-secondary {
-		font-family: var(--font-mono);
-		font-size: var(--fs-caption);
-		letter-spacing: var(--ls-label);
-		text-transform: uppercase;
-		text-decoration: none;
-		color: var(--color-accent-solid);
-		background: var(--cream);
-		border: var(--border-hairline) solid var(--color-accent-solid);
-		padding: calc(var(--space-4) - var(--border-hairline)) calc(var(--space-7-5) - var(--border-hairline));
-		border-radius: 999px;
-		transition:
-			background 0.15s ease,
-			color 0.15s ease;
-		display: inline-block;
-	}
-
-	.btn-secondary:hover {
-		background: var(--color-accent-solid);
-		color: var(--color-on-accent);
-	}
-
-	.contact-tertiary {
-		display: inline-block;
-		font-family: var(--font-mono);
-		font-size: var(--fs-caption);
-		font-weight: var(--fw-medium);
-		color: var(--color-accent-on-dark);
-		background: rgba(0, 0, 0, 0.55);
-		padding: var(--space-2) var(--space-3);
-		border-radius: var(--radius-sm);
-		margin-top: var(--space-5);
-	}
-
-	.contact-tertiary :global(a) {
-		color: var(--color-accent-on-dark);
-		text-decoration: underline;
-	}
-
-	.contact-tertiary :global(a:hover) {
-		color: var(--color-accent-on-dark-hover);
-	}
 </style>
-
-<script>
-	// Number assembled from non-contiguous parts and inserted into the DOM
-	// only after page load — never sitting as plain text/href in the page
-	// source — so scraping bots reading raw HTML don't pick it up, while a
-	// human visitor sees and can tap it normally.
-	const el = document.getElementById('hero-tertiary');
-	if (el) {
-		const parts = ['0494', '746', '502'];
-		const number = parts.join('');
-		const display = parts.join(' ');
-		const message =
-			"Hi Ben, I found your site and I'm thinking about counselling. Would love to have a chat when you're free.";
-		el.innerHTML = `Or <a href="sms:${number}?body=${encodeURIComponent(message)}" data-goatcounter-click="hero-text">text</a> or <a href="tel:${number}" data-goatcounter-click="hero-call">call</a>: ${display}`;
-	}
-</script>

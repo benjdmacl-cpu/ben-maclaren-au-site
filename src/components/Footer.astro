@@ -1,22 +1,12 @@
 ---
 import { Image } from 'astro:assets';
 import jungle from '../assets/footer/jungle.png';
-
-interface Props {
-	jungleBg?: boolean;
-}
-
-const { jungleBg = false } = Astro.props;
 ---
 
-<footer class={jungleBg ? 'footer-jungle' : ''}>
-	{
-		jungleBg && (
-			<div class="footer-bg">
-				<Image src={jungle} alt="" width={1136} height={354} />
-			</div>
-		)
-	}
+<footer>
+	<div class="footer-bg">
+		<Image src={jungle} alt="" width={1136} height={354} />
+	</div>
 	<div class="wrap footer-inner">
 		<p class="footer-brand">Ben Maclaren — Counsellor</p>
 		<div class="footer-columns">
@@ -56,18 +46,13 @@ const { jungleBg = false } = Astro.props;
 <style>
 	footer {
 		position: relative;
-		min-height: 20vh;
+		min-height: 40vh;
 		display: flex;
 		align-items: center;
-		padding: var(--space-8) 0;
+		padding: var(--space-8) 0 var(--space-20);
 		background: var(--color-bg-dark);
 		border-top: var(--border-hairline) solid var(--color-border-on-dark);
 		overflow: hidden;
-	}
-
-	.footer-jungle {
-		min-height: 40vh;
-		padding-bottom: var(--space-20);
 	}
 
 	.footer-bg {

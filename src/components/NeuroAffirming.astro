@@ -1,4 +1,15 @@
+---
+import { getImage } from 'astro:assets';
+import jellyfishPattern from '../assets/neuro-affirming/jellyfish-pattern.png';
+
+// Rendered as a tiled CSS background (the source art is a seamless pattern),
+// so it's optimized to a small tile size via getImage() rather than
+// rendered full-size through <Image> — same approach as Meet's background.
+const jellyfishPatternTile = await getImage({ src: jellyfishPattern, width: 320 });
+---
+
 <section class="neuro-affirming">
+	<div class="neuro-affirming-bg" style={`background-image: url(${jellyfishPatternTile.src})`}></div>
 	<div class="wrap">
 		<div class="neuro-row">
 			<div class="neuro-icon-wrap">
@@ -54,9 +65,25 @@
 
 <style>
 	.neuro-affirming {
+		position: relative;
 		padding: var(--space-20) 0;
 		background: var(--color-bg-page);
 		border-top: var(--border-hairline) solid var(--color-border);
+		overflow: hidden;
+	}
+
+	.neuro-affirming-bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		opacity: 0.06;
+		background-repeat: repeat;
+		background-size: 320px auto;
+	}
+
+	.neuro-affirming .wrap {
+		position: relative;
+		z-index: 1;
 	}
 
 	.neuro-row {

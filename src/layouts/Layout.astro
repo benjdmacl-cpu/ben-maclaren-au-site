@@ -8,10 +8,9 @@ interface Props {
 	description: string;
 	noindex?: boolean;
 	navOverlay?: boolean;
-	footerJungle?: boolean;
 }
 
-const { title, description, noindex, navOverlay = false, footerJungle = false } = Astro.props;
+const { title, description, noindex, navOverlay = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -28,6 +27,6 @@ const { title, description, noindex, navOverlay = false, footerJungle = false } 
 	<body>
 		<Nav overlay={navOverlay} />
 		<slot />
-		<Footer jungleBg={footerJungle} />
+		<Footer />
 	</body>
 </html>

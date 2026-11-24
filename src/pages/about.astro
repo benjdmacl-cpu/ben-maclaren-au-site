@@ -3,13 +3,17 @@
 // single continuous read, and this page's shape is different: bio prose,
 // accreditation/training lists, and a headshot. Built directly on the base
 // Layout instead.
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 // Two dedicated About-page photos (not the homepage portrait). Neither is a
 // tight close-up crop, so each headshot container's object-position is
 // tuned individually to keep him in frame rather than centred.
 import forestPhoto from '../assets/about/headshot-forest.jpg';
 import fishingPhoto from '../assets/about/headshot.jpg';
+// Same tiled background as the homepage "About me" (Meet) section.
+import tropicalFloral from '../assets/meet/tropical-floral.png';
+
+const tropicalFloralTile = await getImage({ src: tropicalFloral, width: 360 });
 
 // Registration confirmed — "ACA-registered counsellor" is now accurate
 // (previously this used softer "working toward Level 1" wording until
@@ -19,9 +23,9 @@ import fishingPhoto from '../assets/about/headshot.jpg';
 <Layout
 	title="About Ben Maclaren — Counsellor in Canberra, ACT"
 	description="Ben Maclaren is an ACA-registered counsellor in Canberra, ACT, working with men, neurodivergent people, and LGBTQ+ clients. Background in journalism and design."
-	footerJungle
 >
 	<article class="about-page">
+		<div class="about-page-bg" style={`background-image: url(${tropicalFloralTile.src})`}></div>
 		<div class="wrap">
 			<a class="back-link" href="/">← Home</a>
 
@@ -130,10 +134,23 @@ import fishingPhoto from '../assets/about/headshot.jpg';
 
 <style>
 	.about-page {
+		position: relative;
 		padding: var(--space-15) 0 var(--space-27-5);
+		overflow: hidden;
 	}
 
-	.wrap {
+	.about-page-bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		opacity: 0.06;
+		background-repeat: repeat;
+		background-size: 360px auto;
+	}
+
+	.about-page .wrap {
+		position: relative;
+		z-index: 1;
 		max-width: 720px;
 	}
 
