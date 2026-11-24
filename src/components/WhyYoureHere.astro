@@ -1,20 +1,20 @@
 ---
 const workOnCards = [
 	{
-		title: 'Get unstuck',
-		body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-	},
-	{
 		title: "Understand (and communicate) what you're feeling",
 		body: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
 	},
 	{
-		title: "Work out where you're going",
-		body: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+		title: 'Feel connected to people',
+		body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
 	},
 	{
 		title: 'Have better relationships, and better sex',
 		body: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+	},
+	{
+		title: "Work out where you're going",
+		body: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
 	},
 ];
 ---
@@ -39,9 +39,10 @@ const workOnCards = [
 			</div>
 		</div>
 
-		<p class="why-youre-here-specialties">
-			I also work with: Anxiety · Depression · Drug &amp; alcohol recovery · ADHD · Autism
-		</p>
+		<div class="specialties-bar">
+			<span class="specialties-label">I also work with</span>
+			<span class="specialties-items">Anxiety · Depression · Drug &amp; alcohol recovery · ADHD · Autism</span>
+		</div>
 
 		<p class="why-youre-here-closing">
 			And if you think differently? Everything above still applies. We'll just do it in a way that
@@ -107,12 +108,38 @@ const workOnCards = [
 		}
 	}
 
-	.why-youre-here-specialties {
+	.specialties-bar {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: var(--space-4);
+		margin: var(--space-14) 0 0;
+		padding: var(--space-5) 0;
+		border-top: var(--border-hairline) solid var(--color-border);
+		border-bottom: var(--border-hairline) solid var(--color-border);
+	}
+
+	.specialties-label {
 		font-family: var(--font-mono);
 		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-wide-label);
+		text-transform: uppercase;
+		color: var(--color-accent);
+		font-weight: var(--fw-medium);
+	}
+
+	.specialties-items {
+		font-family: var(--font-mono);
+		font-size: var(--fs-tagline);
 		letter-spacing: var(--ls-tight-label);
-		color: var(--color-text-secondary);
-		margin: var(--space-10) 0 0;
+		color: var(--color-text-primary);
+		font-weight: var(--fw-regular);
+	}
+
+	@media (max-width: 600px) {
+		.specialties-items {
+			font-size: var(--fs-prose-body);
+		}
 	}
 
 	.why-youre-here-closing {
