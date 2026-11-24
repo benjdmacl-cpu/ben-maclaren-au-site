@@ -1,0 +1,100 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { WORKSHOPS } from '../../lib/workshops-data';
+
+export function getStaticPaths() {
+	return WORKSHOPS.map((workshop) => ({
+		params: { slug: workshop.slug },
+		props: { workshop },
+	}));
+}
+
+const { workshop } = Astro.props;
+---
+
+<Layout
+	title={`${workshop.title} — Ben Maclaren`}
+	description={workshop.intro}
+>
+	<article class="workshop-page">
+		<div class="wrap">
+			<a class="back-link" href="/workshops">← Workshops</a>
+			<span class="eyebrow">{workshop.segment}</span>
+			<h1>{workshop.title}</h1>
+			<p class="workshop-intro">{workshop.intro}</p>
+			<p class="workshop-description">{workshop.description}</p>
+
+			<a class="workshop-contact-link" href="/#contact" data-goatcounter-click={`workshop-contact-${workshop.slug}`}
+				>Get in touch <span aria-hidden="true">→</span></a
+			>
+		</div>
+	</article>
+</Layout>
+
+<style>
+	.workshop-page {
+		padding: var(--space-20) 0 var(--space-27-5);
+	}
+
+	.back-link {
+		display: inline-block;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--color-text-secondary);
+		margin-bottom: var(--space-8);
+	}
+
+	.back-link:hover {
+		color: var(--color-accent);
+	}
+
+	.eyebrow {
+		margin-bottom: var(--space-4);
+		display: block;
+	}
+
+	h1 {
+		font-size: var(--fs-display);
+		line-height: var(--lh-article-title);
+		font-weight: var(--fw-medium);
+		max-width: 640px;
+		margin-bottom: var(--space-5);
+	}
+
+	.workshop-intro {
+		font-family: var(--font-display);
+		font-style: italic;
+		font-size: var(--fs-tagline);
+		color: var(--color-text-secondary);
+		max-width: 640px;
+		margin: 0 0 var(--space-6);
+	}
+
+	.workshop-description {
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-secondary);
+		max-width: 640px;
+		margin: 0;
+	}
+
+	.workshop-contact-link {
+		display: inline-block;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--color-text-secondary);
+		border-bottom: var(--border-hairline) solid var(--color-border);
+		padding-bottom: var(--space-0-5);
+		margin-top: var(--space-8);
+	}
+
+	.workshop-contact-link:hover {
+		color: var(--color-accent);
+		border-color: var(--color-accent-link);
+	}
+</style>

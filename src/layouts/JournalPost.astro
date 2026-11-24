@@ -1,8 +1,13 @@
 ---
+import { getImage } from 'astro:assets';
 import FormattedDate from '../components/FormattedDate.astro';
 import JournalKicker from '../components/JournalKicker.astro';
 import SourcesBlock from '../components/SourcesBlock.astro';
 import Layout from './Layout.astro';
+// Same tiled background as the homepage "About me" (Meet) section.
+import tropicalFloral from '../assets/meet/tropical-floral.png';
+
+const tropicalFloralTile = await getImage({ src: tropicalFloral, width: 360 });
 
 type Reference = { label: string; url?: string };
 
@@ -39,6 +44,7 @@ const hasReferences = Boolean(references && references.length > 0);
 
 <Layout title={pageTitle} description={description} noindex={noindex}>
 	<article class="journal-article">
+		<div class="journal-article-bg" style={`background-image: url(${tropicalFloralTile.src})`} />
 		<div class="wrap">
 			<a class="back-link" href={backHref}>{backLabel}</a>
 			<div class="article-head">
@@ -80,7 +86,24 @@ const hasReferences = Boolean(references && references.length > 0);
 
 <style>
 	.journal-article {
+		position: relative;
 		padding: var(--space-22-5) 0 var(--space-27-5);
+		background: var(--color-bg-card);
+		overflow: hidden;
+	}
+
+	.journal-article-bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		opacity: 0.06;
+		background-repeat: repeat;
+		background-size: 360px auto;
+	}
+
+	.journal-article .wrap {
+		position: relative;
+		z-index: 1;
 	}
 
 	.back-link {
@@ -222,7 +245,7 @@ const hasReferences = Boolean(references && references.length > 0);
 	.prose :global(code) {
 		font-family: var(--font-mono);
 		font-size: 0.9em;
-		background: var(--color-bg-card);
+		background: var(--color-bg-page);
 		padding: var(--space-0-5) var(--space-1-5);
 		border-radius: var(--radius-sm);
 	}

@@ -5,12 +5,7 @@
 import { getEntry } from 'astro:content';
 import JournalCard from './JournalCard.astro';
 
-const slugs = [
-	'starting-counselling-as-a-man',
-	'counselling-neurodivergent-clients',
-	'grief-that-doesnt-look-like-grief',
-	'asking-for-support-our-real-hidden-strength',
-];
+const slugs = ['local-life-career-placeholder', 'local-men-placeholder'];
 
 const posts = (await Promise.all(slugs.map((slug) => getEntry('journal', slug)))).filter(
 	(post) => post !== undefined,
@@ -19,8 +14,8 @@ const posts = (await Promise.all(slugs.map((slug) => getEntry('journal', slug)))
 
 <section class="journal-picks">
 	<div class="wrap">
-		<span class="eyebrow">From the journal</span>
-		<h2>A few places to start</h2>
+		<span class="eyebrow">Articles</span>
+		<h2>Plain words on hard things</h2>
 		<div class="journal-picks-grid">
 			{
 				posts.map((post) => (
@@ -59,7 +54,7 @@ const posts = (await Promise.all(slugs.map((slug) => getEntry('journal', slug)))
 
 	.journal-picks-grid {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(2, 1fr);
 		gap: var(--space-6);
 	}
 
@@ -70,13 +65,7 @@ const posts = (await Promise.all(slugs.map((slug) => getEntry('journal', slug)))
 		background: var(--color-bg-page);
 	}
 
-	@media (max-width: 960px) {
-		.journal-picks-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
-
-	@media (max-width: 480px) {
+	@media (max-width: 600px) {
 		.journal-picks-grid {
 			grid-template-columns: 1fr;
 		}

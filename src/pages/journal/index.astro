@@ -1,11 +1,16 @@
 ---
 import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
 import FeaturedCard from '../../components/FeaturedCard.astro';
 import JournalCard from '../../components/JournalCard.astro';
 import JournalFilterBar from '../../components/JournalFilterBar.astro';
 import ResourceIcon from '../../components/ResourceIcon.astro';
 import Layout from '../../layouts/Layout.astro';
 import { CATEGORY_ORDER } from '../../lib/journal-labels';
+// Same tiled background as the homepage "About me" (Meet) section.
+import tropicalFloral from '../../assets/meet/tropical-floral.png';
+
+const tropicalFloralTile = await getImage({ src: tropicalFloral, width: 360 });
 
 const allPosts = (await getCollection('journal', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -39,11 +44,14 @@ const tagsInUse = [...new Set(flatPosts.flatMap((post) => post.data.tags))];
 		<p>This page is a work in progress and not currently in use.</p>
 	</div>
 
-	<div class="wrap top-nav">
-		<a class="back-link" href="/">← Home</a>
-	</div>
+	<div class="journal-page">
+		<div class="journal-page-bg" style={`background-image: url(${tropicalFloralTile.src})`} />
 
-	<section class="masthead">
+		<div class="wrap top-nav">
+			<a class="back-link" href="/">← Home</a>
+		</div>
+
+		<section class="masthead">
 		<svg class="masthead-motif" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 			<circle cx="100" cy="100" r="6" fill="none" stroke-width="1.4"></circle>
 			<circle cx="100" cy="100" r="20" fill="none" stroke-width="1.4"></circle>
@@ -124,6 +132,7 @@ const tagsInUse = [...new Set(flatPosts.flatMap((post) => post.data.tags))];
 			</section>
 		)
 	}
+	</div>
 </Layout>
 
 <style>
@@ -140,6 +149,20 @@ const tagsInUse = [...new Set(flatPosts.flatMap((post) => post.data.tags))];
 		letter-spacing: var(--ls-label);
 		text-transform: uppercase;
 		color: var(--color-on-accent);
+	}
+
+	.journal-page {
+		position: relative;
+		background: var(--color-bg-card);
+	}
+
+	.journal-page-bg {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		opacity: 0.06;
+		background-repeat: repeat;
+		background-size: 360px auto;
 	}
 
 	.top-nav {
@@ -260,7 +283,7 @@ const tagsInUse = [...new Set(flatPosts.flatMap((post) => post.data.tags))];
 
 	.guide-tile {
 		display: block;
-		background: var(--color-bg-card);
+		background: var(--color-bg-page);
 		border-radius: var(--radius-card);
 		padding: var(--space-6);
 		text-decoration: none;

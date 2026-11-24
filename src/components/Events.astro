@@ -38,6 +38,9 @@ function formatDateRange(start: Date, end?: Date) {
 	<div class="wrap">
 		<span class="eyebrow">Upcoming</span>
 		<h2>Events I'm hosting</h2>
+		<a class="events-workshops-link" href="/workshops#public"
+			>See public workshops <span aria-hidden="true">→</span></a
+		>
 		{events.length > 0 ? (
 			<div class="events-grid">
 				{events.map((event) => (
@@ -81,8 +84,26 @@ function formatDateRange(start: Date, end?: Date) {
 	.events h2 {
 		font-size: var(--fs-display);
 		line-height: var(--lh-article-title);
-		margin-bottom: var(--space-13);
+		margin-bottom: var(--space-4);
 		max-width: 640px;
+	}
+
+	.events-workshops-link {
+		display: inline-block;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--color-text-secondary);
+		border-bottom: var(--border-hairline) solid var(--color-border);
+		padding-bottom: var(--space-0-5);
+		margin-bottom: var(--space-13);
+	}
+
+	.events-workshops-link:hover {
+		color: var(--color-accent);
+		border-color: var(--color-accent-link);
 	}
 
 	.events-grid {

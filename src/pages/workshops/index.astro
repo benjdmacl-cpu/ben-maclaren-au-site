@@ -1,0 +1,130 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SEGMENTS, WORKSHOPS } from '../../lib/workshops-data';
+---
+
+<Layout
+	title="Workshops — Ben Maclaren"
+	description="Workshops run by Ben Maclaren, a counsellor in Canberra, ACT, for the public, organisations, and individuals."
+>
+	<article class="workshops-page">
+		<div class="wrap">
+			<a class="back-link" href="/">← Home</a>
+			<span class="eyebrow">Workshops</span>
+			<h1>Workshops</h1>
+
+			{
+				SEGMENTS.map((segment) => (
+					<div class="workshops-section" id={segment.toLowerCase().replace(/[^a-z0-9]+/g, '-')}>
+						<h2>{segment}</h2>
+						<ul class="workshops-list">
+							{WORKSHOPS.filter((workshop) => workshop.segment === segment).map((workshop) => (
+								<li>
+									<a class="workshops-item-link" href={`/workshops/${workshop.slug}`}>
+										<span class="workshops-item-title">{workshop.title}</span>
+										<span class="workshops-item-intro">{workshop.intro}</span>
+									</a>
+								</li>
+							))}
+						</ul>
+					</div>
+				))
+			}
+		</div>
+	</article>
+</Layout>
+
+<style>
+	.workshops-page {
+		padding: var(--space-20) 0 var(--space-27-5);
+	}
+
+	.back-link {
+		display: inline-block;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--color-text-secondary);
+		margin-bottom: var(--space-8);
+	}
+
+	.back-link:hover {
+		color: var(--color-accent);
+	}
+
+	.eyebrow {
+		margin-bottom: var(--space-4);
+		display: block;
+	}
+
+	h1 {
+		font-size: var(--fs-display);
+		line-height: var(--lh-article-title);
+		font-weight: var(--fw-medium);
+		max-width: 640px;
+		margin-bottom: var(--space-12);
+	}
+
+	.workshops-section {
+		max-width: 640px;
+		margin-top: var(--space-10);
+		padding-top: var(--space-10);
+		border-top: var(--border-hairline) solid var(--color-border);
+	}
+
+	.workshops-section:first-of-type {
+		margin-top: 0;
+		padding-top: 0;
+		border-top: none;
+	}
+
+	.workshops-section h2 {
+		font-size: var(--fs-tagline);
+		font-weight: var(--fw-medium);
+		margin: 0 0 var(--space-5);
+	}
+
+	.workshops-list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+	}
+
+	.workshops-item-link {
+		display: block;
+		text-decoration: none;
+		color: inherit;
+		padding: var(--space-5);
+		background: var(--color-bg-card);
+		border-radius: var(--radius-card);
+		transition: box-shadow 0.15s ease;
+	}
+
+	.workshops-item-link:hover {
+		box-shadow: 0 10px 24px rgba(56, 44, 36, 0.1);
+	}
+
+	.workshops-item-link:hover .workshops-item-title {
+		color: var(--color-accent);
+	}
+
+	.workshops-item-title {
+		display: block;
+		font-size: var(--fs-prose-body);
+		font-weight: var(--fw-medium);
+		color: var(--color-text-primary);
+		margin-bottom: var(--space-1);
+		transition: color 0.15s ease;
+	}
+
+	.workshops-item-intro {
+		display: block;
+		font-size: var(--fs-caption);
+		color: var(--color-text-secondary);
+	}
+</style>

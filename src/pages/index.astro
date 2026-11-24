@@ -6,14 +6,13 @@ import CounsellingRoom from '../components/CounsellingRoom.astro';
 // import Events from '../components/Events.astro';
 import Faq from '../components/Faq.astro';
 import Hero from '../components/Hero.astro';
-// import RoomGallery from '../components/RoomGallery.astro';
 // JournalTeaser hidden for now — reactivate later by restoring the import
 // and usage below. The Journal itself is still placeholder content.
 // import JournalTeaser from '../components/JournalTeaser.astro';
-// JournalPicks, the "Duis aute irure" lorem placeholder, and ClearStructure
-// hidden for now — reactivate later by restoring the imports and usage
-// below. None of these components or their content are touched.
-// import JournalPicks from '../components/JournalPicks.astro';
+import JournalPicks from '../components/JournalPicks.astro';
+// PlaceholderSection and ClearStructure hidden for now — reactivate later
+// by restoring the imports and usage below. Neither component or its
+// content is touched.
 import Meet from '../components/Meet.astro';
 import NeuroAffirming from '../components/NeuroAffirming.astro';
 // import PlaceholderSection from '../components/PlaceholderSection.astro';
@@ -28,9 +27,9 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	<Meet />
 	<WhyYoureHere />
 	<NeuroAffirming />
+	<!-- <Events /> -->
 	<CounsellingRoom />
-	<!-- <RoomGallery /> -->
-	<!-- <JournalPicks /> -->
+	<JournalPicks />
 	<!-- <PlaceholderSection
 		title="Duis aute irure dolor in reprehenderit"
 		body="In voluptate velit esse cillum dolore eu fugiat nulla pariatur, excepteur sint occaecat cupidatat."
@@ -38,7 +37,6 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	/> -->
 	<!-- <ClearStructure /> -->
 	<!-- <JournalTeaser /> -->
-	<!-- <Events /> -->
 	<Contact />
 	<Faq />
 </Layout>

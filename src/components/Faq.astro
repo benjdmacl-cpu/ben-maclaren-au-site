@@ -1,5 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
+import scallopPattern from '../assets/counselling-room/scallop-pattern.png';
+
+// Same tiled background as the "Where we meet" (CounsellingRoom) section,
+// for one consistent pattern across the page.
+const scallopPatternTile = await getImage({ src: scallopPattern, width: 280 });
 
 const faqs = (await getCollection('faqs')).sort((a, b) => {
 	const orderA = a.data.order ?? Number.MAX_SAFE_INTEGER;
@@ -13,9 +19,10 @@ const faqs = (await getCollection('faqs')).sort((a, b) => {
 {
 	faqs.length > 0 && (
 		<section class="faq" id="faq">
+			<div class="faq-bg" style={`background-image: url(${scallopPatternTile.src})`} />
 			<div class="wrap">
 				<span class="eyebrow">Common questions</span>
-				<h2>The things people usually ask first</h2>
+				<h2>Questions often asked</h2>
 				<div class="faq-list">
 					{faqs.map((faq, i) => (
 						<div class="faq-item">
@@ -55,9 +62,25 @@ const faqs = (await getCollection('faqs')).sort((a, b) => {
 
 <style>
 	.faq {
+		position: relative;
 		padding: var(--space-20) 0;
 		background: var(--color-bg-card);
 		border-top: var(--border-hairline) solid var(--color-border);
+		overflow: hidden;
+	}
+
+	.faq-bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		opacity: 0.06;
+		background-repeat: repeat;
+		background-size: 280px auto;
+	}
+
+	.faq .wrap {
+		position: relative;
+		z-index: 1;
 	}
 
 	.faq .eyebrow {

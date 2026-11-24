@@ -1,16 +1,18 @@
 ---
 // Real booking link, already used by the Nav/Hero CTAs — reused here
 // rather than a separate placeholder constant.
-import { Image } from 'astro:assets';
-import cavePainting from '../assets/contact/cave-painting.png';
+import { getImage } from 'astro:assets';
+import scallopPattern from '../assets/counselling-room/scallop-pattern.png';
+
+// Same tiled background as the "Where we meet" (CounsellingRoom) section,
+// for one consistent pattern across the page.
+const scallopPatternTile = await getImage({ src: scallopPattern, width: 280 });
 
 const BOOKING_URL = 'https://www.halaxy.com/book/benjamin-maclaren/counsellor/1780895/1362507';
 ---
 
 <section class="contact" id="contact">
-	<div class="contact-bg">
-		<Image src={cavePainting} alt="" width={1200} height={800} />
-	</div>
+	<div class="contact-bg" style={`background-image: url(${scallopPatternTile.src})`}></div>
 	<div class="wrap">
 		<span class="eyebrow">Get in touch</span>
 		<h2>Reach out, your way</h2>
@@ -104,15 +106,9 @@ const BOOKING_URL = 'https://www.halaxy.com/book/benjamin-maclaren/counsellor/17
 		position: absolute;
 		inset: 0;
 		z-index: 0;
-		opacity: 0.04;
-	}
-
-	.contact-bg :global(img) {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: 50% 30%;
-		display: block;
+		opacity: 0.06;
+		background-repeat: repeat;
+		background-size: 280px auto;
 	}
 
 	.contact .eyebrow {
