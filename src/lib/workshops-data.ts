@@ -1,62 +1,61 @@
-export const SEGMENTS = ['Public', 'For organisations', 'Individuals'] as const;
-
-export type Segment = (typeof SEGMENTS)[number];
+export type Audience = 'Individuals' | 'Organisations';
 
 export interface Workshop {
 	slug: string;
 	title: string;
-	segment: Segment;
+	audience: Audience[];
 	intro: string;
 	description: string;
 }
 
 export const WORKSHOPS: Workshop[] = [
 	{
-		slug: 'lorem-ipsum-dolor-sit-amet',
-		title: 'Lorem ipsum dolor sit amet',
-		segment: 'Public',
-		intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-		description:
-			'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-	},
-	{
-		slug: 'consectetur-adipiscing-elit',
-		title: 'Consectetur adipiscing elit',
-		segment: 'Public',
-		intro: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-		description:
-			'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-	},
-	{
 		slug: 'mental-health-first-aid',
 		title: 'Mental Health First Aid',
-		segment: 'For organisations',
-		intro: 'An accredited course teaching staff how to recognise and respond to mental health crises.',
+		audience: ['Organisations'],
+		intro: 'An accredited course teaching people how to recognise and respond to mental health crises.',
 		description:
 			'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
 	},
 	{
-		slug: 'duis-aute-irure-dolor',
-		title: 'Duis aute irure dolor in reprehenderit',
-		segment: 'For organisations',
-		intro: 'In voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+		slug: 'rhythm2recovery',
+		title: 'Rhythm2Recovery',
+		audience: ['Individuals', 'Organisations'],
+		intro: 'A rhythm and drumming-based group program supporting recovery and connection.',
 		description:
-			'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+			'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 	},
 	{
-		slug: 'sed-ut-perspiciatis',
-		title: 'Sed ut perspiciatis unde omnis',
-		segment: 'Individuals',
-		intro: 'Iste natus error sit voluptatem accusantium doloremque laudantium.',
+		slug: 'mindfulness-based-stress-reduction',
+		title: 'Mindfulness-Based Stress Reduction',
+		audience: ['Individuals'],
+		intro: 'An evidence-based program for managing stress, pain, and illness through mindfulness.',
 		description:
-			'Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+			'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
 	},
 	{
-		slug: 'nemo-enim-ipsam',
-		title: 'Nemo enim ipsam voluptatem',
-		segment: 'Individuals',
-		intro: 'Quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos.',
+		slug: 'designing-your-life',
+		title: 'Designing Your Life',
+		audience: ['Individuals'],
+		intro: 'A practical workshop applying design thinking to building a life and career that fits.',
 		description:
-			'Qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.',
+			'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
+	},
+	{
+		slug: 'the-healthy-executive',
+		title: 'The Healthy Executive',
+		audience: ['Organisations'],
+		intro:
+			'A workshop for leaders on sustaining performance without burning out, setting boundaries, and creating healthy leadership.',
+		description:
+			"We also look at the quality of information executives are receiving, the importance of open time, and the traps they can fall into.",
+	},
+	{
+		slug: 'custom-workshops',
+		title: 'Custom Workshops',
+		audience: ['Individuals', 'Organisations'],
+		intro: "Don't see what you're after? Workshops tailored to your team or group's specific needs.",
+		description:
+			"I've designed workshops for Case Study Club, the Department of Education/Employment, and CASA.",
 	},
 ];

@@ -19,8 +19,9 @@ const { workshop } = Astro.props;
 	<article class="workshop-page">
 		<div class="wrap">
 			<a class="back-link" href="/workshops">← Workshops</a>
-			<span class="eyebrow">{workshop.segment}</span>
+			<span class="eyebrow">Workshop</span>
 			<h1>{workshop.title}</h1>
+			<p class="workshop-audience">{workshop.audience.join(' · ')}</p>
 			<p class="workshop-intro">{workshop.intro}</p>
 			<p class="workshop-description">{workshop.description}</p>
 
@@ -61,7 +62,16 @@ const { workshop } = Astro.props;
 		line-height: var(--lh-article-title);
 		font-weight: var(--fw-medium);
 		max-width: 640px;
-		margin-bottom: var(--space-5);
+		margin-bottom: var(--space-4);
+	}
+
+	.workshop-audience {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-wide-label);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		margin: 0 0 var(--space-6);
 	}
 
 	.workshop-intro {

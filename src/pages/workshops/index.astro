@@ -1,32 +1,31 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { SEGMENTS, WORKSHOPS } from '../../lib/workshops-data';
+import { WORKSHOPS } from '../../lib/workshops-data';
 ---
 
 <Layout
 	title="Workshops — Ben Maclaren"
-	description="Workshops run by Ben Maclaren, a counsellor in Canberra, ACT, for the public, organisations, and individuals."
+	description="Workshops run by Ben Maclaren, a counsellor in Canberra, ACT."
 >
 	<article class="workshops-page">
 		<div class="wrap">
 			<a class="back-link" href="/">← Home</a>
 			<span class="eyebrow">Workshops</span>
-			<h1>Workshops</h1>
+			<h1>Creating healthier communities and institutions</h1>
 
 			{
-				SEGMENTS.map((segment) => (
-					<div class="workshops-section" id={segment.toLowerCase().replace(/[^a-z0-9]+/g, '-')}>
-						<h2>{segment}</h2>
-						<ul class="workshops-list">
-							{WORKSHOPS.filter((workshop) => workshop.segment === segment).map((workshop) => (
-								<li>
-									<a class="workshops-item-link" href={`/workshops/${workshop.slug}`}>
-										<span class="workshops-item-title">{workshop.title}</span>
-										<span class="workshops-item-intro">{workshop.intro}</span>
-									</a>
-								</li>
-							))}
-						</ul>
+				WORKSHOPS.map((workshop) => (
+					<div class="workshops-row">
+						<a class="workshops-row-media" href={`/workshops/${workshop.slug}`} aria-hidden="true" tabindex="-1">
+							<span class="workshops-row-media-label">Image placeholder</span>
+						</a>
+						<div class="workshops-row-content">
+							<a class="workshops-row-title" href={`/workshops/${workshop.slug}`}>
+								{workshop.title}
+							</a>
+							<p class="workshops-row-audience">{workshop.audience.join(' · ')}</p>
+							<p class="workshops-row-intro">{workshop.intro}</p>
+						</div>
 					</div>
 				))
 			}
@@ -60,71 +59,97 @@ import { SEGMENTS, WORKSHOPS } from '../../lib/workshops-data';
 	}
 
 	h1 {
-		font-size: var(--fs-display);
-		line-height: var(--lh-article-title);
+		font-size: var(--fs-hero);
+		line-height: var(--lh-hero);
 		font-weight: var(--fw-medium);
-		max-width: 640px;
-		margin-bottom: var(--space-12);
+		max-width: 760px;
+		margin-bottom: var(--space-15);
+		padding-bottom: var(--space-13);
+		border-bottom: var(--border-hairline) solid var(--color-border);
 	}
 
-	.workshops-section {
-		max-width: 640px;
-		margin-top: var(--space-10);
-		padding-top: var(--space-10);
+	.workshops-row {
+		display: flex;
+		align-items: center;
+		gap: var(--space-10);
+		max-width: 960px;
+		padding: var(--space-13) 0;
 		border-top: var(--border-hairline) solid var(--color-border);
 	}
 
-	.workshops-section:first-of-type {
-		margin-top: 0;
-		padding-top: 0;
+	.workshops-row:first-of-type {
 		border-top: none;
+		padding-top: 0;
 	}
 
-	.workshops-section h2 {
-		font-size: var(--fs-tagline);
-		font-weight: var(--fw-medium);
-		margin: 0 0 var(--space-5);
+	.workshops-row:last-of-type {
+		padding-bottom: 0;
 	}
 
-	.workshops-list {
-		margin: 0;
-		padding: 0;
-		list-style: none;
+	.workshops-row-media {
+		flex: 0 0 auto;
 		display: flex;
-		flex-direction: column;
-		gap: var(--space-2);
-	}
-
-	.workshops-item-link {
-		display: block;
-		text-decoration: none;
-		color: inherit;
-		padding: var(--space-5);
+		align-items: center;
+		justify-content: center;
+		width: 280px;
+		aspect-ratio: 4 / 3;
+		text-align: center;
 		background: var(--color-bg-card);
+		border: var(--border-hairline) dashed var(--color-border);
 		border-radius: var(--radius-card);
-		transition: box-shadow 0.15s ease;
 	}
 
-	.workshops-item-link:hover {
-		box-shadow: 0 10px 24px rgba(56, 44, 36, 0.1);
+	.workshops-row-media-label {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		color: var(--color-text-muted);
+		padding: var(--space-4);
 	}
 
-	.workshops-item-link:hover .workshops-item-title {
-		color: var(--color-accent);
+	.workshops-row-content {
+		flex: 1 1 auto;
+		min-width: 0;
 	}
 
-	.workshops-item-title {
+	.workshops-row-title {
 		display: block;
-		font-size: var(--fs-prose-body);
+		font-family: var(--font-display);
+		font-size: var(--fs-display);
+		line-height: var(--lh-article-title);
 		font-weight: var(--fw-medium);
 		color: var(--color-text-primary);
-		margin-bottom: var(--space-1);
+		text-decoration: none;
 		transition: color 0.15s ease;
 	}
 
-	.workshops-item-intro {
-		display: block;
+	.workshops-row-title:hover {
+		color: var(--color-accent);
+	}
+
+	.workshops-row-audience {
+		font-family: var(--font-mono);
 		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-wide-label);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		margin: var(--space-2) 0 var(--space-3);
+	}
+
+	.workshops-row-intro {
+		font-size: var(--fs-prose-body);
 		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	@media (max-width: 720px) {
+		.workshops-row {
+			flex-direction: column;
+			align-items: stretch;
+			gap: var(--space-5);
+		}
+
+		.workshops-row-media {
+			width: 100%;
+		}
 	}
 </style>
