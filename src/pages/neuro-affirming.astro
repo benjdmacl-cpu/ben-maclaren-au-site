@@ -1,13 +1,11 @@
 ---
 import { getImage } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import jellyfishPattern from '../assets/neuro-affirming/jellyfish-pattern.png';
+import scallopPattern from '../assets/counselling-room/scallop-pattern.png';
 
-// Rendered as a tiled CSS background (the source art is a seamless pattern),
-// so it's optimized to a small tile size via getImage() rather than
-// rendered full-size through <Image> — same approach as the homepage
-// NeuroAffirming section's background.
-const jellyfishPatternTile = await getImage({ src: jellyfishPattern, width: 640 });
+// Same tiled background as the "Where we meet" (CounsellingRoom) section,
+// for one consistent pattern across the page.
+const scallopPatternTile = await getImage({ src: scallopPattern, width: 560 });
 
 const sections = [
 	{
@@ -50,7 +48,7 @@ const sections = [
 	description="How Ben Maclaren, a counsellor in Canberra, ACT, works with neurodivergent clients."
 >
 	<article class="neuro-page">
-		<div class="neuro-page-bg" style={`background-image: url(${jellyfishPatternTile.src})`}></div>
+		<div class="neuro-page-bg" style={`background-image: url(${scallopPatternTile.src})`}></div>
 		<div class="wrap">
 			<a class="back-link" href="/">← Home</a>
 			<span class="eyebrow">Neuro-affirming</span>
@@ -100,7 +98,7 @@ const sections = [
 		z-index: 0;
 		opacity: 0.06;
 		background-repeat: repeat;
-		background-size: 640px auto;
+		background-size: 560px auto;
 	}
 
 	.neuro-page .wrap {

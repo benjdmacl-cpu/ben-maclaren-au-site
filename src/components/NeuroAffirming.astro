@@ -1,32 +1,20 @@
----
-import { getImage } from 'astro:assets';
-import jellyfishPattern from '../assets/neuro-affirming/jellyfish-pattern.png';
-
-// Rendered as a tiled CSS background (the source art is a seamless pattern),
-// so it's optimized to a small tile size via getImage() rather than
-// rendered full-size through <Image> — same approach as Meet's background.
-const jellyfishPatternTile = await getImage({ src: jellyfishPattern, width: 320 });
----
-
 <section class="neuro-affirming">
-	<div class="neuro-affirming-bg" style={`background-image: url(${jellyfishPatternTile.src})`}></div>
 	<div class="wrap">
 		<div class="neuro-heading-row">
 			<h2>A neuro-affirming practice</h2>
 		</div>
 		<div class="neuro-text">
 			<p class="neuro-body">
-				You are not broken. You are not a deficit or a problem.
+				You are not broken. You are not a problem to be solved.
 			</p>
 			<p class="neuro-body">
 				Neurodiversity is a beautiful part of our species. It gives us a richness of thought and ways of
 				experiencing the world.
 			</p>
 			<p class="neuro-body">
-				However, the world is not always so kind and welcoming. When our neurodiversity clashed with
-				people, systems and places that are designed for others it results in disadvantage and
-				disability. Not to mention the long lasting traumatic effects of stigma, marginalisation,
-				bullying and exclusion.
+				When our neurodiversity clashes with people, systems and places that are designed for
+				different people, we become disadvantage and disabled. This is compounded by trauma and
+				effects from stigma, marginalisation, bullying and exclusion.
 			</p>
 
 			<a class="neuro-link" href="/neuro-affirming">Read my neuroaffirming approach <span aria-hidden="true">→</span></a>
@@ -36,25 +24,9 @@ const jellyfishPatternTile = await getImage({ src: jellyfishPattern, width: 320 
 
 <style>
 	.neuro-affirming {
-		position: relative;
 		padding: var(--space-20) 0;
-		background: var(--color-bg-page);
+		background: var(--color-bg-card);
 		border-top: var(--border-hairline) solid var(--color-border);
-		overflow: hidden;
-	}
-
-	.neuro-affirming-bg {
-		position: absolute;
-		inset: 0;
-		z-index: 0;
-		opacity: 0.06;
-		background-repeat: repeat;
-		background-size: 320px auto;
-	}
-
-	.neuro-affirming .wrap {
-		position: relative;
-		z-index: 1;
 	}
 
 	.neuro-heading-row {
