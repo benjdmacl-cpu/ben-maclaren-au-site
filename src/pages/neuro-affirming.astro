@@ -7,7 +7,7 @@ import jellyfishPattern from '../assets/neuro-affirming/jellyfish-pattern.png';
 // so it's optimized to a small tile size via getImage() rather than
 // rendered full-size through <Image> — same approach as the homepage
 // NeuroAffirming section's background.
-const jellyfishPatternTile = await getImage({ src: jellyfishPattern, width: 320 });
+const jellyfishPatternTile = await getImage({ src: jellyfishPattern, width: 640 });
 
 const sections = [
 	{
@@ -100,7 +100,7 @@ const sections = [
 		z-index: 0;
 		opacity: 0.06;
 		background-repeat: repeat;
-		background-size: 320px auto;
+		background-size: 640px auto;
 	}
 
 	.neuro-page .wrap {
