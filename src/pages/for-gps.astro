@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PlaceholderSection from '../components/PlaceholderSection.astro';
+---
+
+<Layout
+	title="For GPs — Ben Maclaren"
+	description="Information for GPs referring patients to Ben Maclaren, a counsellor in Canberra, ACT."
+>
+	<article class="for-gps-page">
+		<div class="wrap">
+			<a class="back-link" href="/">← Home</a>
+			<span class="eyebrow">For GPs</span>
+			<h1>Referring a patient</h1>
+		</div>
+	</article>
+	<PlaceholderSection
+		title="Lorem ipsum dolor sit amet"
+		body="Consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+		background="page"
+	/>
+</Layout>
+
+<style>
+	.for-gps-page {
+		padding: var(--space-20) 0 0;
+	}
+
+	.back-link {
+		display: inline-block;
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--color-text-secondary);
+		margin-bottom: var(--space-8);
+	}
+
+	.back-link:hover {
+		color: var(--color-accent);
+	}
+
+	.eyebrow {
+		margin-bottom: var(--space-4);
+		display: block;
+	}
+
+	h1 {
+		font-size: var(--fs-display);
+		line-height: var(--lh-article-title);
+		font-weight: var(--fw-medium);
+		max-width: 640px;
+	}
+</style>

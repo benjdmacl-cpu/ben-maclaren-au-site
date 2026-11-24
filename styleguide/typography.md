@@ -33,7 +33,7 @@ were added; all live together as flat tokens in `typography.css`.
 
 | Token | Value | Used for |
 |---|---|---|
-| `--fs-display` | 34px (26px ≤768px) | Primary section headings — Hero's *tagline* sibling scale-mate, Meet h2, Approach h2, FAQ h2, Journal masthead h1, Resources page h1 |
+| `--fs-display` | 34px (26px ≤768px) | Primary section headings — Hero's *tagline* sibling scale-mate, Meet h2, Approach h2, FAQ h2, Journal masthead h1 |
 | `--fs-h1` | 26px | `.prose h2` inside long-form journal articles |
 | `--fs-h2` | 18px | Resource download-hero title |
 | `--fs-h3` | 15px | Widely reused body/sub-copy size — FAQ answers, Journal lead excerpt, Journal tier3 headline, Resource intro/instructions text |
@@ -55,7 +55,7 @@ were added; all live together as flat tokens in `typography.css`.
 | Token | Value | Used for |
 |---|---|---|
 | `--fs-hero` | `clamp(42px, 6vw, 64px)` | Hero `<h1>` |
-| `--fs-tagline` | 21px | Hero `.tagline`, Contact `.value`, Resources `.segment-title` |
+| `--fs-tagline` | 21px | Hero `.tagline`, Contact `.value` |
 | `--fs-brand` | 19px | Nav `.nav-name`, Meet `.meet-signoff` |
 | `--fs-contact-heading` | 38px | Contact `<h2>` — deliberately the largest homepage heading, since Contact is the closing CTA |
 | `--fs-card-title` | 23px | FAQ question text (`.faq-question`) and icon dimensions |
@@ -94,7 +94,7 @@ were added; all live together as flat tokens in `typography.css`.
 | Token | Value | Used for |
 |---|---|---|
 | `--ls-label` | 0.08em | Back-links, CTA button text, quick-links |
-| `--ls-caps` | 0.1em | Uppercase kickers/tags across Journal and Resources |
+| `--ls-caps` | 0.1em | Uppercase kickers/tags across Journal |
 | `--ls-wide-label` | 0.16em | The global `.eyebrow` class, Journal masthead eyebrow, meta text |
 | `--ls-tight-label` | 0.06em | Meet's `.meet-caption` — the only 0.06em use |
 | `--ls-brand` | 0.01em | Nav `.nav-name` |

@@ -1,15 +1,19 @@
+---
+import { Image } from 'astro:assets';
+import fishingPhoto from '../assets/hero/fishing-wide.jpg';
+---
+
 <section class="hero">
-	<svg class="hero-motif" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-		<circle cx="100" cy="100" r="6" fill="none" stroke-width="1.4"></circle>
-		<circle cx="100" cy="100" r="20" fill="none" stroke-width="1.4"></circle>
-		<circle cx="100" cy="100" r="38" fill="none" stroke-width="1.2" opacity="0.75"></circle>
-		<circle cx="100" cy="100" r="60" fill="none" stroke-width="1" opacity="0.5"></circle>
-		<circle cx="100" cy="100" r="86" fill="none" stroke-width="0.8" opacity="0.3"></circle>
-	</svg>
+	<div class="hero-bg">
+		<Image src={fishingPhoto} alt="" width={1536} height={2048} />
+	</div>
 	<div class="wrap hero-inner">
-		<span class="eyebrow">Counsellor · Canberra, ACT</span>
-		<h1>When life is hard,<br />confusing, or stuck.</h1>
-		<p class="tagline">Proper support no matter why you're here.</p>
+		<div class="status-row">
+			<span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Open for new clients</span>
+			<span class="status-note">Evenings &amp; weekends available</span>
+		</div>
+		<h1>A way through difficult times</h1>
+		<p class="tagline">I help find what works so you can get on living a good life.</p>
 		<div class="hero-ctas">
 			<a
 				class="btn-primary"
@@ -27,23 +31,30 @@
 <style>
 	.hero {
 		position: relative;
-		padding: var(--space-30) 0 var(--space-32-5);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		min-height: 880px;
+		/* Nav overlays this section (position: absolute), so its ~96px height
+		   is reserved here as plain top padding — excluded from the
+		   justify-content: center math below, so the text centers in the
+		   space actually below the nav, not the full section height. */
+		padding: 96px 0 var(--space-20);
 		overflow: hidden;
 	}
 
-	.hero-motif {
+	.hero-bg {
 		position: absolute;
-		top: -60px;
-		right: -60px;
-		width: 420px;
-		height: 420px;
-		opacity: 0.55;
+		inset: 0;
 		z-index: 0;
-		color: var(--terracotta);
 	}
 
-	.hero-motif circle {
-		stroke: currentColor;
+	.hero-bg :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 100%;
+		display: block;
 	}
 
 	.hero-inner {
@@ -52,15 +63,66 @@
 		max-width: 640px;
 	}
 
-	.hero .eyebrow {
-		margin-bottom: var(--space-5-5);
-		display: block;
+	.hero-inner::before {
+		content: '';
+		position: absolute;
+		inset: -64px -80px;
+		z-index: -1;
+		pointer-events: none;
+		background: radial-gradient(
+			ellipse at center,
+			rgba(20, 16, 12, 0.55) 0%,
+			rgba(20, 16, 12, 0.32) 45%,
+			rgba(20, 16, 12, 0) 75%
+		);
+	}
+
+	.status-row {
+		display: flex;
+		align-items: center;
+		gap: var(--space-4);
+		flex-wrap: wrap;
+		margin-bottom: var(--space-6);
+	}
+
+	.status-pill {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2);
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		letter-spacing: var(--ls-label);
+		text-transform: uppercase;
+		color: var(--color-text-primary);
+		background: var(--color-bg-card);
+		border: var(--border-hairline) solid var(--color-border);
+		padding: var(--space-2) var(--space-4);
+		border-radius: 999px;
+	}
+
+	.status-dot {
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: var(--color-success);
+		flex-shrink: 0;
+	}
+
+	.status-note {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		color: var(--color-text-on-dark);
+		text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 	}
 
 	.hero h1 {
 		font-size: var(--fs-hero);
 		line-height: var(--lh-hero);
 		letter-spacing: var(--ls-hero-tight);
+		color: var(--color-text-on-dark);
+		text-shadow:
+			0 1px 3px rgba(0, 0, 0, 0.45),
+			0 8px 24px rgba(0, 0, 0, 0.3);
 		margin-bottom: var(--space-6-5);
 	}
 
@@ -69,9 +131,12 @@
 		font-style: italic;
 		font-weight: var(--fw-regular);
 		font-size: var(--fs-tagline);
-		color: var(--color-text-secondary);
+		color: var(--color-text-on-dark);
+		text-shadow:
+			0 1px 3px rgba(0, 0, 0, 0.45),
+			0 8px 24px rgba(0, 0, 0, 0.3);
 		max-width: 480px;
-		margin: 0 0 var(--space-10);
+		margin: 0 0 var(--space-8);
 	}
 
 	.hero-ctas {
@@ -90,7 +155,7 @@
 		color: var(--color-on-accent);
 		background: var(--color-accent-solid);
 		padding: var(--space-4) var(--space-7-5);
-		border-radius: var(--radius-sm);
+		border-radius: 999px;
 		transition:
 			background 0.15s ease,
 			transform 0.15s ease;
@@ -109,10 +174,10 @@
 		text-transform: uppercase;
 		text-decoration: none;
 		color: var(--color-accent-solid);
-		background: transparent;
+		background: var(--cream);
 		border: var(--border-hairline) solid var(--color-accent-solid);
 		padding: calc(var(--space-4) - var(--border-hairline)) calc(var(--space-7-5) - var(--border-hairline));
-		border-radius: var(--radius-sm);
+		border-radius: 999px;
 		transition:
 			background 0.15s ease,
 			color 0.15s ease;
@@ -125,19 +190,24 @@
 	}
 
 	.contact-tertiary {
+		display: inline-block;
 		font-family: var(--font-mono);
 		font-size: var(--fs-caption);
-		color: var(--color-text-secondary);
+		font-weight: var(--fw-medium);
+		color: var(--color-accent-on-dark);
+		background: rgba(0, 0, 0, 0.55);
+		padding: var(--space-2) var(--space-3);
+		border-radius: var(--radius-sm);
 		margin-top: var(--space-5);
 	}
 
 	.contact-tertiary :global(a) {
-		color: var(--color-accent-link);
+		color: var(--color-accent-on-dark);
 		text-decoration: underline;
 	}
 
 	.contact-tertiary :global(a:hover) {
-		color: var(--color-accent);
+		color: var(--color-accent-on-dark-hover);
 	}
 </style>
 

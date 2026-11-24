@@ -57,8 +57,8 @@ didn't hit.
 | `--space-13` | 52px | Contact/Events h2 margin-bottom |
 | `--space-14` | 56px | Meet grid gap, Journal masthead bottom padding, Guides top padding |
 | `--space-15` | 60px | Mobile article padding, Journal empty-state top padding |
-| `--space-20` | 80px | FAQ section padding, Resources header padding, Journal Guides bottom padding |
-| `--space-22-5` | 90px | Contact section padding, Journal/Resource article top padding — **off-grid**, not a multiple of 4 |
+| `--space-20` | 80px | FAQ section padding, Journal Guides bottom padding |
+| `--space-22-5` | 90px | Contact section padding, Journal article top padding — **off-grid**, not a multiple of 4 |
 | `--space-25` | 100px | Contact top padding |
 | `--space-27-5` | 110px | Meet/Approach section padding, Journal article bottom padding — **off-grid**, not a multiple of 4 |
 | `--space-30` | 120px | Hero top padding, Journal empty-state bottom padding |

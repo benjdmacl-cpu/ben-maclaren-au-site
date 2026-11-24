@@ -2,7 +2,6 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-// Shared by journal and resources — both cite sources the same way.
 const referenceSchema = z.array(
 	z.object({
 		label: z.string(),
@@ -64,43 +63,6 @@ const journal = defineCollection({
 	}),
 });
 
-const resources = defineCollection({
-	// Load Markdown files in the `src/content/resources/` directory.
-	loader: glob({ base: './src/content/resources', pattern: '**/*.md' }),
-	schema: z.object({
-		title: z.string(),
-		segment: z.enum(['act-therapy', 'mindfulness', 'relationships', 'life-design']),
-		intro: z.string(),
-
-		// An array so a resource can be interactive, worksheet, or both.
-		interactionType: z.array(z.enum(['interactive', 'worksheet'])).min(1),
-
-		// Interactive resources: which embedded component renders in the hero.
-		componentSlug: z.string().optional(),
-
-		// Worksheet resources: the downloadable file + its display meta.
-		downloadUrl: z.string().url().optional(),
-		downloadMeta: z.string().optional(), // e.g. "1 page · PDF"
-
-		// Instructions — omitted entirely if neither field below is set.
-		instructionsLabel: z.string().default('How to use this'),
-		steps: z
-			.array(
-				z.object({
-					title: z.string(),
-					body: z.string().optional(),
-				}),
-			)
-			.optional(), // if present → numbered-steps format
-		instructionsProse: z.string().optional(), // if present instead → prose format
-
-		references: referenceSchema.optional(),
-
-		icon: z.string(), // Tabler outline icon slug, e.g. "compass" — see ResourceIcon.astro
-		featured: z.boolean().optional(), // marks the one live/embedded card per segment
-	}),
-});
-
 const faqs = defineCollection({
 	// Load Markdown files in the `src/content/faqs/` directory.
 	loader: glob({ base: './src/content/faqs', pattern: '**/*.md' }),
@@ -127,4 +89,4 @@ const events = defineCollection({
 	}),
 });
 
-export const collections = { journal, resources, faqs, events };
+export const collections = { journal, faqs, events };

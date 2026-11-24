@@ -108,7 +108,7 @@ deleted from the project, just not rendered anywhere. Check git history if reviv
 optional `endDate`, `description`, `externalUrl`, `linkLabel`). Filters to upcoming only (compares
 against the *start* of today, so a same-day event still shows), sorts soonest-first, and formats
 date ranges contextually (`Sep 12, 2026` for a single day; `Oct 3–4, 2026` for a same-month range).
-Cards are visually styled like the Resources cards but are **not** fully clickable — only the small
+Cards use the same card styling as the rest of the site but are **not** fully clickable — only the small
 "View event →" tertiary link at the bottom is, per an explicit design decision to keep the card
 itself informational. When no events are upcoming, the grid is replaced by a plain-text fallback
 ("Nothing on yet! Check out our Facebook page or send us a message") rather than hiding the section
@@ -141,7 +141,7 @@ using the same `atob()` email-obfuscation pattern as the rest of the site.
 
 **Footer** (rendered by `Layout.astro`, not listed in `index.astro`) — dark-background, `min-height:
 20vh`. Holds business identity, ABN/ACA registration numbers, and a basic sitemap row (Home,
-Journal, Resources, Privacy).
+Journal, Privacy).
 
 ## Known deviations / in-progress state
 

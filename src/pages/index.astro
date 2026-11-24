@@ -1,10 +1,12 @@
 ---
 import Contact from '../components/Contact.astro';
+import CounsellingRoom from '../components/CounsellingRoom.astro';
 // Events hidden for now — reactivate later by restoring the import
 // and usage below. The Events component and content are untouched.
 // import Events from '../components/Events.astro';
 import Faq from '../components/Faq.astro';
 import Hero from '../components/Hero.astro';
+// import RoomGallery from '../components/RoomGallery.astro';
 // JournalTeaser hidden for now — reactivate later by restoring the import
 // and usage below. The Journal itself is still placeholder content.
 // import JournalTeaser from '../components/JournalTeaser.astro';
@@ -13,19 +15,21 @@ import Hero from '../components/Hero.astro';
 // below. None of these components or their content are touched.
 // import JournalPicks from '../components/JournalPicks.astro';
 import Meet from '../components/Meet.astro';
+import NeuroAffirming from '../components/NeuroAffirming.astro';
 // import PlaceholderSection from '../components/PlaceholderSection.astro';
 import Layout from '../layouts/Layout.astro';
-import TrustBanner from '../components/TrustBanner.astro';
 import WhyYoureHere from '../components/WhyYoureHere.astro';
 // import ClearStructure from '../components/ClearStructure.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
-<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION} navOverlay>
 	<Hero />
 	<Meet />
-	<TrustBanner />
+	<NeuroAffirming />
 	<WhyYoureHere />
+	<CounsellingRoom />
+	<!-- <RoomGallery /> -->
 	<!-- <JournalPicks /> -->
 	<!-- <PlaceholderSection
 		title="Duis aute irure dolor in reprehenderit"

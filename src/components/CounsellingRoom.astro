@@ -1,0 +1,128 @@
+---
+import { Image, getImage } from 'astro:assets';
+import scallopPattern from '../assets/counselling-room/scallop-pattern.png';
+// Stock placeholder photos — not Ben's actual room. Not his copyright either;
+// see the credit line rendered below the grid. Replace each with a real room
+// photo (and drop the credit line) once they exist.
+import gallery1 from '../assets/counselling-room/gallery-1.png';
+import gallery2 from '../assets/counselling-room/gallery-2.png';
+import gallery3 from '../assets/counselling-room/gallery-3.png';
+
+const placeholders = [
+	{ src: gallery1, label: 'Session room, wide view', width: 640, height: 309 },
+	{ src: gallery2, label: 'Seating close-up', width: 480, height: 606 },
+	{ src: gallery3, label: 'Window / natural light', width: 480, height: 640 },
+];
+
+// Rendered as a tiled CSS background (the source art is a seamless pattern),
+// so it's optimized to a small tile size via getImage() rather than
+// rendered full-size through <Image> — same approach as Meet's background.
+const scallopPatternTile = await getImage({ src: scallopPattern, width: 280 });
+---
+
+<section class="counselling-room">
+	<div class="counselling-room-bg" style={`background-image: url(${scallopPatternTile.src})`}></div>
+	<div class="wrap">
+		<h2>Where we meet</h2>
+		<p class="counselling-room-intro">
+			The counselling room is a warm and welcoming place, intended to be your sanctuary away from the
+			world.
+		</p>
+		<div class="gallery-grid">
+			{
+				placeholders.map((photo, i) => (
+					<div class={`gallery-item ${i === 0 ? 'gallery-item-wide' : ''}`} style={`aspect-ratio: ${photo.width} / ${photo.height}`}>
+						<Image
+							src={photo.src}
+							alt={`Placeholder — ${photo.label}`}
+							width={photo.width}
+							height={photo.height}
+						/>
+					</div>
+				))
+			}
+		</div>
+		<p class="gallery-credit">
+			Placeholder photos only, not of Ben's actual practice — courtesy of Andrea Szasz, Psychotherapist
+			in Bondi Junction, Sydney, Australia.
+		</p>
+	</div>
+</section>
+
+<style>
+	.counselling-room {
+		position: relative;
+		padding: var(--space-20) 0;
+		background: var(--cream);
+		border-top: var(--border-hairline) solid var(--color-border);
+		overflow: hidden;
+	}
+
+	.counselling-room-bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		opacity: 0.05;
+		background-repeat: repeat;
+		background-size: 280px auto;
+	}
+
+	.counselling-room .wrap {
+		position: relative;
+		z-index: 1;
+	}
+
+	.counselling-room h2 {
+		font-size: var(--fs-display);
+		line-height: var(--lh-article-title);
+		font-weight: var(--fw-medium);
+		text-align: left;
+		max-width: 560px;
+		margin: 0 0 var(--space-4);
+	}
+
+	.counselling-room-intro {
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-secondary);
+		max-width: 560px;
+		margin: 0 0 var(--space-10);
+	}
+
+	.gallery-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-6);
+	}
+
+	.gallery-item {
+		overflow: hidden;
+		background: var(--color-bg-card);
+		border: var(--border-hairline) dashed var(--color-border);
+		border-radius: var(--radius-card);
+	}
+
+	.gallery-item-wide {
+		grid-column: 1 / -1;
+	}
+
+	.gallery-item :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.gallery-credit {
+		font-family: var(--font-mono);
+		font-size: var(--fs-caption);
+		color: var(--color-text-muted);
+		text-align: center;
+		margin: var(--space-6) 0 0;
+	}
+
+	@media (max-width: 600px) {
+		.gallery-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

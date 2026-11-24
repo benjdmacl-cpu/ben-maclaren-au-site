@@ -77,8 +77,8 @@ interchangeable weights:
 - **Strong** (`--border-strong` + `--color-border-strong`) was originally scoped to the Field
   Journal's more editorial/newspaper aesthetic. It has leaked into a few places by analogy rather
   than intent — the homepage FAQ border and three rules on the Journal index page were found using
-  it and corrected back to hairline. The Resources page's `.segment-nav` still uses it and hasn't
-  been corrected — see [README's Known deviations](./README.md#known-deviations).
+  it and corrected back to hairline. The Resources page also had this issue, but the page has
+  since been removed entirely — see [README's Known deviations](./README.md#known-deviations).
 - **Before adding a new `--border-strong` usage**, ask whether the element is genuinely a
   masthead-level structural rule, or whether it's reaching for "strong" just to look more
   prominent — in the latter case, hairline is almost always the right answer, since prominence
@@ -100,6 +100,6 @@ interchangeable weights:
 
 | Section | Background | Notes |
 |---|---|---|
-| Nav, Hero, Journal, Resources | `--color-bg-page` | Standard light |
+| Nav, Hero, Journal | `--color-bg-page` | Standard light |
 | Meet, Approach | `--color-bg-card` | Slightly deeper cream, alternates with page background to separate sections without a hard rule |
 | Contact, Footer | `--color-bg-dark` | Inverted — uses the dark-section token set exclusively, never the light-background text/accent tokens |

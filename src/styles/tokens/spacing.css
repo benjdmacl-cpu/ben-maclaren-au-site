@@ -44,6 +44,8 @@
 	--space-27-5: 110px; /* off-grid — not a multiple of 4, see rollout notes */
 	--space-30: 120px;
 	--space-32-5: 130px; /* added for homepage — Hero bottom padding */
+	--space-40: 160px; /* added for homepage — Hero top padding, nav-overlay clearance */
+	--space-50: 200px; /* added for homepage — Hero bottom padding, taller background photo */
 
 	/* Border widths */
 	--border-hairline: 1px;

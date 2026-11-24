@@ -25,8 +25,6 @@ Page design reference (how a specific page is assembled, section by section):
   the three-tier contact hierarchy (book / message / text-call) that repeats across Hero and Contact
 - [journal.md](./journal.md) — the Field Journal's flat, tag-filterable hub (featured / guides /
   flat-grid pools), the curated tag vocabulary, and its current placeholder-content status
-- [resources.md](./resources.md) — the segmented (not tiered) index layout, the interactive-vs-
-  worksheet hero pattern on individual resource pages, and the interactive-component registry
 
 ## How the token system is wired up
 
@@ -63,11 +61,12 @@ reasoning is preserved and expanded on in these docs rather than repeated verbat
 A few places don't yet follow the system cleanly. Listed here so they're visible rather than
 silently inconsistent:
 
-- **Resources segment nav uses the heavy border.** `.segment-nav` in
-  [`src/pages/resources/index.astro`](../src/pages/resources/index.astro) borders with
-  `--color-border-strong` (the heavy/dark treatment) — the same inconsistency that was found and
-  fixed on the homepage FAQ and the Field Journal index. The Resources page wasn't included in
-  that pass. See [colour.md](./colour.md#border-tokens) for the hairline-vs-strong rule.
+- **The Resources page no longer exists.** The segmented worksheets/interactives page
+  (`src/pages/resources/`), its `ResourcePost` layout, `resources` content collection, and the
+  `BreathingCircle`/`BreathingPaceInteractive` components it alone used were all removed entirely.
+  Not recoverable by uncommenting an import — the files are gone. Any older notes referencing it
+  (including a previous version of this deviation list, which flagged its `.segment-nav` for using
+  `--color-border-strong`) are stale.
 - **`Audiences.astro` no longer exists.** The "I work often with" 3-card homepage section was
   removed entirely, not just hidden — see [homepage.md](./homepage.md#known-deviations-in-progress-state).
   This also retired the `--fs-section-heading`/`--fs-card-body` tokens it was the sole user of.

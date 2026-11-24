@@ -1,12 +1,18 @@
-<nav>
+---
+interface Props {
+	overlay?: boolean;
+}
+
+const { overlay = false } = Astro.props;
+---
+
+<nav class={overlay ? 'nav-overlay' : ''}>
 	<div class="wrap">
-		<a class="nav-name" href="/">Ben Maclaren</a>
-		<!-- Resources and Journal links hidden for now — reactivate later by
-		     uncommenting. The pages themselves are untouched. -->
-		<!-- <div class="nav-links">
-			<a href="/resources">Resources</a>
+		<a class="nav-name" href="/">Ben Maclaren - Counsellor</a>
+		<div class="nav-links">
 			<a href="/journal">Journal</a>
-		</div> -->
+			<a href="/for-gps">For GPs</a>
+		</div>
 		<a
 			class="nav-cta"
 			href="https://www.halaxy.com/book/benjamin-maclaren/counsellor/1780895/1362507"
@@ -19,10 +25,27 @@
 
 <style>
 	nav {
-		position: relative;
+		position: sticky;
+		top: 0;
 		z-index: 3;
 		padding: var(--space-6-5) 0;
+		background: var(--color-bg-page);
 		border-bottom: var(--border-hairline) solid var(--color-border);
+	}
+
+	nav.nav-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		background: rgba(243, 236, 222, 0.55);
+		backdrop-filter: blur(6px);
+		-webkit-backdrop-filter: blur(6px);
+		border-bottom: none;
+	}
+
+	nav.nav-overlay .nav-name {
+		color: var(--ink);
 	}
 
 	nav .wrap {
@@ -44,6 +67,7 @@
 		gap: var(--space-8-5);
 		font-family: var(--font-mono);
 		font-size: var(--fs-caption);
+		font-weight: var(--fw-medium);
 		letter-spacing: var(--ls-caps);
 		text-transform: uppercase;
 		color: var(--color-text-secondary);

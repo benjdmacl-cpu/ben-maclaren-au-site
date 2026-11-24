@@ -1,10 +1,16 @@
 ---
 // Real booking link, already used by the Nav/Hero CTAs — reused here
 // rather than a separate placeholder constant.
+import { Image } from 'astro:assets';
+import cavePainting from '../assets/contact/cave-painting.png';
+
 const BOOKING_URL = 'https://www.halaxy.com/book/benjamin-maclaren/counsellor/1780895/1362507';
 ---
 
 <section class="contact" id="contact">
+	<div class="contact-bg">
+		<Image src={cavePainting} alt="" width={1200} height={800} />
+	</div>
 	<div class="wrap">
 		<span class="eyebrow">Get in touch</span>
 		<h2>Reach out, your way</h2>
@@ -87,9 +93,26 @@ const BOOKING_URL = 'https://www.halaxy.com/book/benjamin-maclaren/counsellor/17
 
 <style>
 	.contact {
+		position: relative;
 		padding: var(--space-22-5) 0;
-		background: var(--color-bg-page);
+		background: var(--color-bg-card);
 		border-top: var(--border-hairline) solid var(--color-border);
+		overflow: hidden;
+	}
+
+	.contact-bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		opacity: 0.12;
+	}
+
+	.contact-bg :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 30%;
+		display: block;
 	}
 
 	.contact .eyebrow {
