@@ -40,10 +40,6 @@ const tagsInUse = [...new Set(flatPosts.flatMap((post) => post.data.tags))];
 	description="Common questions from clients, worked through in plain terms. Field notes on counselling from Ben Maclaren, counsellor in Canberra, ACT."
 	noindex
 >
-	<div class="wip-banner">
-		<p>This page is a work in progress and not currently in use.</p>
-	</div>
-
 	<div class="journal-page">
 		<div class="journal-page-bg" style={`background-image: url(${tropicalFloralTile.src})`} />
 
@@ -70,7 +66,12 @@ const tagsInUse = [...new Set(flatPosts.flatMap((post) => post.data.tags))];
 		allPosts.length === 0 ? (
 			<section class="journal-empty">
 				<div class="wrap">
-					<p class="empty">No articles published yet — check back soon.</p>
+					<span class="eyebrow">Coming soon</span>
+					<h2>Articles are on their way</h2>
+					<p class="empty">
+						I'm working on a set of field notes answering common questions from clients, in
+						plain terms. Check back soon.
+					</p>
 				</div>
 			</section>
 		) : (
@@ -136,21 +137,6 @@ const tagsInUse = [...new Set(flatPosts.flatMap((post) => post.data.tags))];
 </Layout>
 
 <style>
-	.wip-banner {
-		background: var(--color-accent-solid);
-		padding: var(--space-2) var(--space-4);
-		text-align: center;
-	}
-
-	.wip-banner p {
-		margin: 0;
-		font-family: var(--font-mono);
-		font-size: var(--fs-caption);
-		letter-spacing: var(--ls-label);
-		text-transform: uppercase;
-		color: var(--color-on-accent);
-	}
-
 	.journal-page {
 		position: relative;
 		background: var(--color-bg-card);
@@ -336,11 +322,22 @@ const tagsInUse = [...new Set(flatPosts.flatMap((post) => post.data.tags))];
 		padding: var(--space-15) 0 var(--space-30);
 	}
 
+	.journal-empty .eyebrow {
+		margin-bottom: var(--space-3-5);
+		display: block;
+	}
+
+	.journal-empty h2 {
+		font-size: var(--fs-display);
+		font-weight: var(--fw-medium);
+		margin-bottom: var(--space-4);
+	}
+
 	.empty {
-		font-family: var(--font-display);
-		font-style: italic;
-		font-size: var(--fs-prose-quote);
+		font-size: var(--fs-prose-body);
 		color: var(--color-text-secondary);
+		max-width: 480px;
+		margin: 0;
 	}
 
 	@media (max-width: 820px) {
