@@ -10,35 +10,66 @@ const scallopPatternTile = await getImage({ src: scallopPattern, width: 560 });
 const sections = [
 	{
 		title: 'You are not a problem.',
-		body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+		body: [
+			'First, let’s be clear: you are not a problem. I am not here to fix you, because you are not broken. For a long time, autism, ADHD and dyslexia were seen as deficits — a neurodiverse person was seen as “less” of a person.',
+			'Now we know that isn’t the case. Research into neurodiversity shows it isn’t the neurodiverse person who is the cause of the challenges they face. I am here to help you find a way to live a good life, as a neurodiverse person.',
+		],
 	},
 	{
-		title: 'Disability and disadvantage',
-		body: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+		title: 'Where is the disability and disadvantage?',
+		body: [
+			'Disability and disadvantage arise when we are a square peg being forced to fit into a round hole. As neurodiverse people, we are disabled by the interaction between us and a system, person or environment that isn’t built for everyone.',
+			'We are disabled by non-inclusive, non-universal places and systems that exclude and disadvantage by their design. We find these non-inclusive structures in modern-day work, economic, education and medical systems, and more — frequently designed for a specific brain, culture and class of people.',
+		],
 	},
 	{
-		title: 'What is normal?',
-		body: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+		title: 'More than our neurodiversity?',
+		body: [
+			'We don’t just bring our neurodiversity into the world — we also bring the harm from a lifetime of stigma and struggle. We bring our family histories, other co-occurring conditions like anxiety or trauma, learned behaviours that have helped us survive, and financial, medical and economic circumstances.',
+			'All of this intertwines with our neurodiversity and our lives, and affects how we behave. In counselling, we begin to untangle these — to heal from hurt, explore our identities, and change how we see or interact with the world, in order to live more fully as our neurodiverse selves.',
+		],
+	},
+	{
+		title: 'A neurodiverse core identity',
+		body: [
+			'As a neuro-affirming counsellor, I focus on living more fully, not on becoming normal.',
+			'We explore what parts of our identity are core to our neurodiverse or autistic self. These parts don’t change, and they form a foundation of who we are.',
+			'Other parts of us might have developed in response to trying to survive, but now do us more harm. These are parts that can change, without changing our core identity.',
+		],
 	},
 	{
 		title: 'My neuro-affirming principles',
-		body: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.',
+		body: ['My neuro-affirming principles focus on five areas: identity, marginalisation, community, connection and living.'],
+		list: [
+			{
+				name: 'Living',
+				desc: 'Covers things like masking, earning a living and dealing with the challenges of life. It also covers how we live with our feelings, emotions, body and health, and safety.',
+			},
+			{
+				name: 'Community',
+				desc: 'Covers our tribe, the people around us, their welcomingness, spirituality and our social networks.',
+			},
+			{
+				name: 'Connection',
+				desc: 'Covers how we connect with others: our relationships, our friends, and how we impact other people.',
+			},
+			{
+				name: 'Marginalisation',
+				desc: 'Covers how we might have experienced stigma and disadvantage.',
+			},
+			{
+				name: 'Identity',
+				desc: 'Covers how we see ourselves, the roles we hold in life, the confusing existential questions, how we deal with the fluidity of life and meaning, and spirituality.',
+			},
+		],
 	},
 	{
 		title: 'How neurodiversity changes therapy?',
-		body: 'Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.',
-	},
-	{
-		title: 'Common therapy topics',
-		body: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.',
-	},
-	{
-		title: 'References',
-		body: 'Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio nam libero tempore cum soluta nobis est eligendi optio.',
-	},
-	{
-		title: 'Book recommendations',
-		body: 'Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus.',
+		body: [
+			'The most obvious change is making sure the counselling space is designed to help you regulate. This includes lighting, neutral and calming scents, textures and, of course, a variety of fidget toys for regulating. (You’ll definitely spot me using the fidget toys too.)',
+			'The counselling approaches also change. Below you’ll find a brief description of a few neurodiversity-specific therapy frameworks I draw on, each offering a range of approaches beyond standard talk therapy.',
+			'Brief, timed therapy programs: for many, having a clear start and end to therapy, with a structured pathway, can be incredibly useful. This is why you’ll also find a few pre-built therapy programs you can choose as a pathway.',
+		],
 	},
 ].map((section) => ({ ...section, slug: section.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') }));
 ---
@@ -76,7 +107,18 @@ const sections = [
 					sections.map((section) => (
 						<section class="neuro-page-section" id={section.slug}>
 							<h2>{section.title}</h2>
-							<p>{section.body}</p>
+							{section.body.map((paragraph) => (
+								<p>{paragraph}</p>
+							))}
+							{section.list && (
+								<ol class="principles-list">
+									{section.list.map((item) => (
+										<li>
+											<strong>{item.name}</strong> — {item.desc}
+										</li>
+									))}
+								</ol>
+							)}
 						</section>
 					))
 				}
@@ -183,6 +225,30 @@ const sections = [
 	.neuro-page-section p {
 		font-size: var(--fs-prose-body);
 		color: var(--color-text-secondary);
-		margin: 0;
+		margin: 0 0 var(--space-4);
+	}
+
+	.neuro-page-section p:last-child {
+		margin-bottom: 0;
+	}
+
+	.principles-list {
+		margin: var(--space-4) 0 0;
+		padding-left: var(--space-5);
+	}
+
+	.principles-list li {
+		font-size: var(--fs-prose-body);
+		color: var(--color-text-secondary);
+		margin-bottom: var(--space-3);
+	}
+
+	.principles-list li:last-child {
+		margin-bottom: 0;
+	}
+
+	.principles-list strong {
+		color: var(--color-text-primary);
+		font-weight: var(--fw-medium);
 	}
 </style>
